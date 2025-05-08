@@ -1,64 +1,39 @@
 package com.biblioteca.model;
 
-/**
- * Clase que representa un libro en la com.biblioteca.
- * Extiende de ElementoBiblioteca e incluye atributos específicos de libros.
- */
 public class Libro extends ElementoBiblioteca {
-
-    // Atributos específicos de Libro
-    private String ISBN;
-    private String generoPrincipal;
+    private String isbn;
+    private int numeroPaginas;
     private String genero;
     private String editorial;
 
-    /**
-     * Constructor por defecto
-     */
     public Libro() {
         super();
-        // Establecemos el tipo como "Libro" automáticamente
         setTipo("Libro");
     }
 
-    /**
-     * Constructor con parámetros
-     *
-     * @param id Identificador único del libro
-     * @param titulo Título del libro
-     * @param autor Autor del libro
-     * @param anoPublicacion Año de publicación
-     * @param ISBN Código ISBN del libro
-     * @param generoPrincipal Género principal del libro
-     * @param genero Género secundario del libro
-     * @param editorial Editorial del libro
-     */
     public Libro(int id, String titulo, String autor, int anoPublicacion,
-                 String ISBN, String generoPrincipal, String genero, String editorial) {
-        // Llamamos al constructor de la clase padre
+                 String isbn, int numeroPaginas, String genero, String editorial) {
         super(id, titulo, autor, anoPublicacion, "Libro");
-        this.ISBN = ISBN;
-        this.generoPrincipal = generoPrincipal;
+        this.isbn = isbn;
+        this.numeroPaginas = numeroPaginas;
         this.genero = genero;
         this.editorial = editorial;
     }
 
-    // Getters y Setters específicos
-
-    public String getISBN() {
-        return ISBN;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
-    public String getGeneroPrincipal() {
-        return generoPrincipal;
+    public int getNumeroPaginas() {
+        return numeroPaginas;
     }
 
-    public void setGeneroPrincipal(String generoPrincipal) {
-        this.generoPrincipal = generoPrincipal;
+    public void setNumeroPaginas(int numeroPaginas) {
+        this.numeroPaginas = numeroPaginas;
     }
 
     public String getGenero() {
@@ -77,31 +52,13 @@ public class Libro extends ElementoBiblioteca {
         this.editorial = editorial;
     }
 
-    /**
-     * Sobrescritura del método toString para incluir los atributos específicos de Libro
-     *
-     * @return String con toda la información del libro
-     */
     @Override
     public String toString() {
         return "Libro{" +
-                "id=" + getId() +
-                ", titulo='" + getTitulo() + '\'' +
-                ", autor='" + getAutor() + '\'' +
-                ", anoPublicacion=" + getAnoPublicacion() +
-                ", ISBN='" + ISBN + '\'' +
-                ", generoPrincipal='" + generoPrincipal + '\'' +
+                "isbn='" + isbn + '\'' +
+                ", numeroPaginas=" + numeroPaginas +
                 ", genero='" + genero + '\'' +
                 ", editorial='" + editorial + '\'' +
-                '}';
-    }
-
-    /**
-     * Método para obtener una representación resumida del libro
-     *
-     * @return String con información resumida del libro
-     */
-    public String getResumen() {
-        return getTitulo() + " - " + getAutor() + " (" + getAnoPublicacion() + ")";
+                "} " + super.toString();
     }
 }

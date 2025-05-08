@@ -1,50 +1,27 @@
 package com.biblioteca.model;
 
-/**
- * Clase que representa una revista en la com.biblioteca.
- * Extiende de ElementoBiblioteca e incluye atributos específicos de revistas.
- */
 public class Revista extends ElementoBiblioteca {
-
-    // Atributos específicos de Revista
-    private String nombreEdicion;
+    private int numeroEdicion;
     private String categoria;
 
-    /**
-     * Constructor por defecto
-     */
     public Revista() {
         super();
-        // Establecemos el tipo como "Revista" automáticamente
         setTipo("Revista");
     }
 
-    /**
-     * Constructor con parámetros
-     *
-     * @param id Identificador único de la revista
-     * @param titulo Título de la revista
-     * @param autor Editor o autor principal de la revista
-     * @param anoPublicacion Año de publicación
-     * @param nombreEdicion Nombre de la edición o número de la revista
-     * @param categoria Categoría o temática de la revista
-     */
     public Revista(int id, String titulo, String autor, int anoPublicacion,
-                   String nombreEdicion, String categoria) {
-        // Llamamos al constructor de la clase padre
+                   int numeroEdicion, String categoria) {
         super(id, titulo, autor, anoPublicacion, "Revista");
-        this.nombreEdicion = nombreEdicion;
+        this.numeroEdicion = numeroEdicion;
         this.categoria = categoria;
     }
 
-    // Getters y Setters específicos
-
-    public String getNombreEdicion() {
-        return nombreEdicion;
+    public int getNumeroEdicion() {
+        return numeroEdicion;
     }
 
-    public void setNombreEdicion(String nombreEdicion) {
-        this.nombreEdicion = nombreEdicion;
+    public void setNumeroEdicion(int numeroEdicion) {
+        this.numeroEdicion = numeroEdicion;
     }
 
     public String getCategoria() {
@@ -55,29 +32,11 @@ public class Revista extends ElementoBiblioteca {
         this.categoria = categoria;
     }
 
-    /**
-     * Sobrescritura del método toString para incluir los atributos específicos de Revista
-     *
-     * @return String con toda la información de la revista
-     */
     @Override
     public String toString() {
         return "Revista{" +
-                "id=" + getId() +
-                ", titulo='" + getTitulo() + '\'' +
-                ", autor='" + getAutor() + '\'' +
-                ", anoPublicacion=" + getAnoPublicacion() +
-                ", nombreEdicion='" + nombreEdicion + '\'' +
+                "numeroEdicion=" + numeroEdicion +
                 ", categoria='" + categoria + '\'' +
-                '}';
-    }
-
-    /**
-     * Método para obtener una representación resumida de la revista
-     *
-     * @return String con información resumida de la revista
-     */
-    public String getResumen() {
-        return getTitulo() + " - Edición: " + nombreEdicion + " (" + getAnoPublicacion() + ")";
+                "} " + super.toString();
     }
 }

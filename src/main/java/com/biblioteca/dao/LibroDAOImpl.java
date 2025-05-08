@@ -1,7 +1,6 @@
 package com.biblioteca.dao;
 
 import com.biblioteca.model.Libro;
-import com.biblioteca.model.ElementoBiblioteca;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,38 +9,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Implementación concreta de LibroDAO para interactuar con la tabla Libros.
- */
 public class LibroDAOImpl implements LibroDAO {
+    private ElementoBibliotecaDAO elementoDAO;
 
-    private Connection connection;
-
-    public LibroDAOImpl(Connection connection) {
-        this.connection = connection;
+    public LibroDAOImpl() {
+        this.elementoDAO = new ElementoBibliotecaDAOImpl();
     }
 
     @Override
-    public boolean crear(ElementoBiblioteca elemento) {
-        if (!(elemento instanceof Libro)) return false;
-        Libro libro = (Libro) elemento;
-        String sql = "INSERT INTO Libros (titulo, autor, ano_publicacion, isbn, genero_principal, genero, editorial) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, libro.getTitulo());
-            stmt.setString(2, libro.getAutor());
-            stmt.setInt(3, libro.getAnoPublicacion());
-            stmt.setString(4, libro.getISBN());
-            stmt.setString(5, libro.getGeneroPrincipal());
-            stmt.setString(6, libro.getGenero());
-            stmt.setString(7, libro.getEditorial());
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected > 0) {
-                ResultSet generatedKeys = stmt.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    libro.setId(generatedKeys.getInt(1));
-                }
-            }
-            return rowsAffected > 0;
+    public boolean crear(Libro libro) {
+        // Primero insertar en ElementoBiblioteca
+        if (!elementoDAO.crear(libro)) {
+            return false;
+        }
+        // Luego insertar en Libro
+        String sql = "INSERT INTO Libro (id_libro, isbn, numero_paginas, genero, editorial) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, libro.getId());
+            stmt.setString(2, libro.getIsbn());
+            stmt.setInt(3, libro.getNumeroPaginas());
+            stmt.setString(4, libro.getGenero());
+            stmt.setString(5, libro.getEditorial());
+            return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -49,21 +39,31 @@ public class LibroDAOImpl implements LibroDAO {
     }
 
     @Override
-    public ElementoBiblioteca buscarPorId(int id) {
-        String sql = "SELECT * FROM Libros WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+    public Libro leer(int id) {
+        // Primero leer de ElementoBiblioteca
+        ElementoBibliotecaDAOImpl elementoDAOImpl = new ElementoBibliotecaDAOImpl();
+        ElementoBiblioteca elemento = elementoDAOImpl.leer(id);
+        if (elemento == null || !elemento.getTipo().equals("Libro")) {
+            return null;
+        }
+        // Luego leer de Libro
+        String sql = "SELECT * FROM Libro WHERE id_libro = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Libro libro = new Libro();
-                libro.setId(rs.getInt("id"));
-                libro.setTitulo(rs.getString("titulo"));
-                libro.setAutor(rs.getString("autor"));
-                libro.setAnoPublicacion(rs.getInt("ano_publicacion"));
-                libro.setISBN(rs.getString("isbn"));
-                libro.setGeneroPrincipal(rs.getString("genero_principal"));
+                libro.setId(elemento.getId());
+                libro.setTitulo(elemento.getTitulo());
+                libro.setAutor(elemento.getAutor());
+                libro.setAnoPublicacion(elemento.getAnoPublicacion());
+                libro.setTipo(elemento.getTipo());
+                libro.setIsbn(rs.getString("isbn"));
+                libro.setNumeroPaginas(rs.getInt("numero_paginas"));
                 libro.setGenero(rs.getString("genero"));
                 libro.setEditorial(rs.getString("editorial"));
+                rs.close();
                 return libro;
             }
         } catch (SQLException e) {
@@ -73,45 +73,21 @@ public class LibroDAOImpl implements LibroDAO {
     }
 
     @Override
-    public List<ElementoBiblioteca> obtenerTodos() {
-        List<ElementoBiblioteca> elementos = new ArrayList<>();
-        String sql = "SELECT * FROM Libros";
-        try (PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                Libro libro = new Libro();
-                libro.setId(rs.getInt("id"));
-                libro.setTitulo(rs.getString("titulo"));
-                libro.setAutor(rs.getString("autor"));
-                libro.setAnoPublicacion(rs.getInt("ano_publicacion"));
-                libro.setISBN(rs.getString("isbn"));
-                libro.setGeneroPrincipal(rs.getString("genero_principal"));
-                libro.setGenero(rs.getString("genero"));
-                libro.setEditorial(rs.getString("editorial"));
-                elementos.add(libro);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public boolean actualizar(Libro libro) {
+        // Actualizar en ElementoBiblioteca
+        if (!elementoDAO.actualizar(libro)) {
+            return false;
         }
-        return elementos;
-    }
-
-    @Override
-    public boolean actualizar(ElementoBiblioteca elemento) {
-        if (!(elemento instanceof Libro)) return false;
-        Libro libro = (Libro) elemento;
-        String sql = "UPDATE Libros SET titulo = ?, autor = ?, ano_publicacion = ?, isbn = ?, genero_principal = ?, genero = ?, editorial = ? WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, libro.getTitulo());
-            stmt.setString(2, libro.getAutor());
-            stmt.setInt(3, libro.getAnoPublicacion());
-            stmt.setString(4, libro.getISBN());
-            stmt.setString(5, libro.getGeneroPrincipal());
-            stmt.setString(6, libro.getGenero());
-            stmt.setString(7, libro.getEditorial());
-            stmt.setInt(8, libro.getId());
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+        // Actualizar en Libro
+        String sql = "UPDATE Libro SET isbn = ?, numero_paginas = ?, genero = ?, editorial = ? WHERE id_libro = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, libro.getIsbn());
+            stmt.setInt(2, libro.getNumeroPaginas());
+            stmt.setString(3, libro.getGenero());
+            stmt.setString(4, libro.getEditorial());
+            stmt.setInt(5, libro.getId());
+            return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -120,81 +96,36 @@ public class LibroDAOImpl implements LibroDAO {
 
     @Override
     public boolean eliminar(int id) {
-        String sql = "DELETE FROM Libros WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        // Eliminar de Libro
+        String sqlLibro = "DELETE FROM Libro WHERE id_libro = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sqlLibro)) {
             stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+        // Eliminar de ElementoBiblioteca
+        return elementoDAO.eliminar(id);
     }
 
     @Override
-    public Libro buscarPorISBN(String isbn) {
-        String sql = "SELECT * FROM Libros WHERE isbn = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, isbn);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                Libro libro = new Libro();
-                libro.setId(rs.getInt("id"));
-                libro.setTitulo(rs.getString("titulo"));
-                libro.setAutor(rs.getString("autor"));
-                libro.setAnoPublicacion(rs.getInt("ano_publicacion"));
-                libro.setISBN(rs.getString("isbn"));
-                libro.setGeneroPrincipal(rs.getString("genero_principal"));
-                libro.setGenero(rs.getString("genero"));
-                libro.setEditorial(rs.getString("editorial"));
-                return libro;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List<Libro> obtenerPorGeneroPrincipal(String generoPrincipal) {
+    public List<Libro> obtenerTodos() {
         List<Libro> libros = new ArrayList<>();
-        String sql = "SELECT * FROM Libros WHERE genero_principal = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, generoPrincipal);
-            ResultSet rs = stmt.executeQuery();
+        String sql = "SELECT e.*, l.* FROM ElementoBiblioteca e JOIN Libro l ON e.id = l.id_libro WHERE e.tipo = 'Libro'";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 Libro libro = new Libro();
                 libro.setId(rs.getInt("id"));
                 libro.setTitulo(rs.getString("titulo"));
                 libro.setAutor(rs.getString("autor"));
                 libro.setAnoPublicacion(rs.getInt("ano_publicacion"));
-                libro.setISBN(rs.getString("isbn"));
-                libro.setGeneroPrincipal(rs.getString("genero_principal"));
-                libro.setGenero(rs.getString("genero"));
-                libro.setEditorial(rs.getString("editorial"));
-                libros.add(libro);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return libros;
-    }
-
-    @Override
-    public List<Libro> obtenerPorEditorial(String editorial) {
-        List<Libro> libros = new ArrayList<>();
-        String sql = "SELECT * FROM Libros WHERE editorial = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, editorial);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Libro libro = new Libro();
-                libro.setId(rs.getInt("id"));
-                libro.setTitulo(rs.getString("titulo"));
-                libro.setAutor(rs.getString("autor"));
-                libro.setAnoPublicacion(rs.getInt("ano_publicacion"));
-                libro.setISBN(rs.getString("isbn"));
-                libro.setGeneroPrincipal(rs.getString("genero_principal"));
+                libro.setTipo(rs.getString("tipo"));
+                libro.setIsbn(rs.getString("isbn"));
+                libro.setNumeroPaginas(rs.getInt("numero_paginas"));
                 libro.setGenero(rs.getString("genero"));
                 libro.setEditorial(rs.getString("editorial"));
                 libros.add(libro);

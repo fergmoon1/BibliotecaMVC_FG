@@ -6,11 +6,27 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
     private JTabbedPane tabbedPane;
-    private JTable tablaLibros, tablaRevistas, tablaDVDs;
-    private JTextField txtBuscarLibros, txtBuscarRevistas, txtBuscarDVDs;
-    private JButton btnBuscarLibros, btnAgregarLibros, btnEditarLibros, btnEliminarLibros;
-    private JButton btnBuscarRevistas, btnAgregarRevistas, btnEditarRevistas, btnEliminarRevistas;
-    private JButton btnBuscarDVDs, btnAgregarDVDs, btnEditarDVDs, btnEliminarDVDs;
+    private JTable tablaLibros;
+    private JTable tablaRevistas;
+    private JTable tablaDVDs;
+    private JTextField txtBuscarLibros;
+    private JTextField txtBuscarRevistas;
+    private JTextField txtBuscarDVDs;
+    private JButton btnAgregarLibros;
+    private JButton btnEditarLibros;
+    private JButton btnEliminarLibros;
+    private JButton btnActualizarLibros;
+    private JButton btnBuscarLibros;
+    private JButton btnAgregarRevistas;
+    private JButton btnEditarRevistas;
+    private JButton btnEliminarRevistas;
+    private JButton btnActualizarRevistas;
+    private JButton btnBuscarRevistas;
+    private JButton btnAgregarDVDs;
+    private JButton btnEditarDVDs;
+    private JButton btnEliminarDVDs;
+    private JButton btnActualizarDVDs;
+    private JButton btnBuscarDVDs;
 
     public MainFrame() {
         setTitle("Sistema de Gestión de Biblioteca");
@@ -18,123 +34,203 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        // Crear el menú
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menuArchivo = new JMenu("Archivo");
+        JMenuItem menuItemSalir = new JMenuItem("Salir");
+        menuItemSalir.addActionListener(e -> System.exit(0));
+        menuArchivo.add(menuItemSalir);
+
+        JMenu menuCatalogo = new JMenu("Catálogo");
+        JMenuItem menuItemRefrescar = new JMenuItem("Refrescar");
+        menuCatalogo.add(menuItemRefrescar);
+
+        JMenu menuAyuda = new JMenu("Ayuda");
+        JMenuItem menuItemAcercaDe = new JMenuItem("Acerca de");
+        menuItemAcercaDe.addActionListener(e -> JOptionPane.showMessageDialog(this, "Sistema de Gestión de Biblioteca\nVersión 1.0"));
+        menuAyuda.add(menuItemAcercaDe);
+
+        menuBar.add(menuArchivo);
+        menuBar.add(menuCatalogo);
+        menuBar.add(menuAyuda);
+        setJMenuBar(menuBar);
+
         // Crear el JTabbedPane
         tabbedPane = new JTabbedPane();
 
         // Pestaña de Libros
-        JPanel panelLibros = crearPanel("Libros");
-        tablaLibros = (JTable) panelLibros.getClientProperty("tabla");
-        txtBuscarLibros = (JTextField) panelLibros.getClientProperty("txtBuscar");
-        btnBuscarLibros = (JButton) panelLibros.getClientProperty("btnBuscar");
-        btnAgregarLibros = (JButton) panelLibros.getClientProperty("btnAgregar");
-        btnEditarLibros = (JButton) panelLibros.getClientProperty("btnEditar");
-        btnEliminarLibros = (JButton) panelLibros.getClientProperty("btnEliminar");
+        JPanel panelLibros = new JPanel(new BorderLayout());
+        // Tabla de libros
+        String[] columnasLibros = {"ID", "Título", "Autor", "Año", "ISBN", "Páginas", "Género", "Editorial"};
+        DefaultTableModel modeloLibros = new DefaultTableModel(columnasLibros, 0);
+        tablaLibros = new JTable(modeloLibros);
+        JScrollPane scrollLibros = new JScrollPane(tablaLibros);
+        panelLibros.add(scrollLibros, BorderLayout.CENTER);
+
+        // Panel de búsqueda y botones para libros
+        JPanel panelBotoneraLibros = new JPanel();
+        txtBuscarLibros = new JTextField(20);
+        btnBuscarLibros = new JButton("Buscar por autor");
+        btnAgregarLibros = new JButton("Agregar");
+        btnEditarLibros = new JButton("Editar");
+        btnEliminarLibros = new JButton("Eliminar");
+        btnActualizarLibros = new JButton("Actualizar");
+
+        panelBotoneraLibros.add(new JLabel("Autor:"));
+        panelBotoneraLibros.add(txtBuscarLibros);
+        panelBotoneraLibros.add(btnBuscarLibros);
+        panelBotoneraLibros.add(btnAgregarLibros);
+        panelBotoneraLibros.add(btnEditarLibros);
+        panelBotoneraLibros.add(btnEliminarLibros);
+        panelBotoneraLibros.add(btnActualizarLibros);
+        panelLibros.add(panelBotoneraLibros, BorderLayout.SOUTH);
+
         tabbedPane.addTab("Libros", panelLibros);
 
         // Pestaña de Revistas
-        JPanel panelRevistas = crearPanel("Revistas");
-        tablaRevistas = (JTable) panelRevistas.getClientProperty("tabla");
-        txtBuscarRevistas = (JTextField) panelRevistas.getClientProperty("txtBuscar");
-        btnBuscarRevistas = (JButton) panelRevistas.getClientProperty("btnBuscar");
-        btnAgregarRevistas = (JButton) panelRevistas.getClientProperty("btnAgregar");
-        btnEditarRevistas = (JButton) panelRevistas.getClientProperty("btnEditar");
-        btnEliminarRevistas = (JButton) panelRevistas.getClientProperty("btnEliminar");
+        JPanel panelRevistas = new JPanel(new BorderLayout());
+        // Tabla de revistas
+        String[] columnasRevistas = {"ID", "Título", "Editor", "Año", "Edición", "Categoría"};
+        DefaultTableModel modeloRevistas = new DefaultTableModel(columnasRevistas, 0);
+        tablaRevistas = new JTable(modeloRevistas);
+        JScrollPane scrollRevistas = new JScrollPane(tablaRevistas);
+        panelRevistas.add(scrollRevistas, BorderLayout.CENTER);
+
+        // Panel de búsqueda y botones para revistas
+        JPanel panelBotoneraRevistas = new JPanel();
+        txtBuscarRevistas = new JTextField(20);
+        btnBuscarRevistas = new JButton("Buscar por editor");
+        btnAgregarRevistas = new JButton("Agregar");
+        btnEditarRevistas = new JButton("Editar");
+        btnEliminarRevistas = new JButton("Eliminar");
+        btnActualizarRevistas = new JButton("Actualizar");
+
+        panelBotoneraRevistas.add(new JLabel("Editor:"));
+        panelBotoneraRevistas.add(txtBuscarRevistas);
+        panelBotoneraRevistas.add(btnBuscarRevistas);
+        panelBotoneraRevistas.add(btnAgregarRevistas);
+        panelBotoneraRevistas.add(btnEditarRevistas);
+        panelBotoneraRevistas.add(btnEliminarRevistas);
+        panelBotoneraRevistas.add(btnActualizarRevistas);
+        panelRevistas.add(panelBotoneraRevistas, BorderLayout.SOUTH);
+
         tabbedPane.addTab("Revistas", panelRevistas);
 
         // Pestaña de DVDs
-        JPanel panelDVDs = crearPanel("DVDs");
-        tablaDVDs = (JTable) panelDVDs.getClientProperty("tabla");
-        txtBuscarDVDs = (JTextField) panelDVDs.getClientProperty("txtBuscar");
-        btnBuscarDVDs = (JButton) panelDVDs.getClientProperty("btnBuscar");
-        btnAgregarDVDs = (JButton) panelDVDs.getClientProperty("btnAgregar");
-        btnEditarDVDs = (JButton) panelDVDs.getClientProperty("btnEditar");
-        btnEliminarDVDs = (JButton) panelDVDs.getClientProperty("btnEliminar");
+        JPanel panelDVDs = new JPanel(new BorderLayout());
+        // Tabla de DVDs
+        String[] columnasDVDs = {"ID", "Título", "Director", "Año", "Duración", "Género"};
+        DefaultTableModel modeloDVDs = new DefaultTableModel(columnasDVDs, 0);
+        tablaDVDs = new JTable(modeloDVDs);
+        JScrollPane scrollDVDs = new JScrollPane(tablaDVDs);
+        panelDVDs.add(scrollDVDs, BorderLayout.CENTER);
+
+        // Panel de búsqueda y botones para DVDs
+        JPanel panelBotoneraDVDs = new JPanel();
+        txtBuscarDVDs = new JTextField(20);
+        btnBuscarDVDs = new JButton("Buscar por género");
+        btnAgregarDVDs = new JButton("Agregar");
+        btnEditarDVDs = new JButton("Editar");
+        btnEliminarDVDs = new JButton("Eliminar");
+        btnActualizarDVDs = new JButton("Actualizar");
+
+        panelBotoneraDVDs.add(new JLabel("Género:"));
+        panelBotoneraDVDs.add(txtBuscarDVDs);
+        panelBotoneraDVDs.add(btnBuscarDVDs);
+        panelBotoneraDVDs.add(btnAgregarDVDs);
+        panelBotoneraDVDs.add(btnEditarDVDs);
+        panelBotoneraDVDs.add(btnEliminarDVDs);
+        panelBotoneraDVDs.add(btnActualizarDVDs);
+        panelDVDs.add(panelBotoneraDVDs, BorderLayout.SOUTH);
+
         tabbedPane.addTab("DVDs", panelDVDs);
 
         // Agregar el JTabbedPane al frame
-        add(tabbedPane, BorderLayout.CENTER);
-    }
-
-    private JPanel crearPanel(String tipo) {
-        JPanel panel = new JPanel(new BorderLayout());
-
-        // Panel de búsqueda
-        JPanel panelBusqueda = new JPanel(new FlowLayout());
-        panelBusqueda.add(new JLabel("Buscar por " + (tipo.equals("DVDs") ? "género" : "autor") + ":"));
-        JTextField txtBuscar = new JTextField(20);
-        JButton btnBuscar = new JButton("Buscar");
-        panelBusqueda.add(txtBuscar);
-        panelBusqueda.add(btnBuscar);
-
-        // Tabla
-        JTable tabla;
-        if (tipo.equals("Libros")) {
-            tabla = new JTable(new DefaultTableModel(
-                    new Object[][]{},
-                    new String[]{"ID", "Título", "Autor", "Año Publicación"}
-            ));
-        } else if (tipo.equals("Revistas")) {
-            tabla = new JTable(new DefaultTableModel(
-                    new Object[][]{},
-                    new String[]{"ID", "Título", "Editor", "Número Edición"}
-            ));
-        } else {
-            tabla = new JTable(new DefaultTableModel(
-                    new Object[][]{},
-                    new String[]{"ID", "Título", "Autor", "Año", "Duración", "Género"}
-            ));
-        }
-        JScrollPane scrollPane = new JScrollPane(tabla);
-
-        // Panel de botones
-        JPanel panelBotones = new JPanel(new FlowLayout());
-        JButton btnAgregar = new JButton("Agregar");
-        JButton btnEditar = new JButton("Editar");
-        JButton btnEliminar = new JButton("Eliminar");
-        panelBotones.add(btnAgregar);
-        panelBotones.add(btnEditar);
-        panelBotones.add(btnEliminar);
-
-        // Agregar componentes al panel
-        panel.add(panelBusqueda, BorderLayout.NORTH);
-        panel.add(scrollPane, BorderLayout.CENTER);
-        panel.add(panelBotones, BorderLayout.SOUTH);
-
-        // Guardar referencias en el panel
-        panel.putClientProperty("tabla", tabla);
-        panel.putClientProperty("txtBuscar", txtBuscar);
-        panel.putClientProperty("btnBuscar", btnBuscar);
-        panel.putClientProperty("btnAgregar", btnAgregar);
-        panel.putClientProperty("btnEditar", btnEditar);
-        panel.putClientProperty("btnEliminar", btnEliminar);
-
-        return panel;
+        add(tabbedPane);
     }
 
     // Getters para los componentes
-    public JTabbedPane getTabbedPane() { return tabbedPane; }
+    public JTable getTablaLibros() {
+        return tablaLibros;
+    }
 
-    // Libros
-    public JTable getTablaLibros() { return tablaLibros; }
-    public JTextField getTxtBuscarLibros() { return txtBuscarLibros; }
-    public JButton getBtnBuscarLibros() { return btnBuscarLibros; }
-    public JButton getBtnAgregarLibros() { return btnAgregarLibros; }
-    public JButton getBtnEditarLibros() { return btnEditarLibros; }
-    public JButton getBtnEliminarLibros() { return btnEliminarLibros; }
+    public JTable getTablaRevistas() {
+        return tablaRevistas;
+    }
 
-    // Revistas
-    public JTable getTablaRevistas() { return tablaRevistas; }
-    public JTextField getTxtBuscarRevistas() { return txtBuscarRevistas; }
-    public JButton getBtnBuscarRevistas() { return btnBuscarRevistas; }
-    public JButton getBtnAgregarRevistas() { return btnAgregarRevistas; }
-    public JButton getBtnEditarRevistas() { return btnEditarRevistas; }
-    public JButton getBtnEliminarRevistas() { return btnEliminarRevistas; }
+    public JTable getTablaDVDs() {
+        return tablaDVDs;
+    }
 
-    // DVDs
-    public JTable getTablaDVDs() { return tablaDVDs; }
-    public JTextField getTxtBuscarDVDs() { return txtBuscarDVDs; }
-    public JButton getBtnBuscarDVDs() { return btnBuscarDVDs; }
-    public JButton getBtnAgregarDVDs() { return btnAgregarDVDs; }
-    public JButton getBtnEditarDVDs() { return btnEditarDVDs; }
-    public JButton getBtnEliminarDVDs() { return btnEliminarDVDs; }
+    public JTextField getTxtBuscarLibros() {
+        return txtBuscarLibros;
+    }
+
+    public JTextField getTxtBuscarRevistas() {
+        return txtBuscarRevistas;
+    }
+
+    public JTextField getTxtBuscarDVDs() {
+        return txtBuscarDVDs;
+    }
+
+    public JButton getBtnAgregarLibros() {
+        return btnAgregarLibros;
+    }
+
+    public JButton getBtnEditarLibros() {
+        return btnEditarLibros;
+    }
+
+    public JButton getBtnEliminarLibros() {
+        return btnEliminarLibros;
+    }
+
+    public JButton getBtnActualizarLibros() {
+        return btnActualizarLibros;
+    }
+
+    public JButton getBtnBuscarLibros() {
+        return btnBuscarLibros;
+    }
+
+    public JButton getBtnAgregarRevistas() {
+        return btnAgregarRevistas;
+    }
+
+    public JButton getBtnEditarRevistas() {
+        return btnEditarRevistas;
+    }
+
+    public JButton getBtnEliminarRevistas() {
+        return btnEliminarRevistas;
+    }
+
+    public JButton getBtnActualizarRevistas() {
+        return btnActualizarRevistas;
+    }
+
+    public JButton getBtnBuscarRevistas() {
+        return btnBuscarRevistas;
+    }
+
+    public JButton getBtnAgregarDVDs() {
+        return btnAgregarDVDs;
+    }
+
+    public JButton getBtnEditarDVDs() {
+        return btnEditarDVDs;
+    }
+
+    public JButton getBtnEliminarDVDs() {
+        return btnEliminarDVDs;
+    }
+
+    public JButton getBtnActualizarDVDs() {
+        return btnActualizarDVDs;
+    }
+
+    public JButton getBtnBuscarDVDs() {
+        return btnBuscarDVDs;
+    }
 }
