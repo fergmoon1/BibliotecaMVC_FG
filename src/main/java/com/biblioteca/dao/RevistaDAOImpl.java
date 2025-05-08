@@ -8,53 +8,65 @@ import java.util.List;
 
 public class RevistaDAOImpl implements RevistaDAO {
 
-    private final Connection connection;
-
-    public RevistaDAOImpl() {
-        this.connection = DatabaseConnection.getConnection();
-    }
-
     @Override
     public void agregarRevista(Revista revista) {
-        String sqlElemento = "INSERT INTO elemento_biblioteca (id, titulo, autor, ano_publicacion, tipo) VALUES (?, ?, ?, ?, ?)";
-        String sqlRevista = "INSERT INTO revista (id, numero_edicion, categoria) VALUES (?, ?, ?)";
-
+        String sqlElemento = "INSERT INTO ElementoBiblioteca (titulo, autor, ano_publicacion, tipo) VALUES (?, ?, ?, ?)";
+        String sqlRevista = "INSERT INTO Revista (id_revista, nombre_edicion, categoria) VALUES (?, ?, ?)";
+        Connection conn = null;
         try {
-            connection.setAutoCommit(false);
+            conn = DatabaseConnection.getConnection();
+            conn.setAutoCommit(false);
 
-            // Insertar en elemento_biblioteca
-            try (PreparedStatement psElemento = connection.prepareStatement(sqlElemento)) {
-                psElemento.setInt(1, revista.getId());
-                psElemento.setString(2, revista.getTitulo());
-                psElemento.setString(3, revista.getAutor());
-                psElemento.setInt(4, revista.getAnoPublicacion());
-                psElemento.setString(5, "Revista");
+            // Insertar en ElementoBiblioteca
+            try (PreparedStatement psElemento = conn.prepareStatement(sqlElemento, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                psElemento.setString(1, revista.getTitulo());
+                psElemento.setString(2, revista.getAutor());
+                psElemento.setInt(3, revista.getAnoPublicacion());
+                psElemento.setString(4, "Revista");
                 psElemento.executeUpdate();
+
+                // Obtener el ID generado
+                ResultSet rs = psElemento.getGeneratedKeys();
+                if (rs.next()) {
+                    revista.setId(rs.getInt(1));
+                } else {
+                    throw new SQLException("No se pudo obtener el ID generado para la revista.");
+                }
             }
 
-            // Insertar en revista
-            try (PreparedStatement psRevista = connection.prepareStatement(sqlRevista)) {
+            // Insertar en Revista
+            try (PreparedStatement psRevista = conn.prepareStatement(sqlRevista)) {
                 psRevista.setInt(1, revista.getId());
-                psRevista.setInt(2, revista.getNumeroEdicion());
+                psRevista.setString(2, revista.getNombreEdicion());
                 psRevista.setString(3, revista.getCategoria());
                 psRevista.executeUpdate();
             }
 
-            connection.commit();
+            conn.commit();
         } catch (SQLException e) {
-            rollback(e);
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection(conn);
         }
     }
 
     @Override
     public void actualizarRevista(Revista revista) {
-        String sqlElemento = "UPDATE elemento_biblioteca SET titulo = ?, autor = ?, ano_publicacion = ? WHERE id = ?";
-        String sqlRevista = "UPDATE revista SET numero_edicion = ?, categoria = ? WHERE id = ?";
-
+        String sqlElemento = "UPDATE ElementoBiblioteca SET titulo = ?, autor = ?, ano_publicacion = ? WHERE id = ? AND tipo = 'Revista'";
+        String sqlRevista = "UPDATE Revista SET nombre_edicion = ?, categoria = ? WHERE id_revista = ?";
+        Connection conn = null;
         try {
-            connection.setAutoCommit(false);
+            conn = DatabaseConnection.getConnection();
+            conn.setAutoCommit(false);
 
-            try (PreparedStatement psElemento = connection.prepareStatement(sqlElemento)) {
+            try (PreparedStatement psElemento = conn.prepareStatement(sqlElemento)) {
                 psElemento.setString(1, revista.getTitulo());
                 psElemento.setString(2, revista.getAutor());
                 psElemento.setInt(3, revista.getAnoPublicacion());
@@ -62,105 +74,118 @@ public class RevistaDAOImpl implements RevistaDAO {
                 psElemento.executeUpdate();
             }
 
-            try (PreparedStatement psRevista = connection.prepareStatement(sqlRevista)) {
-                psRevista.setInt(1, revista.getNumeroEdicion());
+            try (PreparedStatement psRevista = conn.prepareStatement(sqlRevista)) {
+                psRevista.setString(1, revista.getNombreEdicion());
                 psRevista.setString(2, revista.getCategoria());
                 psRevista.setInt(3, revista.getId());
                 psRevista.executeUpdate();
             }
 
-            connection.commit();
+            conn.commit();
         } catch (SQLException e) {
-            rollback(e);
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection(conn);
         }
     }
 
     @Override
     public void eliminarRevista(int id) {
-        String sqlRevista = "DELETE FROM revista WHERE id = ?";
-        String sqlElemento = "DELETE FROM elemento_biblioteca WHERE id = ?";
-
+        String sqlRevista = "DELETE FROM Revista WHERE id_revista = ?";
+        String sqlElemento = "DELETE FROM ElementoBiblioteca WHERE id = ? AND tipo = 'Revista'";
+        Connection conn = null;
         try {
-            connection.setAutoCommit(false);
+            conn = DatabaseConnection.getConnection();
+            conn.setAutoCommit(false);
 
-            try (PreparedStatement psRevista = connection.prepareStatement(sqlRevista)) {
+            try (PreparedStatement psRevista = conn.prepareStatement(sqlRevista)) {
                 psRevista.setInt(1, id);
                 psRevista.executeUpdate();
             }
 
-            try (PreparedStatement psElemento = connection.prepareStatement(sqlElemento)) {
+            try (PreparedStatement psElemento = conn.prepareStatement(sqlElemento)) {
                 psElemento.setInt(1, id);
                 psElemento.executeUpdate();
             }
 
-            connection.commit();
+            conn.commit();
         } catch (SQLException e) {
-            rollback(e);
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection(conn);
         }
     }
 
     @Override
     public List<Revista> obtenerTodasLasRevistas() {
         List<Revista> lista = new ArrayList<>();
-        String sql = "SELECT e.id, e.titulo, e.autor, e.ano_publicacion, r.numero_edicion, r.categoria " +
-                "FROM elemento_biblioteca e JOIN revista r ON e.id = r.id";
-
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
-                Revista revista = new Revista();
-                revista.setId(rs.getInt("id"));
-                revista.setTitulo(rs.getString("titulo"));
-                revista.setAutor(rs.getString("autor"));
-                revista.setAnoPublicacion(rs.getInt("ano_publicacion"));
-                revista.setNumeroEdicion(rs.getInt("numero_edicion"));
-                revista.setCategoria(rs.getString("categoria"));
-                lista.add(revista);
+        String sql = "SELECT e.id, e.titulo, e.autor, e.ano_publicacion, r.nombre_edicion, r.categoria " +
+                "FROM ElementoBiblioteca e JOIN Revista r ON e.id = r.id_revista WHERE e.tipo = 'Revista'";
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            try (PreparedStatement stmt = conn.prepareStatement(sql);
+                 ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Revista revista = new Revista();
+                    revista.setId(rs.getInt("id"));
+                    revista.setTitulo(rs.getString("titulo"));
+                    revista.setAutor(rs.getString("autor"));
+                    revista.setAnoPublicacion(rs.getInt("ano_publicacion"));
+                    revista.setNombreEdicion(rs.getString("nombre_edicion"));
+                    revista.setCategoria(rs.getString("categoria"));
+                    lista.add(revista);
+                }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection(conn);
         }
-
         return lista;
     }
 
     @Override
     public List<Revista> buscarPorCategoria(String categoria) {
         List<Revista> lista = new ArrayList<>();
-        String sql = "SELECT e.id, e.titulo, e.autor, e.ano_publicacion, r.numero_edicion, r.categoria " +
-                "FROM elemento_biblioteca e JOIN revista r ON e.id = r.id WHERE r.categoria LIKE ?";
-
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, "%" + categoria + "%");
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Revista revista = new Revista();
-                revista.setId(rs.getInt("id"));
-                revista.setTitulo(rs.getString("titulo"));
-                revista.setAutor(rs.getString("autor"));
-                revista.setAnoPublicacion(rs.getInt("ano_publicacion"));
-                revista.setNumeroEdicion(rs.getInt("numero_edicion"));
-                revista.setCategoria(rs.getString("categoria"));
-                lista.add(revista);
+        String sql = "SELECT e.id, e.titulo, e.autor, e.ano_publicacion, r.nombre_edicion, r.categoria " +
+                "FROM ElementoBiblioteca e JOIN Revista r ON e.id = r.id_revista WHERE e.tipo = 'Revista' AND r.categoria LIKE ?";
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, "%" + categoria + "%");
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Revista revista = new Revista();
+                    revista.setId(rs.getInt("id"));
+                    revista.setTitulo(rs.getString("titulo"));
+                    revista.setAutor(rs.getString("autor"));
+                    revista.setAnoPublicacion(rs.getInt("ano_publicacion"));
+                    revista.setNombreEdicion(rs.getString("nombre_edicion"));
+                    revista.setCategoria(rs.getString("categoria"));
+                    lista.add(revista);
+                }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection(conn);
         }
-
         return lista;
     }
-
-    private void rollback(SQLException e) {
-        try {
-            connection.rollback();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        e.printStackTrace();
-    }
 }
-
