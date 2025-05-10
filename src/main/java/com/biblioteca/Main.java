@@ -1,12 +1,13 @@
 package com.biblioteca;
 
-import com.biblioteca.view.MainFrame;
+import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            MainFrame mainFrame = new MainFrame();
-            mainFrame.setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new MainFrame();
+            }
         });
     }
 }
