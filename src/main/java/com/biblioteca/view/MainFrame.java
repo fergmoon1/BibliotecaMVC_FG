@@ -292,6 +292,25 @@ public class MainFrame extends JFrame {
             txtBuscarDVDs.setText("");
             cargarDatosDVDs();
         });
+
+        // Agregar listeners para los botones CRUD
+        btnBuscarLibros.addActionListener(e -> buscarLibrosPorGenero());
+        btnAgregarLibros.addActionListener(e -> agregarLibro());
+        btnEditarLibros.addActionListener(e -> editarLibro());
+        btnEliminarLibros.addActionListener(e -> eliminarLibro());
+        btnActualizarLibros.addActionListener(e -> cargarDatosLibros());
+
+        btnBuscarRevistas.addActionListener(e -> buscarRevistasPorCategoria());
+        btnAgregarRevistas.addActionListener(e -> agregarRevista());
+        btnEditarRevistas.addActionListener(e -> editarRevista());
+        btnEliminarRevistas.addActionListener(e -> eliminarRevista());
+        btnActualizarRevistas.addActionListener(e -> cargarDatosRevistas());
+
+        btnBuscarDVDs.addActionListener(e -> buscarDVDsPorGenero());
+        btnAgregarDVDs.addActionListener(e -> agregarDVD());
+        btnEditarDVDs.addActionListener(e -> editarDVD());
+        btnEliminarDVDs.addActionListener(e -> eliminarDVD());
+        btnActualizarDVDs.addActionListener(e -> cargarDatosDVDs());
     }
 
     // Métodos para Libros
@@ -371,4 +390,433 @@ public class MainFrame extends JFrame {
                 libro.setEditorial(txtEditorial.getText());
 
                 if (libroDAO.crear(libro)) {
-                    JOptionPane.showMessageDialog(this, "Libro agregado exitosamente.", "Éxito",
+                    JOptionPane.showMessageDialog(this, "Libro agregado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    cargarDatosLibros();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al agregar el libro.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos para Año y Páginas.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void editarLibro() {
+        int filaSeleccionada = tablaLibros.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un libro para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int id = (int) tablaLibros.getValueAt(filaSeleccionada, 0);
+        Libro libro = libroDAO.leer(id);
+        if (libro == null) {
+            JOptionPane.showMessageDialog(this, "Libro no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JTextField txtId = new JTextField(String.valueOf(libro.getId()), 5);
+        JTextField txtTitulo = new JTextField(libro.getTitulo(), 20);
+        JTextField txtAutor = new JTextField(libro.getAutor(), 20);
+        JTextField txtAno = new JTextField(String.valueOf(libro.getAnoPublicacion()), 5);
+        JTextField txtIsbn = new JTextField(libro.getIsbn(), 15);
+        JTextField txtPaginas = new JTextField(String.valueOf(libro.getNumeroPaginas()), 5);
+        JTextField txtGenero = new JTextField(libro.getGenero(), 15);
+        JTextField txtEditorial = new JTextField(libro.getEditorial(), 20);
+
+        JPanel panel = new JPanel(new GridLayout(8, 2));
+        panel.add(new JLabel("ID (solo lectura):"));
+        panel.add(txtId);
+        txtId.setEditable(false);
+        panel.add(new JLabel("Título:"));
+        panel.add(txtTitulo);
+        panel.add(new JLabel("Autor:"));
+        panel.add(txtAutor);
+        panel.add(new JLabel("Año:"));
+        panel.add(txtAno);
+        panel.add(new JLabel("ISBN:"));
+        panel.add(txtIsbn);
+        panel.add(new JLabel("Páginas:"));
+        panel.add(txtPaginas);
+        panel.add(new JLabel("Género:"));
+        panel.add(txtGenero);
+        panel.add(new JLabel("Editorial:"));
+        panel.add(txtEditorial);
+
+        int result = JOptionPane.showConfirmDialog(this, panel, "Editar Libro", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        if (result == JOptionPane.OK_OPTION) {
+            try {
+                libro.setTitulo(txtTitulo.getText());
+                libro.setAutor(txtAutor.getText());
+                libro.setAnoPublicacion(Integer.parseInt(txtAno.getText()));
+                libro.setIsbn(txtIsbn.getText());
+                libro.setNumeroPaginas(Integer.parseInt(txtPaginas.getText()));
+                libro.setGenero(txtGenero.getText());
+                libro.setEditorial(txtEditorial.getText());
+
+                if (libroDAO.actualizar(libro)) {
+                    JOptionPane.showMessageDialog(this, "Libro actualizado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    cargarDatosLibros();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al actualizar el libro.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos para Año y Páginas.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void eliminarLibro() {
+        int filaSeleccionada = tablaLibros.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un libro para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int id = (int) tablaLibros.getValueAt(filaSeleccionada, 0);
+        int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este libro?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (confirm == JOptionPane.YES_OPTION) {
+            if (libroDAO.eliminar(id)) {
+                JOptionPane.showMessageDialog(this, "Libro eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                cargarDatosLibros();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al eliminar el libro.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    // Métodos para Revistas
+    private void cargarDatosRevistas() {
+        DefaultTableModel modelo = (DefaultTableModel) tablaRevistas.getModel();
+        modelo.setRowCount(0);
+        List<Revista> revistas = revistaDAO.obtenerTodasLasRevistas();
+        for (Revista revista : revistas) {
+            modelo.addRow(new Object[]{
+                    revista.getId(),
+                    revista.getTitulo(),
+                    revista.getAutor(),
+                    revista.getAnoPublicacion(),
+                    revista.getNombreEdicion(),
+                    revista.getCategoria()
+            });
+        }
+    }
+
+    private void buscarRevistasPorCategoria() {
+        String categoria = txtBuscarRevistas.getText().trim();
+        DefaultTableModel modelo = (DefaultTableModel) tablaRevistas.getModel();
+        modelo.setRowCount(0);
+        List<Revista> revistas = revistaDAO.buscarPorCategoria(categoria);
+        for (Revista revista : revistas) {
+            modelo.addRow(new Object[]{
+                    revista.getId(),
+                    revista.getTitulo(),
+                    revista.getAutor(),
+                    revista.getAnoPublicacion(),
+                    revista.getNombreEdicion(),
+                    revista.getCategoria()
+            });
+        }
+    }
+
+    private void agregarRevista() {
+        JTextField txtId = new JTextField(5);
+        JTextField txtTitulo = new JTextField(20);
+        JTextField txtEditor = new JTextField(20);
+        JTextField txtAno = new JTextField(5);
+        JTextField txtEdicion = new JTextField(15);
+        JTextField txtCategoria = new JTextField(15);
+
+        JPanel panel = new JPanel(new GridLayout(6, 2));
+        panel.add(new JLabel("Título:"));
+        panel.add(txtTitulo);
+        panel.add(new JLabel("Editor:"));
+        panel.add(txtEditor);
+        panel.add(new JLabel("Año:"));
+        panel.add(txtAno);
+        panel.add(new JLabel("Edición:"));
+        panel.add(txtEdicion);
+        panel.add(new JLabel("Categoría:"));
+        panel.add(txtCategoria);
+
+        int result = JOptionPane.showConfirmDialog(this, panel, "Agregar Revista", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        if (result == JOptionPane.OK_OPTION) {
+            try {
+                Revista revista = new Revista();
+                revista.setTitulo(txtTitulo.getText());
+                revista.setAutor(txtEditor.getText());
+                revista.setAnoPublicacion(Integer.parseInt(txtAno.getText()));
+                revista.setNombreEdicion(txtEdicion.getText());
+                revista.setCategoria(txtCategoria.getText());
+
+                revistaDAO.agregarRevista(revista);
+                JOptionPane.showMessageDialog(this, "Revista agregada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                cargarDatosRevistas();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor válido para Año.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void editarRevista() {
+        int filaSeleccionada = tablaRevistas.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una revista para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int id = (int) tablaRevistas.getValueAt(filaSeleccionada, 0);
+        Revista revista = new Revista();
+        revista.setId(id);
+        revista.setTitulo((String) tablaRevistas.getValueAt(filaSeleccionada, 1));
+        revista.setAutor((String) tablaRevistas.getValueAt(filaSeleccionada, 2));
+        revista.setAnoPublicacion((int) tablaRevistas.getValueAt(filaSeleccionada, 3));
+        revista.setNombreEdicion((String) tablaRevistas.getValueAt(filaSeleccionada, 4));
+        revista.setCategoria((String) tablaRevistas.getValueAt(filaSeleccionada, 5));
+
+        JTextField txtId = new JTextField(String.valueOf(revista.getId()), 5);
+        JTextField txtTitulo = new JTextField(revista.getTitulo(), 20);
+        JTextField txtEditor = new JTextField(revista.getAutor(), 20);
+        JTextField txtAno = new JTextField(String.valueOf(revista.getAnoPublicacion()), 5);
+        JTextField txtEdicion = new JTextField(revista.getNombreEdicion(), 15);
+        JTextField txtCategoria = new JTextField(revista.getCategoria(), 15);
+
+        JPanel panel = new JPanel(new GridLayout(6, 2));
+        panel.add(new JLabel("ID (solo lectura):"));
+        panel.add(txtId);
+        txtId.setEditable(false);
+        panel.add(new JLabel("Título:"));
+        panel.add(txtTitulo);
+        panel.add(new JLabel("Editor:"));
+        panel.add(txtEditor);
+        panel.add(new JLabel("Año:"));
+        panel.add(txtAno);
+        panel.add(new JLabel("Edición:"));
+        panel.add(txtEdicion);
+        panel.add(new JLabel("Categoría:"));
+        panel.add(txtCategoria);
+
+        int result = JOptionPane.showConfirmDialog(this, panel, "Editar Revista", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        if (result == JOptionPane.OK_OPTION) {
+            try {
+                revista.setTitulo(txtTitulo.getText());
+                revista.setAutor(txtEditor.getText());
+                revista.setAnoPublicacion(Integer.parseInt(txtAno.getText()));
+                revista.setNombreEdicion(txtEdicion.getText());
+                revista.setCategoria(txtCategoria.getText());
+
+                revistaDAO.actualizarRevista(revista);
+                JOptionPane.showMessageDialog(this, "Revista actualizada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                cargarDatosRevistas();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor válido para Año.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void eliminarRevista() {
+        int filaSeleccionada = tablaRevistas.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una revista para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int id = (int) tablaRevistas.getValueAt(filaSeleccionada, 0);
+        int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar esta revista?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (confirm == JOptionPane.YES_OPTION) {
+            revistaDAO.eliminarRevista(id);
+            JOptionPane.showMessageDialog(this, "Revista eliminada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            cargarDatosRevistas();
+        }
+    }
+
+    // Métodos para DVDs
+    private void cargarDatosDVDs() {
+        DefaultTableModel modelo = (DefaultTableModel) tablaDVDs.getModel();
+        modelo.setRowCount(0);
+        List<DVD> dvds = dvdDAO.obtenerTodosLosDVDs();
+        for (DVD dvd : dvds) {
+            modelo.addRow(new Object[]{
+                    dvd.getId(),
+                    dvd.getTitulo(),
+                    dvd.getAutor(),
+                    dvd.getAnoPublicacion(),
+                    dvd.getDuracion(),
+                    dvd.getGenero()
+            });
+        }
+    }
+
+    private void buscarDVDsPorGenero() {
+        String genero = txtBuscarDVDs.getText().trim();
+        DefaultTableModel modelo = (DefaultTableModel) tablaDVDs.getModel();
+        modelo.setRowCount(0);
+        List<DVD> dvds = dvdDAO.buscarPorGenero(genero);
+        for (DVD dvd : dvds) {
+            modelo.addRow(new Object[]{
+                    dvd.getId(),
+                    dvd.getTitulo(),
+                    dvd.getAutor(),
+                    dvd.getAnoPublicacion(),
+                    dvd.getDuracion(),
+                    dvd.getGenero()
+            });
+        }
+    }
+
+    private void agregarDVD() {
+        JTextField txtId = new JTextField(5);
+        JTextField txtTitulo = new JTextField(20);
+        JTextField txtAutor = new JTextField(20);
+        JTextField txtAno = new JTextField(5);
+        JTextField txtDuracion = new JTextField(5);
+        JTextField txtGenero = new JTextField(15);
+        JTextField txtDirector = new JTextField(20);
+        JTextField txtFormato = new JTextField(10);
+
+        JPanel panel = new JPanel(new GridLayout(8, 2));
+        panel.add(new JLabel("Título:"));
+        panel.add(txtTitulo);
+        panel.add(new JLabel("Autor:"));
+        panel.add(txtAutor);
+        panel.add(new JLabel("Año:"));
+        panel.add(txtAno);
+        panel.add(new JLabel("Duración (min):"));
+        panel.add(txtDuracion);
+        panel.add(new JLabel("Género:"));
+        panel.add(txtGenero);
+        panel.add(new JLabel("Director:"));
+        panel.add(txtDirector);
+        panel.add(new JLabel("Formato:"));
+        panel.add(txtFormato);
+
+        int result = JOptionPane.showConfirmDialog(this, panel, "Agregar DVD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        if (result == JOptionPane.OK_OPTION) {
+            try {
+                DVD dvd = new DVD();
+                dvd.setTitulo(txtTitulo.getText());
+                dvd.setAutor(txtAutor.getText());
+                dvd.setAnoPublicacion(Integer.parseInt(txtAno.getText()));
+                dvd.setDuracion(Integer.parseInt(txtDuracion.getText()));
+                dvd.setGenero(txtGenero.getText());
+                dvd.setDirector(txtDirector.getText());
+                dvd.setFormato(txtFormato.getText());
+
+                dvdDAO.agregarDVD(dvd);
+                JOptionPane.showMessageDialog(this, "DVD agregado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                cargarDatosDVDs();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos para Año y Duración.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void editarDVD() {
+        int filaSeleccionada = tablaDVDs.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un DVD para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int id = (int) tablaDVDs.getValueAt(filaSeleccionada, 0);
+        DVD dvd = new DVD();
+        dvd.setId(id);
+        dvd.setTitulo((String) tablaDVDs.getValueAt(filaSeleccionada, 1));
+        dvd.setAutor((String) tablaDVDs.getValueAt(filaSeleccionada, 2));
+        dvd.setAnoPublicacion((int) tablaDVDs.getValueAt(filaSeleccionada, 3));
+        dvd.setDuracion((int) tablaDVDs.getValueAt(filaSeleccionada, 4));
+        dvd.setGenero((String) tablaDVDs.getValueAt(filaSeleccionada, 5));
+        // Nota: No tenemos director ni formato en la tabla, así que los inicializamos como vacíos
+        dvd.setDirector("");
+        dvd.setFormato("");
+
+        JTextField txtId = new JTextField(String.valueOf(dvd.getId()), 5);
+        JTextField txtTitulo = new JTextField(dvd.getTitulo(), 20);
+        JTextField txtAutor = new JTextField(dvd.getAutor(), 20);
+        JTextField txtAno = new JTextField(String.valueOf(dvd.getAnoPublicacion()), 5);
+        JTextField txtDuracion = new JTextField(String.valueOf(dvd.getDuracion()), 5);
+        JTextField txtGenero = new JTextField(dvd.getGenero(), 15);
+        JTextField txtDirector = new JTextField(dvd.getDirector(), 20);
+        JTextField txtFormato = new JTextField(dvd.getFormato(), 10);
+
+        JPanel panel = new JPanel(new GridLayout(8, 2));
+        panel.add(new JLabel("ID (solo lectura):"));
+        panel.add(txtId);
+        txtId.setEditable(false);
+        panel.add(new JLabel("Título:"));
+        panel.add(txtTitulo);
+        panel.add(new JLabel("Autor:"));
+        panel.add(txtAutor);
+        panel.add(new JLabel("Año:"));
+        panel.add(txtAno);
+        panel.add(new JLabel("Duración (min):"));
+        panel.add(txtDuracion);
+        panel.add(new JLabel("Género:"));
+        panel.add(txtGenero);
+        panel.add(new JLabel("Director:"));
+        panel.add(txtDirector);
+        panel.add(new JLabel("Formato:"));
+        panel.add(txtFormato);
+
+        int result = JOptionPane.showConfirmDialog(this, panel, "Editar DVD", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        if (result == JOptionPane.OK_OPTION) {
+            try {
+                dvd.setTitulo(txtTitulo.getText());
+                dvd.setAutor(txtAutor.getText());
+                dvd.setAnoPublicacion(Integer.parseInt(txtAno.getText()));
+                dvd.setDuracion(Integer.parseInt(txtDuracion.getText()));
+                dvd.setGenero(txtGenero.getText());
+                dvd.setDirector(txtDirector.getText());
+                dvd.setFormato(txtFormato.getText());
+
+                dvdDAO.actualizarDVD(dvd);
+                JOptionPane.showMessageDialog(this, "DVD actualizado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                cargarDatosDVDs();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos para Año y Duración.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void eliminarDVD() {
+        int filaSeleccionada = tablaDVDs.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un DVD para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int id = (int) tablaDVDs.getValueAt(filaSeleccionada, 0);
+        int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea eliminar este DVD?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (confirm == JOptionPane.YES_OPTION) {
+            dvdDAO.eliminarDVD(id);
+            JOptionPane.showMessageDialog(this, "DVD eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            cargarDatosDVDs();
+        }
+    }
+
+    // Getters para los componentes
+    public JTable getTablaLibros() { return tablaLibros; }
+    public JTable getTablaRevistas() { return tablaRevistas; }
+    public JTable getTablaDVDs() { return tablaDVDs; }
+    public JTextField getTxtBuscarLibros() { return txtBuscarLibros; }
+    public JTextField getTxtBuscarRevistas() { return txtBuscarRevistas; }
+    public JTextField getTxtBuscarDVDs() { return txtBuscarDVDs; }
+    public JButton getBtnAgregarLibros() { return btnAgregarLibros; }
+    public JButton getBtnEditarLibros() { return btnEditarLibros; }
+    public JButton getBtnEliminarLibros() { return btnEliminarLibros; }
+    public JButton getBtnActualizarLibros() { return btnActualizarLibros; }
+    public JButton getBtnBuscarLibros() { return btnBuscarLibros; }
+    public JButton getBtnLimpiarLibros() { return btnLimpiarLibros; }
+    public JButton getBtnAgregarRevistas() { return btnAgregarRevistas; }
+    public JButton getBtnEditarRevistas() { return btnEditarRevistas; }
+    public JButton getBtnEliminarRevistas() { return btnEliminarRevistas; }
+    public JButton getBtnActualizarRevistas() { return btnActualizarRevistas; }
+    public JButton getBtnBuscarRevistas() { return btnBuscarRevistas; }
+    public JButton getBtnLimpiarRevistas() { return btnLimpiarRevistas; }
+    public JButton getBtnAgregarDVDs() { return btnAgregarDVDs; }
+    public JButton getBtnEditarDVDs() { return btnEditarDVDs; }
+    public JButton getBtnEliminarDVDs() { return btnEliminarDVDs; }
+    public JButton getBtnActualizarDVDs() { return btnActualizarDVDs; }
+    public JButton getBtnBuscarDVDs() { return btnBuscarDVDs; }
+    public JButton getBtnLimpiarDVDs() { return btnLimpiarDVDs; }
+}
