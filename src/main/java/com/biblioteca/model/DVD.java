@@ -6,10 +6,12 @@ public class DVD extends ElementoBiblioteca {
 
     public DVD() {
         super();
+        setTipo("DVD");
     }
 
-    public DVD(int id, String titulo, String autor, int anioPublicacion, String tipo, int duracion, String genero) {
-        super(id, titulo, autor, anioPublicacion, tipo);
+    public DVD(int id, String titulo, String autor, int anioPublicacion,
+               int duracion, String genero) {
+        super(id, titulo, autor, anioPublicacion, "DVD");
         this.duracion = duracion;
         this.genero = genero;
     }
@@ -28,5 +30,17 @@ public class DVD extends ElementoBiblioteca {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    @Override
+    public String toString() {
+        return "DVD{" +
+                "id=" + getId() +
+                ", titulo='" + getTitulo() + '\'' +
+                ", autor='" + getAutor() + '\'' +
+                ", anioPublicacion=" + getAnioPublicacion() +
+                ", duracion=" + duracion +
+                ", genero='" + genero + '\'' +
+                '}';
     }
 }

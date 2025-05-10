@@ -1,25 +1,22 @@
 package com.biblioteca.model;
 
-public class ElementoBiblioteca {
-
+public abstract class ElementoBiblioteca {
     private int id;
     private String titulo;
     private String autor;
-    private int anoPublicacion;
-    private String tipo; // Nuevo atributo agregado
+    private int anioPublicacion;
+    private String tipo;
 
     public ElementoBiblioteca() {
     }
 
-    public ElementoBiblioteca(int id, String titulo, String autor, int anoPublicacion, String tipo) {
+    public ElementoBiblioteca(int id, String titulo, String autor, int anioPublicacion, String tipo) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
-        this.anoPublicacion = anoPublicacion;
+        this.anioPublicacion = anioPublicacion;
         this.tipo = tipo;
     }
-
-    // Getters y Setters
 
     public int getId() {
         return id;
@@ -45,12 +42,12 @@ public class ElementoBiblioteca {
         this.autor = autor;
     }
 
-    public int getAnoPublicacion() {
-        return anoPublicacion;
+    public int getAnioPublicacion() {
+        return anioPublicacion;
     }
 
-    public void setAnoPublicacion(int anoPublicacion) {
-        this.anoPublicacion = anoPublicacion;
+    public void setAnioPublicacion(int anioPublicacion) {
+        this.anioPublicacion = anioPublicacion;
     }
 
     public String getTipo() {
@@ -59,5 +56,16 @@ public class ElementoBiblioteca {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "ElementoBiblioteca{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", autor='" + autor + '\'' +
+                ", anioPublicacion=" + anioPublicacion +
+                ", tipo='" + tipo + '\'' +
+                '}';
     }
 }
