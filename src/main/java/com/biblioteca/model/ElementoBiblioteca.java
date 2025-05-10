@@ -1,34 +1,26 @@
 package com.biblioteca.model;
 
-public abstract class ElementoBiblioteca {
+public class ElementoBiblioteca {
+
     private int id;
     private String titulo;
     private String autor;
     private int anoPublicacion;
-    private String genero;
+    private String tipo; // Nuevo atributo agregado
 
-    // Constructor sin argumentos
     public ElementoBiblioteca() {
     }
 
-    // Constructor con parámetros (sin id, ya que se genera en la BD)
-    public ElementoBiblioteca(String titulo, String autor, int anoPublicacion, String genero) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.anoPublicacion = anoPublicacion;
-        this.genero = genero;
-    }
-
-    // Constructor con id (para cargar desde la BD)
-    public ElementoBiblioteca(int id, String titulo, String autor, int anoPublicacion, String genero) {
+    public ElementoBiblioteca(int id, String titulo, String autor, int anoPublicacion, String tipo) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.anoPublicacion = anoPublicacion;
-        this.genero = genero;
+        this.tipo = tipo;
     }
 
     // Getters y Setters
+
     public int getId() {
         return id;
     }
@@ -61,11 +53,11 @@ public abstract class ElementoBiblioteca {
         this.anoPublicacion = anoPublicacion;
     }
 
-    public String getGenero() {
-        return genero;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

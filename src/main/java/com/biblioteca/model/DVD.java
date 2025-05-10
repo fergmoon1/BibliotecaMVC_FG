@@ -2,30 +2,18 @@ package com.biblioteca.model;
 
 public class DVD extends ElementoBiblioteca {
     private int duracion;
-    private String director;
-    private String formato;
+    private String genero;
 
-    // Constructor vacío
     public DVD() {
+        super();
     }
 
-    // Constructor con parámetros
-    public DVD(String titulo, String autor, int anoPublicacion, String genero, int duracion, String director, String formato) {
-        super(titulo, autor, anoPublicacion, genero);
+    public DVD(int id, String titulo, String autor, int anioPublicacion, String tipo, int duracion, String genero) {
+        super(id, titulo, autor, anioPublicacion, tipo);
         this.duracion = duracion;
-        this.director = director;
-        this.formato = formato;
+        this.genero = genero;
     }
 
-    // Constructor con id (para cargar desde la BD)
-    public DVD(int id, String titulo, String autor, int anoPublicacion, String genero, int duracion, String director, String formato) {
-        super(id, titulo, autor, anoPublicacion, genero);
-        this.duracion = duracion;
-        this.director = director;
-        this.formato = formato;
-    }
-
-    // Getters y Setters
     public int getDuracion() {
         return duracion;
     }
@@ -34,19 +22,11 @@ public class DVD extends ElementoBiblioteca {
         this.duracion = duracion;
     }
 
-    public String getDirector() {
-        return director;
+    public String getGenero() {
+        return genero;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public String getFormato() {
-        return formato;
-    }
-
-    public void setFormato(String formato) {
-        this.formato = formato;
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 }
