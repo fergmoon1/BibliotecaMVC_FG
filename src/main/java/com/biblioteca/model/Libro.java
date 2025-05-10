@@ -3,23 +3,33 @@ package com.biblioteca.model;
 public class Libro extends ElementoBiblioteca {
     private String isbn;
     private int numeroPaginas;
-    private String genero;
     private String editorial;
+    private String tipo; // Nuevo atributo para indicar el tipo (ej. "Libro")
 
+    // Constructor vacío
     public Libro() {
-        super();
-        setTipo("Libro");
     }
 
-    public Libro(int id, String titulo, String autor, int anoPublicacion,
-                 String isbn, int numeroPaginas, String genero, String editorial) {
-        super(id, titulo, autor, anoPublicacion, "Libro");
+    // Constructor con parámetros (sin id, para creación)
+    public Libro(String titulo, String autor, int anoPublicacion, String genero, String isbn, int numeroPaginas, String editorial, String tipo) {
+        super(titulo, autor, anoPublicacion, genero);
         this.isbn = isbn;
         this.numeroPaginas = numeroPaginas;
-        this.genero = genero;
         this.editorial = editorial;
+        this.tipo = tipo;
     }
 
+    // Constructor con id (para cargar desde la BD)
+    public Libro(int id, String titulo, String autor, int anoPublicacion, String genero, String isbn, int numeroPaginas, String editorial, String tipo) {
+        super(id, titulo, autor, anoPublicacion, genero);
+        setId(id); // Usamos setId en lugar de this.id
+        this.isbn = isbn;
+        this.numeroPaginas = numeroPaginas;
+        this.editorial = editorial;
+        this.tipo = tipo;
+    }
+
+    // Getters y Setters
     public String getIsbn() {
         return isbn;
     }
@@ -36,14 +46,6 @@ public class Libro extends ElementoBiblioteca {
         this.numeroPaginas = numeroPaginas;
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
     public String getEditorial() {
         return editorial;
     }
@@ -52,13 +54,11 @@ public class Libro extends ElementoBiblioteca {
         this.editorial = editorial;
     }
 
-    @Override
-    public String toString() {
-        return "Libro{" +
-                "isbn='" + isbn + '\'' +
-                ", numeroPaginas=" + numeroPaginas +
-                ", genero='" + genero + '\'' +
-                ", editorial='" + editorial + '\'' +
-                "} " + super.toString();
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }
