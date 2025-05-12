@@ -3,80 +3,64 @@ package com.biblioteca.view;
 import com.biblioteca.model.Revista;
 import javax.swing.*;
 import java.awt.*;
-import java.util.Optional;
 
-public class RevistaForm extends JDialog {
-    private final JTextField txtId = new JTextField(5);
-    private final JTextField txtTitulo = new JTextField(20);
-    private final JTextField txtAutor = new JTextField(20);
-    private final JTextField txtAnio = new JTextField(5);
-    private final JTextField txtEdicion = new JTextField(5);
-    private final JTextField txtCategoria = new JTextField(15);
-    private boolean confirmado = false;
+public class RevistaForm extends JPanel {
+    private JTextField txtTitulo;
+    private JTextField txtEditor;
+    private JTextField txtAnio;
+    private JTextField txtEdicion;
+    private JTextField txtCategoria;
 
     public RevistaForm(Revista revista) {
-        setTitle(revista == null ? "Nueva Revista" : "Editar Revista");
-        setModal(true);
-        setLayout(new GridLayout(7, 2, 10, 10));
-        setSize(400, 300);
-        setLocationRelativeTo(null);
+        setLayout(new GridLayout(5, 2, 10, 10));
 
-        addField("ID:", txtId);
-        addField("Título:", txtTitulo);
-        addField("Autor:", txtAutor);
-        addField("Año:", txtAnio);
-        addField("N° Edición:", txtEdicion);
-        addField("Categoría:", txtCategoria);
+        // Componentes del formulario
+        add(new JLabel("Título:"));
+        txtTitulo = new JTextField(20);
+        if (revista != null) txtTitulo.setText(revista.getTitulo());
+        add(txtTitulo);
 
-        JButton btnOk = new JButton("Guardar");
-        JButton btnCancel = new JButton("Cancelar");
+        add(new JLabel("Editor:"));
+        txtEditor = new JTextField(20);
+        if (revista != null) txtEditor.setText(revista.getAutor());
+        add(txtEditor);
 
-        add(btnOk);
-        add(btnCancel);
+        add(new JLabel("Año:"));
+        txtAnio = new JTextField(20);
+        if (revista != null) txtAnio.setText(String.valueOf(revista.getAnioPublicacion()));
+        add(txtAnio);
 
-        btnOk.addActionListener(e -> {
-            confirmado = true;
-            setVisible(false);
-        });
+        add(new JLabel("Número de Edición:"));
+        txtEdicion = new JTextField(20);
+        if (revista != null) txtEdicion.setText(String.valueOf(revista.getNumeroEdicion()));
+        add(txtEdicion);
 
-        btnCancel.addActionListener(e -> {
-            confirmado = false;
-            setVisible(false);
-        });
-
-        if (revista != null) {
-            txtId.setText(String.valueOf(revista.getId()));
-            txtId.setEnabled(false);
-            txtTitulo.setText(revista.getTitulo());
-            txtAutor.setText(revista.getAutor());
-            txtAnio.setText(String.valueOf(revista.getAnioPublicacion()));
-            txtEdicion.setText(String.valueOf(revista.getNumeroEdicion()));
-            txtCategoria.setText(revista.getCategoria());
-        }
+        add(new JLabel("Categoría:"));
+        txtCategoria = new JTextField(20);
+        if (revista != null) txtCategoria.setText(revista.getCategoria());
+        add(txtCategoria);
     }
 
-    private void addField(String label, JTextField field) {
-        add(new JLabel(label));
-        add(field);
+    public boolean mostrarDialogo(Component parent) {
+        int result = JOptionPane.showConfirmDialog(
+                parent,
+                this,
+                "Formulario de Revista",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        return result == JOptionPane.OK_OPTION;
     }
 
-    public Optional<Revista> mostrarDialogo() {
-        setVisible(true);
-        if (confirmado) {
-            try {
-                return Optional.of(new Revista(
-                        txtId.getText().isEmpty() ? 0 : Integer.parseInt(txtId.getText()),
-                        txtTitulo.getText(),
-                        txtAutor.getText(),
-                        Integer.parseInt(txtAnio.getText()),
-                        Integer.parseInt(txtEdicion.getText()),
-                        txtCategoria.getText()
-                ));
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Datos numéricos inválidos", "Error", JOptionPane.ERROR_MESSAGE);
-                return Optional.empty();
-            }
-        }
-        return Optional.empty();
+    public Revista getRevista() {
+        return new Revista(
+                0, // ID se genera al guardar
+                txtTitulo.getText(),
+                txtEditor.getText(),
+                Integer.parseInt(txtAnio.getText()),
+                Integer.parseInt(txtEdicion.getText()),
+                txtCategoria.getText()
+        );
     }
 }

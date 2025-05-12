@@ -3,80 +3,64 @@ package com.biblioteca.view;
 import com.biblioteca.model.DVD;
 import javax.swing.*;
 import java.awt.*;
-import java.util.Optional;
 
-public class DVDForm extends JDialog {
-    private final JTextField txtId = new JTextField(5);
-    private final JTextField txtTitulo = new JTextField(20);
-    private final JTextField txtAutor = new JTextField(20);
-    private final JTextField txtAnio = new JTextField(5);
-    private final JTextField txtDuracion = new JTextField(5);
-    private final JTextField txtGenero = new JTextField(15);
-    private boolean confirmado = false;
+public class DVDForm extends JPanel {
+    private JTextField txtTitulo;
+    private JTextField txtDirector;
+    private JTextField txtAnio;
+    private JTextField txtDuracion;
+    private JTextField txtGenero;
 
     public DVDForm(DVD dvd) {
-        setTitle(dvd == null ? "Nuevo DVD" : "Editar DVD");
-        setModal(true);
-        setLayout(new GridLayout(7, 2, 10, 10));
-        setSize(400, 300);
-        setLocationRelativeTo(null);
+        setLayout(new GridLayout(5, 2, 10, 10));
 
-        addField("ID:", txtId);
-        addField("Título:", txtTitulo);
-        addField("Autor:", txtAutor);
-        addField("Año:", txtAnio);
-        addField("Duración (min):", txtDuracion);
-        addField("Género:", txtGenero);
+        // Componentes del formulario
+        add(new JLabel("Título:"));
+        txtTitulo = new JTextField(20);
+        if (dvd != null) txtTitulo.setText(dvd.getTitulo());
+        add(txtTitulo);
 
-        JButton btnOk = new JButton("Guardar");
-        JButton btnCancel = new JButton("Cancelar");
+        add(new JLabel("Director:"));
+        txtDirector = new JTextField(20);
+        if (dvd != null) txtDirector.setText(dvd.getAutor());
+        add(txtDirector);
 
-        add(btnOk);
-        add(btnCancel);
+        add(new JLabel("Año:"));
+        txtAnio = new JTextField(20);
+        if (dvd != null) txtAnio.setText(String.valueOf(dvd.getAnioPublicacion()));
+        add(txtAnio);
 
-        btnOk.addActionListener(e -> {
-            confirmado = true;
-            setVisible(false);
-        });
+        add(new JLabel("Duración (min):"));
+        txtDuracion = new JTextField(20);
+        if (dvd != null) txtDuracion.setText(String.valueOf(dvd.getDuracion()));
+        add(txtDuracion);
 
-        btnCancel.addActionListener(e -> {
-            confirmado = false;
-            setVisible(false);
-        });
-
-        if (dvd != null) {
-            txtId.setText(String.valueOf(dvd.getId()));
-            txtId.setEnabled(false);
-            txtTitulo.setText(dvd.getTitulo());
-            txtAutor.setText(dvd.getAutor());
-            txtAnio.setText(String.valueOf(dvd.getAnioPublicacion()));
-            txtDuracion.setText(String.valueOf(dvd.getDuracion()));
-            txtGenero.setText(dvd.getGenero());
-        }
+        add(new JLabel("Género:"));
+        txtGenero = new JTextField(20);
+        if (dvd != null) txtGenero.setText(dvd.getGenero());
+        add(txtGenero);
     }
 
-    private void addField(String label, JTextField field) {
-        add(new JLabel(label));
-        add(field);
+    public boolean mostrarDialogo(Component parent) {
+        int result = JOptionPane.showConfirmDialog(
+                parent,
+                this,
+                "Formulario de DVD",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        return result == JOptionPane.OK_OPTION;
     }
 
-    public Optional<DVD> mostrarDialogo() {
-        setVisible(true);
-        if (confirmado) {
-            try {
-                return Optional.of(new DVD(
-                        txtId.getText().isEmpty() ? 0 : Integer.parseInt(txtId.getText()),
-                        txtTitulo.getText(),
-                        txtAutor.getText(),
-                        Integer.parseInt(txtAnio.getText()),
-                        Integer.parseInt(txtDuracion.getText()),
-                        txtGenero.getText()
-                ));
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Datos numéricos inválidos", "Error", JOptionPane.ERROR_MESSAGE);
-                return Optional.empty();
-            }
-        }
-        return Optional.empty();
+    public DVD getDVD() {
+        return new DVD(
+                0, // ID se genera al guardar
+                txtTitulo.getText(),
+                txtDirector.getText(),
+                Integer.parseInt(txtAnio.getText()),
+                Integer.parseInt(txtDuracion.getText()),
+                txtGenero.getText()
+        );
     }
 }

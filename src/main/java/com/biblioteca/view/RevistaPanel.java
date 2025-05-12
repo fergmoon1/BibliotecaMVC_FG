@@ -15,8 +15,8 @@ public class RevistaPanel extends JPanel {
     public RevistaPanel() {
         setLayout(new BorderLayout());
 
-        // Tabla
-        String[] columnNames = {"ID", "Título", "Autor", "Año", "Edición", "Categoría"};
+        // Configuración de la tabla
+        String[] columnNames = {"ID", "Título", "Editor", "Año", "Edición", "Categoría"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -28,64 +28,74 @@ public class RevistaPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
 
         // Panel de botones
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        String[] acciones = {"Agregar", "Editar", "Eliminar", "Actualizar", "Filtrar por Categoría"};
-        for (String accion : acciones) {
-            JButton btn = new JButton(accion);
-            btn.addActionListener(e -> manejarAccion(accion));
-            buttonPanel.add(btn);
-        }
+        JPanel buttonPanel = new JPanel();
+        JButton btnAgregar = new JButton("Agregar");
+        JButton btnEditar = new JButton("Editar");
+        JButton btnEliminar = new JButton("Eliminar");
+        JButton btnActualizar = new JButton("Actualizar");
+
+        buttonPanel.add(btnAgregar);
+        buttonPanel.add(btnEditar);
+        buttonPanel.add(btnEliminar);
+        buttonPanel.add(btnActualizar);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        cargarDatos();
+        // Eventos
+        btnAgregar.addActionListener(e -> {
+            RevistaForm form = new RevistaForm(null);
+            if (form.mostrarDialogo(this)) {
+                controller.agregarRevista(form.getRevista());
+                cargarRevistas();
+            }
+        });
+
+        btnEditar.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row >= 0) {
+                Revista revista = getRevistaFromRow(row);
+                RevistaForm form = new RevistaForm(revista);
+                if (form.mostrarDialogo(this)) {
+                    controller.actualizarRevista(form.getRevista());
+                    cargarRevistas();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecciona una revista para editar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+        btnEliminar.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row >= 0) {
+                int confirm = JOptionPane.showConfirmDialog(this,
+                        "¿Eliminar esta revista?", "Confirmar",
+                        JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    controller.eliminarRevista((int) tableModel.getValueAt(row, 0));
+                    cargarRevistas();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecciona una revista para eliminar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+        btnActualizar.addActionListener(e -> cargarRevistas());
+
+        cargarRevistas();
     }
 
-    private void manejarAccion(String accion) {
-        switch (accion) {
-            case "Agregar":
-                new RevistaForm(null).mostrarDialogo().ifPresent(controller::agregarRevista);
-                break;
-            case "Editar":
-                int row = table.getSelectedRow();
-                if (row >= 0) {
-                    Revista revista = getRevistaFromRow(row);
-                    new RevistaForm(revista).mostrarDialogo().ifPresent(controller::actualizarRevista);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Seleccione una revista", "Error", JOptionPane.WARNING_MESSAGE);
-                }
-                break;
-            case "Filtrar por Categoría":
-                String categoria = JOptionPane.showInputDialog(this, "Ingrese categoría:");
-                if (categoria != null && !categoria.isEmpty()) {
-                    actualizarTabla(controller.buscarRevistasPorCategoria(categoria));
-                }
-                break;
-            case "Eliminar":
-                if (table.getSelectedRow() >= 0) {
-                    int confirm = JOptionPane.showConfirmDialog(this, "¿Eliminar registro?", "Confirmar", JOptionPane.YES_NO_OPTION);
-                    if (confirm == JOptionPane.YES_OPTION) {
-                        controller.eliminarRevista((int) tableModel.getValueAt(table.getSelectedRow(), 0));
-                    }
-                }
-                break;
-        }
-        cargarDatos();
-    }
-
-    private void cargarDatos() {
-        actualizarTabla(controller.obtenerTodasLasRevistas());
-    }
-
-    private void actualizarTabla(List<Revista> revistas) {
+    private void cargarRevistas() {
         tableModel.setRowCount(0);
-        revistas.forEach(r -> tableModel.addRow(new Object[]{
-                r.getId(),
-                r.getTitulo(),
-                r.getAutor(),
-                r.getAnioPublicacion(),
-                r.getNumeroEdicion(),
-                r.getCategoria()
-        }));
+        List<Revista> revistas = controller.obtenerTodasLasRevistas();
+        for (Revista revista : revistas) {
+            tableModel.addRow(new Object[]{
+                    revista.getId(),
+                    revista.getTitulo(),
+                    revista.getAutor(),
+                    revista.getAnioPublicacion(),
+                    revista.getNumeroEdicion(),
+                    revista.getCategoria()
+            });
+        }
     }
 
     private Revista getRevistaFromRow(int row) {
