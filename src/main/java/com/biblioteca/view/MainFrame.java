@@ -1,29 +1,37 @@
-package com.biblioteca.view;
+package com.biblioteca.gui;
 
+import com.biblioteca.view.LibroPanel;
+import com.biblioteca.view.RevistaPanel;
+import com.biblioteca.view.DVDPanel;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
 
     public MainFrame() {
-        setTitle("Sistema de Biblioteca - MVC");
+        setTitle("Sistema de Biblioteca");
         setSize(1000, 700);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Crear pestañas
+        // 1. Crear el panel de pestañas
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("📚 Libros", new LibroPanel());
-        tabbedPane.addTab("📰 Revistas", new RevistaPanel());
-        tabbedPane.addTab("🎬 DVDs", new DVDPanel());
+
+        // 2. Agregar todas las pestañas
+        tabbedPane.addTab("Libros", new LibroPanel());
+        tabbedPane.addTab("Revistas", new RevistaPanel());
+        tabbedPane.addTab("DVDs", new DVDPanel());
+
+        // 3. Configurar íconos (opcional)
+        tabbedPane.setIconAt(0, new ImageIcon("src/main/resources/book.png"));
+        tabbedPane.setIconAt(1, new ImageIcon("src/main/resources/magazine.png"));
+        tabbedPane.setIconAt(2, new ImageIcon("src/main/resources/dvd.png"));
 
         add(tabbedPane);
 
-        // Menú superior
+        // Menú superior (opcional)
         JMenuBar menuBar = new JMenuBar();
         JMenu archivoMenu = new JMenu("Archivo");
-        JMenuItem salirItem = new JMenuItem("Salir");
-        salirItem.addActionListener(e -> System.exit(0));
-        archivoMenu.add(salirItem);
+        archivoMenu.add(new JMenuItem("Salir")).addActionListener(e -> System.exit(0));
         menuBar.add(archivoMenu);
         setJMenuBar(menuBar);
     }
