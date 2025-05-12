@@ -1,14 +1,14 @@
 package com.biblioteca.model;
 
-public abstract class ElementoBiblioteca {
+public class ElementoBiblioteca {
     private int id;
     private String titulo;
     private String autor;
     private int anioPublicacion;
     private String tipo;
 
-    public ElementoBiblioteca() {
-    }
+    // Constructores, getters y setters
+    public ElementoBiblioteca() {}
 
     public ElementoBiblioteca(int id, String titulo, String autor, int anioPublicacion, String tipo) {
         this.id = id;

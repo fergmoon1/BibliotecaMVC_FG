@@ -9,4 +9,5 @@ public interface RevistaDAO {
     void eliminarRevista(int id);
     Revista obtenerRevistaPorId(int id);
     List<Revista> obtenerTodasLasRevistas();
+    List<Revista> findByCategoria(String categoria); // Para búsquedas
 }

@@ -9,5 +9,5 @@ public interface LibroDAO {
     void eliminarLibro(int id);
     Libro obtenerLibroPorId(int id);
     List<Libro> obtenerTodosLosLibros();
+    List<Libro> buscarPorGenero(String genero); // ¡Nuevo método!
 }
-

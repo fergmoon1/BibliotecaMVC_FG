@@ -1,21 +1,36 @@
 package com.biblioteca.dao;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/biblioteca";
-    private static final String USER = "root";
-    private static final String PASSWORD = ""; // cambia si usas contraseña
+    private static final HikariDataSource dataSource;
 
-    public static Connection getConnection() {
+    static {
         try {
-            return DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (SQLException e) {
-            System.err.println("Error de conexión: " + e.getMessage());
-            return null;
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl("jdbc:mysql://localhost:3306/biblioteca");
+            config.setUsername("root"); // Cambia por tu usuario
+            config.setPassword("");     // Cambia por tu contraseña
+            config.setMaximumPoolSize(10);
+            config.addDataSourceProperty("cachePrepStmts", "true");
+            config.addDataSourceProperty("prepStmtCacheSize", "250");
+
+            dataSource = new HikariDataSource(config);
+            System.out.println("✅ Pool de conexiones inicializado");
+
+            // Test de conexión
+            try (Connection conn = dataSource.getConnection()) {
+                System.out.println("Conexión exitosa a: " + conn.getMetaData().getDatabaseProductName());
+            }
+        } catch (Exception e) {
+            throw new ExceptionInInitializerError("❌ Error al configurar pool: " + e.getMessage());
         }
     }
-}
 
+    public static Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
+    }
+}
