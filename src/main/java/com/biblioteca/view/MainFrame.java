@@ -1,4 +1,4 @@
-package com.biblioteca.gui;
+package com.biblioteca.view;
 
 import com.biblioteca.view.LibroPanel;
 import com.biblioteca.view.RevistaPanel;
