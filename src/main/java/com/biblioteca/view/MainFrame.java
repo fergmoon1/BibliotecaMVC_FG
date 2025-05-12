@@ -33,25 +33,38 @@ public class MainFrame extends JFrame {
         // 4. Menú superior con atajos
         JMenuBar menuBar = new JMenuBar();
 
-        // Menú de navegación
-        JMenu navegacionMenu = new JMenu("Navegación");
-        navegacionMenu.add(crearMenuItem("Libros", 0));
-        navegacionMenu.add(crearMenuItem("Revistas", 1));
-        navegacionMenu.add(crearMenuItem("DVDs", 2));
-        navegacionMenu.add(crearMenuItem("Catálogo", 3));
+// Menú de navegación como tabs (no visible en la captura pero necesario)
+        JPanel tabPanel = new JPanel();
+        tabPanel.add(new JButton("Libros"));
+        tabPanel.add(new JButton("Revistas"));
+        tabPanel.add(new JButton("DVDs"));
+        add(tabPanel, BorderLayout.NORTH);
 
         // Menú Archivo
         JMenu archivoMenu = new JMenu("Archivo");
-        archivoMenu.add(new JMenuItem("Salir")).addActionListener(e -> System.exit(0));
+        JMenuItem catalogoItem = new JMenuItem("Catálogo");
+        JMenuItem ayudaItem = new JMenuItem("Ayuda");
 
-        menuBar.add(navegacionMenu);
+        archivoMenu.add(catalogoItem);
+        archivoMenu.add(ayudaItem);
         menuBar.add(archivoMenu);
-        setJMenuBar(menuBar);
+
+        // Eventos para los ítems del menú
+        catalogoItem.addActionListener(e -> tabbedPane.setSelectedIndex(3));
+        ayudaItem.addActionListener(e -> mostrarAyuda());
     }
 
     private JMenuItem crearMenuItem(String texto, int tabIndex) {
         JMenuItem item = new JMenuItem(texto);
         item.addActionListener(e -> tabbedPane.setSelectedIndex(tabIndex));
         return item;
+    }
+
+    private void mostrarAyuda() {
+        JOptionPane.showMessageDialog(this,
+                "<html><h2>Sistema de Biblioteca</h2>"
+                        + "<p>Versión 1.0<br>© 2025</p>",
+                "Ayuda",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -8,15 +8,25 @@ import java.awt.*;
 import java.util.List;
 
 public class DVDPanel extends JPanel {
-    private final DVDController controller = new DVDController();
+    private final DVDController controller;
     private final JTable table;
     private final DefaultTableModel tableModel;
 
     public DVDPanel() {
+        this.controller = new DVDController();
         setLayout(new BorderLayout());
 
+        // Panel de búsqueda
+        JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        searchPanel.add(new JLabel("Buscar por género:"));
+        JTextField searchField = new JTextField(15);
+        JButton searchButton = new JButton("Buscar");
+        searchPanel.add(searchField);
+        searchPanel.add(searchButton);
+        add(searchPanel, BorderLayout.NORTH);
+
         // Configuración de la tabla
-        String[] columnNames = {"ID", "Título", "Director", "Año", "Duración", "Género"};
+        String[] columnNames = {"ID", "Título", "Director", "Año", "Duración (min)", "Género"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -24,11 +34,12 @@ public class DVDPanel extends JPanel {
             }
         };
         table = new JTable(tableModel);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
 
         // Panel de botones
-        JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel(new FlowLayout());
         JButton btnAgregar = new JButton("Agregar");
         JButton btnEditar = new JButton("Editar");
         JButton btnEliminar = new JButton("Eliminar");
@@ -41,11 +52,19 @@ public class DVDPanel extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
 
         // Eventos
+        searchButton.addActionListener(e -> {
+            String genero = searchField.getText();
+            if (!genero.isEmpty()) {
+                List<DVD> resultados = controller.buscarDVDsPorGenero(genero);
+                actualizarTabla(resultados);
+            }
+        });
+
         btnAgregar.addActionListener(e -> {
             DVDForm form = new DVDForm(null);
             if (form.mostrarDialogo(this)) {
                 controller.agregarDVD(form.getDVD());
-                cargarDVDs();
+                cargarDatos();
             }
         });
 
@@ -56,36 +75,50 @@ public class DVDPanel extends JPanel {
                 DVDForm form = new DVDForm(dvd);
                 if (form.mostrarDialogo(this)) {
                     controller.actualizarDVD(form.getDVD());
-                    cargarDVDs();
+                    cargarDatos();
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Selecciona un DVD para editar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "Seleccione un DVD para editar",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
             }
         });
 
         btnEliminar.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row >= 0) {
-                int confirm = JOptionPane.showConfirmDialog(this,
-                        "¿Eliminar este DVD?", "Confirmar",
+                int confirm = JOptionPane.showConfirmDialog(
+                        this,
+                        "¿Eliminar este DVD?",
+                        "Confirmar",
                         JOptionPane.YES_NO_OPTION);
+
                 if (confirm == JOptionPane.YES_OPTION) {
                     controller.eliminarDVD((int) tableModel.getValueAt(row, 0));
-                    cargarDVDs();
+                    cargarDatos();
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Selecciona un DVD para eliminar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "Seleccione un DVD para eliminar",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
             }
         });
 
-        btnActualizar.addActionListener(e -> cargarDVDs());
+        btnActualizar.addActionListener(e -> cargarDatos());
 
-        cargarDVDs();
+        // Cargar datos iniciales
+        cargarDatos();
     }
 
-    private void cargarDVDs() {
-        tableModel.setRowCount(0);
+    private void cargarDatos() {
         List<DVD> dvds = controller.obtenerTodosLosDVDs();
+        actualizarTabla(dvds);
+    }
+
+    private void actualizarTabla(List<DVD> dvds) {
+        tableModel.setRowCount(0);
         for (DVD dvd : dvds) {
             tableModel.addRow(new Object[]{
                     dvd.getId(),

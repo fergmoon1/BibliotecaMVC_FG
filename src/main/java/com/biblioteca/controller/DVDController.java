@@ -12,7 +12,7 @@ public class DVDController {
     public DVDController() {
         this.dvds = new ArrayList<>();
         this.ultimoId = 0;
-        inicializarDatosDemo(); // Datos iniciales para pruebas
+        inicializarDatosDemo();
     }
 
     private void inicializarDatosDemo() {
