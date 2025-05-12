@@ -6,11 +6,11 @@ import java.awt.*;
 
 public class DVDForm extends JDialog {
     private boolean confirmado = false;
-    private final JTextField txtTitulo;
-    private final JTextField txtDirector;
-    private final JTextField txtAnio;
-    private final JTextField txtDuracion;
-    private final JTextField txtGenero;
+    private JTextField txtTitulo;
+    private JTextField txtDirector;
+    private JTextField txtAnio;
+    private JTextField txtDuracion;
+    private JTextField txtGenero;
 
     public DVDForm(JFrame parent, DVD dvd) {
         super(parent, dvd == null ? "Nuevo DVD" : "Editar DVD", true);
@@ -29,24 +29,39 @@ public class DVDForm extends JDialog {
     private JPanel crearPanelPrincipal() {
         JPanel panel = new JPanel(new GridLayout(5, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(panel, BorderLayout.CENTER);
         return panel;
     }
 
     private void crearComponentes(JPanel panel, DVD dvd) {
-        txtTitulo = crearCampo(panel, "Título:", dvd != null ? dvd.getTitulo() : "");
-        txtDirector = crearCampo(panel, "Director:", dvd != null ? dvd.getAutor() : "");
-        txtAnio = crearCampo(panel, "Año:", dvd != null ? String.valueOf(dvd.getAnioPublicacion()) : "");
-        txtDuracion = crearCampo(panel, "Duración (min):", dvd != null ? String.valueOf(dvd.getDuracion()) : "");
-        txtGenero = crearCampo(panel, "Género:", dvd != null ? dvd.getGenero() : "");
-    }
+        // Título
+        panel.add(new JLabel("Título:"));
+        txtTitulo = new JTextField(20);
+        if (dvd != null) txtTitulo.setText(dvd.getTitulo());
+        panel.add(txtTitulo);
 
-    private JTextField crearCampo(JPanel panel, String etiqueta, String valor) {
-        panel.add(new JLabel(etiqueta));
-        JTextField campo = new JTextField(20);
-        campo.setText(valor);
-        panel.add(campo);
-        return campo;
+        // Director
+        panel.add(new JLabel("Director:"));
+        txtDirector = new JTextField(20);
+        if (dvd != null) txtDirector.setText(dvd.getAutor());
+        panel.add(txtDirector);
+
+        // Año
+        panel.add(new JLabel("Año:"));
+        txtAnio = new JTextField(20);
+        if (dvd != null) txtAnio.setText(String.valueOf(dvd.getAnioPublicacion()));
+        panel.add(txtAnio);
+
+        // Duración
+        panel.add(new JLabel("Duración (min):"));
+        txtDuracion = new JTextField(20);
+        if (dvd != null) txtDuracion.setText(String.valueOf(dvd.getDuracion()));
+        panel.add(txtDuracion);
+
+        // Género
+        panel.add(new JLabel("Género:"));
+        txtGenero = new JTextField(20);
+        if (dvd != null) txtGenero.setText(dvd.getGenero());
+        panel.add(txtGenero);
     }
 
     private void configurarBotones(JPanel panelPrincipal) {
@@ -59,6 +74,8 @@ public class DVDForm extends JDialog {
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(btnOk);
         buttonPanel.add(btnCancelar);
+
+        add(panelPrincipal, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
     }
 

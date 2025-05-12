@@ -53,63 +53,78 @@ public class DVDPanel extends JPanel {
 
         // Eventos
         searchButton.addActionListener(e -> {
-            String genero = searchField.getText();
+            String genero = searchField.getText().trim();
             if (!genero.isEmpty()) {
                 List<DVD> resultados = controller.buscarDVDsPorGenero(genero);
                 actualizarTabla(resultados);
-            }
-        });
-
-        btnAgregar.addActionListener(e -> {
-            DVDForm form = new DVDForm(null);
-            if (form.mostrarDialogo(this)) {
-                controller.agregarDVD(form.getDVD());
+            } else {
                 cargarDatos();
             }
         });
 
-        btnEditar.addActionListener(e -> {
-            int row = table.getSelectedRow();
-            if (row >= 0) {
-                DVD dvd = getDVDFromRow(row);
-                DVDForm form = new DVDForm(dvd);
-                if (form.mostrarDialogo(this)) {
-                    controller.actualizarDVD(form.getDVD());
-                    cargarDatos();
-                }
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Seleccione un DVD para editar",
-                        "Error",
-                        JOptionPane.WARNING_MESSAGE);
-            }
-        });
-
-        btnEliminar.addActionListener(e -> {
-            int row = table.getSelectedRow();
-            if (row >= 0) {
-                int confirm = JOptionPane.showConfirmDialog(
-                        this,
-                        "¿Eliminar este DVD?",
-                        "Confirmar",
-                        JOptionPane.YES_NO_OPTION);
-
-                if (confirm == JOptionPane.YES_OPTION) {
-                    controller.eliminarDVD((int) tableModel.getValueAt(row, 0));
-                    cargarDatos();
-                }
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Seleccione un DVD para eliminar",
-                        "Error",
-                        JOptionPane.WARNING_MESSAGE);
-            }
-        });
-
+        btnAgregar.addActionListener(e -> agregarDVD());
+        btnEditar.addActionListener(e -> editarDVD());
+        btnEliminar.addActionListener(e -> eliminarDVD());
         btnActualizar.addActionListener(e -> cargarDatos());
 
         // Cargar datos iniciales
         cargarDatos();
+    }
+
+    private void agregarDVD() {
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        DVDForm form = new DVDForm(parentFrame, null);
+        if (form.mostrarDialogo()) {
+            DVD nuevoDVD = form.getDVD();
+            if (nuevoDVD != null) {
+                controller.agregarDVD(nuevoDVD);
+                cargarDatos();
+            }
+        }
+    }
+
+    private void editarDVD() {
+        int row = table.getSelectedRow();
+        if (row >= 0) {
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            DVD dvdSeleccionado = getDVDFromRow(row);
+            DVDForm form = new DVDForm(parentFrame, dvdSeleccionado);
+
+            if (form.mostrarDialogo()) {
+                DVD dvdEditado = form.getDVD();
+                if (dvdEditado != null) {
+                    controller.actualizarDVD(dvdEditado);
+                    cargarDatos();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione un DVD para editar",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void eliminarDVD() {
+        int row = table.getSelectedRow();
+        if (row >= 0) {
+            int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "¿Eliminar este DVD?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                int idDVD = (int) tableModel.getValueAt(row, 0);
+                controller.eliminarDVD(idDVD);
+                cargarDatos();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione un DVD para eliminar",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     private void cargarDatos() {
