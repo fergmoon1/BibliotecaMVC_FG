@@ -70,7 +70,7 @@ public class CatalogoPanel extends JPanel {
                     libro.getId(),
                     libro.getTitulo(),
                     libro.getAutor(),
-                    libro.getAnioPublicacion(),
+                    libro.getAnio(),  // Cambiado de getAnioPublicacion() a getAnio()
                     "ISBN: " + libro.getIsbn(),
                     "Págs: " + libro.getNumeroPaginas()
             });
@@ -85,8 +85,8 @@ public class CatalogoPanel extends JPanel {
                     revista.getId(),
                     revista.getTitulo(),
                     revista.getAutor(),
-                    revista.getAnioPublicacion(),
-                    "Edición: " + revista.getNumeroEdicion(),
+                    revista.getAnio(),  // Cambiado de getAnioPublicacion() a getAnio()
+                    "Edición: " + revista.getNumero(),
                     "Categoría: " + revista.getCategoria()
             });
         }
@@ -100,7 +100,7 @@ public class CatalogoPanel extends JPanel {
                     dvd.getId(),
                     dvd.getTitulo(),
                     dvd.getAutor(),
-                    dvd.getAnioPublicacion(),
+                    dvd.getAnio(),  // Cambiado de getAnioPublicacion() a getAnio()
                     "Duración: " + dvd.getDuracion() + " min",
                     "Género: " + dvd.getGenero()
             });

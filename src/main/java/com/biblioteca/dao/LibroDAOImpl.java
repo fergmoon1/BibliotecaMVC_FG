@@ -30,7 +30,7 @@ public class LibroDAOImpl implements LibroDAO {
                 // Insertar en elemento_biblioteca
                 stmtElemento.setString(1, libro.getTitulo());
                 stmtElemento.setString(2, libro.getAutor());
-                stmtElemento.setInt(3, libro.getAnioPublicacion());
+                stmtElemento.setInt(3, libro.getAnio()); // Cambiado de getAnioPublicacion() a getAnio()
                 stmtElemento.setString(4, "LIBRO");
                 stmtElemento.executeUpdate();
 
@@ -120,7 +120,7 @@ public class LibroDAOImpl implements LibroDAO {
         libro.setId(rs.getInt("id"));
         libro.setTitulo(rs.getString("titulo"));
         libro.setAutor(rs.getString("autor"));
-        libro.setAnioPublicacion(rs.getInt("anio_publicacion"));
+        libro.setAnio(rs.getInt("anio_publicacion")); // Cambiado de setAnioPublicacion() a setAnio()
         libro.setIsbn(rs.getString("isbn"));
         libro.setNumeroPaginas(rs.getInt("numero_paginas"));
         libro.setGenero(rs.getString("genero"));
@@ -158,7 +158,7 @@ public class LibroDAOImpl implements LibroDAO {
                 // Actualizar elemento_biblioteca
                 stmtElemento.setString(1, libro.getTitulo());
                 stmtElemento.setString(2, libro.getAutor());
-                stmtElemento.setInt(3, libro.getAnioPublicacion());
+                stmtElemento.setInt(3, libro.getAnio()); // Cambiado de getAnioPublicacion() a getAnio()
                 stmtElemento.setInt(4, libro.getId());
                 stmtElemento.executeUpdate();
 

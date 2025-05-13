@@ -1,46 +1,44 @@
 package com.biblioteca.model;
 
-public class Revista extends ElementoBiblioteca {
-    private int numeroEdicion;
+public class Revista {
+    private int id;
+    private String titulo;
+    private String autor;
+    private int anio;
+    private int numero;
     private String categoria;
 
-    public Revista() {
-        super();
-        setTipo("Revista");
-    }
+    // Constructores
+    public Revista() {}
 
-    public Revista(int id, String titulo, String autor, int anioPublicacion,
-                   int numeroEdicion, String categoria) {
-        super(id, titulo, autor, anioPublicacion, "Revista");
-        this.numeroEdicion = numeroEdicion;
+    public Revista(String titulo, String autor, int anio, int numero, String categoria) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.anio = anio;
+        this.numero = numero;
         this.categoria = categoria;
     }
 
-    public int getNumeroEdicion() {
-        return numeroEdicion;
-    }
-
-    public void setNumeroEdicion(int numeroEdicion) {
-        this.numeroEdicion = numeroEdicion;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
+    public Revista(int id, String titulo, String autor, int anio, int numero, String categoria) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.anio = anio;
+        this.numero = numero;
         this.categoria = categoria;
     }
 
-    @Override
-    public String toString() {
-        return "Revista{" +
-                "id=" + getId() +
-                ", titulo='" + getTitulo() + '\'' +
-                ", autor='" + getAutor() + '\'' +
-                ", anioPublicacion=" + getAnioPublicacion() +
-                ", numeroEdicion=" + numeroEdicion +
-                ", categoria='" + categoria + '\'' +
-                '}';
-    }
+    // Getters y Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getTitulo() { return titulo; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
+    public String getAutor() { return autor; }
+    public void setAutor(String autor) { this.autor = autor; }
+    public int getAnio() { return anio; }
+    public void setAnio(int anio) { this.anio = anio; }
+    public int getNumero() { return numero; }
+    public void setNumero(int numero) { this.numero = numero; }
+    public String getCategoria() { return categoria; }
+    public void setCategoria(String categoria) { this.categoria = categoria; }
 }

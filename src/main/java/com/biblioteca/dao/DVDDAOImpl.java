@@ -29,8 +29,8 @@ public class DVDDAOImpl implements DVDDAO {
 
                 // Insertar en elemento_biblioteca
                 stmtElemento.setString(1, dvd.getTitulo());
-                stmtElemento.setString(2, dvd.getAutor());
-                stmtElemento.setInt(3, dvd.getAnioPublicacion());
+                stmtElemento.setString(2, dvd.getAutor()); // Usar getAutor()
+                stmtElemento.setInt(3, dvd.getAnio()); // Corregido a getAnio()
                 stmtElemento.setString(4, "DVD");
                 stmtElemento.executeUpdate();
 
@@ -69,8 +69,8 @@ public class DVDDAOImpl implements DVDDAO {
 
                 // Actualizar elemento_biblioteca
                 stmtElemento.setString(1, dvd.getTitulo());
-                stmtElemento.setString(2, dvd.getAutor());
-                stmtElemento.setInt(3, dvd.getAnioPublicacion());
+                stmtElemento.setString(2, dvd.getAutor()); // Usar getAutor()
+                stmtElemento.setInt(3, dvd.getAnio()); // Corregido a getAnio()
                 stmtElemento.setInt(4, dvd.getId());
                 stmtElemento.executeUpdate();
 
@@ -177,8 +177,8 @@ public class DVDDAOImpl implements DVDDAO {
         DVD dvd = new DVD();
         dvd.setId(rs.getInt("id"));
         dvd.setTitulo(rs.getString("titulo"));
-        dvd.setAutor(rs.getString("autor"));
-        dvd.setAnioPublicacion(rs.getInt("anio_publicacion"));
+        dvd.setAutor(rs.getString("autor")); // Mapear 'autor' desde la base de datos
+        dvd.setAnio(rs.getInt("anio_publicacion"));
         dvd.setDuracion(rs.getInt("duracion"));
         dvd.setGenero(rs.getString("genero"));
         return dvd;

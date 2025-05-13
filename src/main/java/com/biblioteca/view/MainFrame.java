@@ -1,70 +1,59 @@
 package com.biblioteca.view;
 
-import com.biblioteca.view.*;
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
-    private JTabbedPane tabbedPane;
 
     public MainFrame() {
+        // Configuración básica de la ventana
         setTitle("Sistema de Biblioteca");
-        setSize(1000, 700);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 600);
         setLocationRelativeTo(null);
 
-        // 1. Panel de pestañas principal
-        tabbedPane = new JTabbedPane();
+        // Crear la barra de menú
+        JMenuBar menuBar = new JMenuBar();
 
-        // 2. Agregar pestañas
+        // Menú "Archivo"
+        JMenu archivoMenu = new JMenu("Archivo");
+        JMenuItem salirItem = new JMenuItem("Salir");
+        salirItem.addActionListener(e -> System.exit(0));
+        archivoMenu.add(salirItem);
+        menuBar.add(archivoMenu);
+
+        // Menú "Ayuda"
+        JMenu ayudaMenu = new JMenu("Ayuda");
+        JMenuItem acercaDeItem = new JMenuItem("Acerca de...");
+        acercaDeItem.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this,
+                    "Sistema de Biblioteca\nVersión 1.0\nDesarrollado por xAI",
+                    "Acerca de",
+                    JOptionPane.INFORMATION_MESSAGE);
+        });
+        ayudaMenu.add(acercaDeItem);
+        menuBar.add(ayudaMenu);
+
+        // Establecer la barra de menú
+        setJMenuBar(menuBar);
+
+        // Crear el panel con pestañas
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        // Agregar los paneles de Libros, Revistas y DVDs
         tabbedPane.addTab("Libros", new LibroPanel());
         tabbedPane.addTab("Revistas", new RevistaPanel());
         tabbedPane.addTab("DVDs", new DVDPanel());
-        tabbedPane.addTab("Catálogo", new CatalogoPanel()); // Nueva pestaña
 
-        // 3. Configurar íconos
-        tabbedPane.setIconAt(0, new ImageIcon("src/main/resources/book.png"));
-        tabbedPane.setIconAt(1, new ImageIcon("src/main/resources/magazine.png"));
-        tabbedPane.setIconAt(2, new ImageIcon("src/main/resources/dvd.png"));
-        tabbedPane.setIconAt(3, new ImageIcon("src/main/resources/catalog.png"));
-
+        // Agregar el panel de pestañas a la ventana
         add(tabbedPane, BorderLayout.CENTER);
 
-        // 4. Menú superior con atajos
-        JMenuBar menuBar = new JMenuBar();
-
-// Menú de navegación como tabs (no visible en la captura pero necesario)
-        JPanel tabPanel = new JPanel();
-        tabPanel.add(new JButton("Libros"));
-        tabPanel.add(new JButton("Revistas"));
-        tabPanel.add(new JButton("DVDs"));
-        add(tabPanel, BorderLayout.NORTH);
-
-        // Menú Archivo
-        JMenu archivoMenu = new JMenu("Archivo");
-        JMenuItem catalogoItem = new JMenuItem("Catálogo");
-        JMenuItem ayudaItem = new JMenuItem("Ayuda");
-
-        archivoMenu.add(catalogoItem);
-        archivoMenu.add(ayudaItem);
-        menuBar.add(archivoMenu);
-
-        // Eventos para los ítems del menú
-        catalogoItem.addActionListener(e -> tabbedPane.setSelectedIndex(3));
-        ayudaItem.addActionListener(e -> mostrarAyuda());
+        // Hacer visible la ventana
+        setVisible(true);
     }
 
-    private JMenuItem crearMenuItem(String texto, int tabIndex) {
-        JMenuItem item = new JMenuItem(texto);
-        item.addActionListener(e -> tabbedPane.setSelectedIndex(tabIndex));
-        return item;
-    }
-
-    private void mostrarAyuda() {
-        JOptionPane.showMessageDialog(this,
-                "<html><h2>Sistema de Biblioteca</h2>"
-                        + "<p>Versión 1.0<br>© 2025</p>",
-                "Ayuda",
-                JOptionPane.INFORMATION_MESSAGE);
+    public static void main(String[] args) {
+        // Ejecutar la aplicación en el hilo de despacho de eventos
+        SwingUtilities.invokeLater(() -> new MainFrame());
     }
 }

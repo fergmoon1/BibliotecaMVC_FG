@@ -1,87 +1,72 @@
 package com.biblioteca.controller;
 
+import com.biblioteca.dao.RevistaDAO;
+import com.biblioteca.dao.RevistaDAOImpl;
 import com.biblioteca.model.Revista;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RevistaController {
-    private List<Revista> revistas;
-    private int ultimoId;
+    private final RevistaDAO revistaDAO;
 
     public RevistaController() {
-        this.revistas = new ArrayList<>();
-        this.ultimoId = 0;
-        inicializarDatosDemo(); // Datos de ejemplo (opcional)
+        this.revistaDAO = new RevistaDAOImpl();
+        inicializarDatosDemo();
     }
 
     private void inicializarDatosDemo() {
-        agregarRevista(new Revista(0, "National Geographic", "Varios Autores", 2023,
-                245, "Ciencia y Naturaleza"));
-        agregarRevista(new Revista(0, "Time", "Time USA", 2023,
-                32, "Actualidad"));
-    }
-
-    // Operaciones CRUD
-    public void agregarRevista(Revista revista) {
-        revista.setId(++ultimoId);
-        revistas.add(revista);
-    }
-
-    public List<Revista> obtenerTodasLasRevistas() {
-        return new ArrayList<>(revistas);
-    }
-
-    public Revista buscarRevistaPorId(int id) {
-        return revistas.stream()
-                .filter(r -> r.getId() == id)
-                .findFirst()
-                .orElse(null);
-    }
-
-    public void actualizarRevista(Revista revistaActualizada) {
-        Revista revistaExistente = buscarRevistaPorId(revistaActualizada.getId());
-        if (revistaExistente != null) {
-            revistaExistente.setTitulo(revistaActualizada.getTitulo());
-            revistaExistente.setAutor(revistaActualizada.getAutor());
-            revistaExistente.setAnioPublicacion(revistaActualizada.getAnioPublicacion());
-            revistaExistente.setNumeroEdicion(revistaActualizada.getNumeroEdicion());
-            revistaExistente.setCategoria(revistaActualizada.getCategoria());
+        if (revistaDAO.obtenerTodasLasRevistas().isEmpty()) {
+            cargarDatosEjemplo();
         }
     }
 
+    private void cargarDatosEjemplo() {
+        List<Revista> revistasEjemplo = List.of(
+                new Revista("National Geographic", "National Geographic Society", 2023, 5, "Ciencia"),
+                new Revista("Time", "Time USA, LLC", 2023, 12, "Actualidad"),
+                new Revista("Scientific American", "Springer Nature", 2022, 8, "Ciencia"),
+                new Revista("PC Gamer", "Future US", 2023, 3, "Tecnología"),
+                new Revista("The Economist", "The Economist Group", 2023, 15, "Economía")
+        );
+
+        revistasEjemplo.forEach(revistaDAO::agregarRevista);
+    }
+
+    // Métodos CRUD
+    public void agregarRevista(Revista revista) {
+        revistaDAO.agregarRevista(revista);
+    }
+
+    public List<Revista> obtenerTodasLasRevistas() {
+        return revistaDAO.obtenerTodasLasRevistas();
+    }
+
+    public Revista obtenerRevistaPorId(int id) {
+        return revistaDAO.obtenerRevistaPorId(id);
+    }
+
+    public void actualizarRevista(Revista revista) {
+        revistaDAO.actualizarRevista(revista);
+    }
+
     public void eliminarRevista(int id) {
-        revistas.removeIf(r -> r.getId() == id);
+        revistaDAO.eliminarRevista(id);
     }
 
     // Métodos de búsqueda
-    public List<Revista> buscarRevistasPorTitulo(String titulo) {
-        return revistas.stream()
+    public List<Revista> buscarPorTitulo(String titulo) {
+        return revistaDAO.obtenerTodasLasRevistas().stream()
                 .filter(r -> r.getTitulo().toLowerCase().contains(titulo.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
-    public List<Revista> buscarRevistasPorCategoria(String categoria) {
-        return revistas.stream()
-                .filter(r -> r.getCategoria().equalsIgnoreCase(categoria))
-                .collect(Collectors.toList());
+    public List<Revista> buscarPorCategoria(String categoria) {
+        return revistaDAO.findByCategoria(categoria);
     }
 
-    public List<Revista> buscarRevistasPorAnio(int anio) {
-        return revistas.stream()
-                .filter(r -> r.getAnioPublicacion() == anio)
-                .collect(Collectors.toList());
-    }
-
-    // Método para el catálogo unificado
-    public List<Revista> buscarRevistasConFiltro(String filtro) {
-        if (filtro == null || filtro.isEmpty()) {
-            return obtenerTodasLasRevistas();
-        }
-        return revistas.stream()
-                .filter(r -> r.getTitulo().toLowerCase().contains(filtro.toLowerCase()) ||
-                        r.getAutor().toLowerCase().contains(filtro.toLowerCase()) ||
-                        r.getCategoria().toLowerCase().contains(filtro.toLowerCase()))
+    public List<Revista> buscarPorAnio(int anio) {
+        return revistaDAO.obtenerTodasLasRevistas().stream()
+                .filter(r -> r.getAnio() == anio)
                 .collect(Collectors.toList());
     }
 }

@@ -30,7 +30,7 @@ public class RevistaDAOImpl implements RevistaDAO {
                 // Insertar en elemento_biblioteca
                 stmtElemento.setString(1, revista.getTitulo());
                 stmtElemento.setString(2, revista.getAutor());
-                stmtElemento.setInt(3, revista.getAnioPublicacion());
+                stmtElemento.setInt(3, revista.getAnio());
                 stmtElemento.setString(4, "REVISTA");
                 stmtElemento.executeUpdate();
 
@@ -41,7 +41,7 @@ public class RevistaDAOImpl implements RevistaDAO {
 
                         // Insertar en revista
                         stmtRevista.setInt(1, id);
-                        stmtRevista.setInt(2, revista.getNumeroEdicion());
+                        stmtRevista.setInt(2, revista.getNumero());
                         stmtRevista.setString(3, revista.getCategoria());
                         stmtRevista.executeUpdate();
                     }
@@ -65,7 +65,14 @@ public class RevistaDAOImpl implements RevistaDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return mapRevista(rs);
+                    Revista revista = new Revista();
+                    revista.setId(rs.getInt("id"));
+                    revista.setTitulo(rs.getString("titulo"));
+                    revista.setAutor(rs.getString("autor"));
+                    revista.setAnio(rs.getInt("anio_publicacion"));
+                    revista.setNumero(rs.getInt("numero_edicion"));
+                    revista.setCategoria(rs.getString("categoria"));
+                    return revista;
                 }
             }
         } catch (SQLException e) {
@@ -83,7 +90,14 @@ public class RevistaDAOImpl implements RevistaDAO {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                revistas.add(mapRevista(rs));
+                Revista revista = new Revista();
+                revista.setId(rs.getInt("id"));
+                revista.setTitulo(rs.getString("titulo"));
+                revista.setAutor(rs.getString("autor"));
+                revista.setAnio(rs.getInt("anio_publicacion"));
+                revista.setNumero(rs.getInt("numero_edicion"));
+                revista.setCategoria(rs.getString("categoria"));
+                revistas.add(revista);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al obtener revistas", e);
@@ -101,40 +115,20 @@ public class RevistaDAOImpl implements RevistaDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    revistas.add(mapRevista(rs));
+                    Revista revista = new Revista();
+                    revista.setId(rs.getInt("id"));
+                    revista.setTitulo(rs.getString("titulo"));
+                    revista.setAutor(rs.getString("autor"));
+                    revista.setAnio(rs.getInt("anio_publicacion"));
+                    revista.setNumero(rs.getInt("numero_edicion"));
+                    revista.setCategoria(rs.getString("categoria"));
+                    revistas.add(revista);
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error al buscar por categoría", e);
         }
         return revistas;
-    }
-
-    private Revista mapRevista(ResultSet rs) throws SQLException {
-        Revista revista = new Revista();
-        revista.setId(rs.getInt("id"));
-        revista.setTitulo(rs.getString("titulo"));
-        revista.setAutor(rs.getString("autor"));
-        revista.setAnioPublicacion(rs.getInt("anio_publicacion"));
-        revista.setNumeroEdicion(rs.getInt("numero_edicion"));
-        revista.setCategoria(rs.getString("categoria"));
-        return revista;
-    }
-
-    private void rollback(Connection conn) {
-        try {
-            if (conn != null) conn.rollback();
-        } catch (SQLException ex) {
-            throw new RuntimeException("Error al hacer rollback", ex);
-        }
-    }
-
-    private void resetAutoCommit(Connection conn) {
-        try {
-            if (conn != null) conn.setAutoCommit(true);
-        } catch (SQLException ex) {
-            throw new RuntimeException("Error al resetear autocommit", ex);
-        }
     }
 
     @Override
@@ -151,12 +145,12 @@ public class RevistaDAOImpl implements RevistaDAO {
                 // Actualizar elemento_biblioteca
                 stmtElemento.setString(1, revista.getTitulo());
                 stmtElemento.setString(2, revista.getAutor());
-                stmtElemento.setInt(3, revista.getAnioPublicacion());
+                stmtElemento.setInt(3, revista.getAnio());
                 stmtElemento.setInt(4, revista.getId());
                 stmtElemento.executeUpdate();
 
                 // Actualizar revista
-                stmtRevista.setInt(1, revista.getNumeroEdicion());
+                stmtRevista.setInt(1, revista.getNumero());
                 stmtRevista.setString(2, revista.getCategoria());
                 stmtRevista.setInt(3, revista.getId());
                 stmtRevista.executeUpdate();
@@ -197,6 +191,22 @@ public class RevistaDAOImpl implements RevistaDAO {
             throw new RuntimeException("Error al eliminar revista", e);
         } finally {
             resetAutoCommit(connection);
+        }
+    }
+
+    private void rollback(Connection conn) {
+        try {
+            if (conn != null) conn.rollback();
+        } catch (SQLException ex) {
+            throw new RuntimeException("Error al hacer rollback", ex);
+        }
+    }
+
+    private void resetAutoCommit(Connection conn) {
+        try {
+            if (conn != null) conn.setAutoCommit(true);
+        } catch (SQLException ex) {
+            throw new RuntimeException("Error al resetear autocommit", ex);
         }
     }
 }

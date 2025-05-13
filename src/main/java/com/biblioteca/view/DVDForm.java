@@ -4,146 +4,116 @@ import com.biblioteca.model.DVD;
 import javax.swing.*;
 import java.awt.*;
 
-public class DVDForm extends JDialog {
-    private boolean confirmado = false;
-    private JTextField txtTitulo;
-    private JTextField txtDirector;
-    private JTextField txtAnio;
-    private JTextField txtDuracion;
-    private JTextField txtGenero;
+public class DVDForm {
+    private JDialog dialog;
+    private JTextField txtTitulo, txtDirector, txtAnio, txtDuracion, txtGenero;
+    private DVD dvd; // Puede ser null para agregar, o un DVD existente para editar
 
-    public DVDForm(JFrame parent, DVD dvd) {
-        super(parent, dvd == null ? "Nuevo DVD" : "Editar DVD", true);
-        configurarVentana(parent);
-        JPanel panelPrincipal = crearPanelPrincipal();
-        crearComponentes(panelPrincipal, dvd);
-        configurarBotones(panelPrincipal);
+    public DVDForm(Frame parent, String title, DVD dvd) {
+        this.dvd = dvd;
+        initComponents(parent, title);
     }
 
-    private void configurarVentana(JFrame parent) {
-        setSize(400, 300);
-        setLocationRelativeTo(parent);
-        setResizable(false);
-    }
+    private void initComponents(Frame parent, String title) {
+        dialog = new JDialog(parent, title, true);
+        dialog.setLayout(new BorderLayout(10, 10));
+        dialog.setSize(400, 300);
+        dialog.setLocationRelativeTo(parent);
 
-    private JPanel crearPanelPrincipal() {
-        JPanel panel = new JPanel(new GridLayout(5, 2, 10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        return panel;
-    }
+        // Panel de formulario
+        JPanel panelForm = new JPanel(new GridLayout(5, 2, 10, 10));
+        panelForm.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-    private void crearComponentes(JPanel panel, DVD dvd) {
-        // Título
-        panel.add(new JLabel("Título:"));
-        txtTitulo = new JTextField(20);
-        if (dvd != null) txtTitulo.setText(dvd.getTitulo());
-        panel.add(txtTitulo);
+        txtTitulo = new JTextField(dvd != null ? dvd.getTitulo() : "");
+        txtDirector = new JTextField(dvd != null ? dvd.getDirector() : "");
+        txtAnio = new JTextField(dvd != null ? String.valueOf(dvd.getAnio()) : "");
+        txtDuracion = new JTextField(dvd != null ? String.valueOf(dvd.getDuracion()) : "");
+        txtGenero = new JTextField(dvd != null ? dvd.getGenero() : "");
 
-        // Director
-        panel.add(new JLabel("Director:"));
-        txtDirector = new JTextField(20);
-        if (dvd != null) txtDirector.setText(dvd.getAutor());
-        panel.add(txtDirector);
+        panelForm.add(new JLabel("Título:"));
+        panelForm.add(txtTitulo);
+        panelForm.add(new JLabel("Director:"));
+        panelForm.add(txtDirector);
+        panelForm.add(new JLabel("Año:"));
+        panelForm.add(txtAnio);
+        panelForm.add(new JLabel("Duración (min):"));
+        panelForm.add(txtDuracion);
+        panelForm.add(new JLabel("Género:"));
+        panelForm.add(txtGenero);
 
-        // Año
-        panel.add(new JLabel("Año:"));
-        txtAnio = new JTextField(20);
-        if (dvd != null) txtAnio.setText(String.valueOf(dvd.getAnioPublicacion()));
-        panel.add(txtAnio);
+        dialog.add(panelForm, BorderLayout.CENTER);
 
-        // Duración
-        panel.add(new JLabel("Duración (min):"));
-        txtDuracion = new JTextField(20);
-        if (dvd != null) txtDuracion.setText(String.valueOf(dvd.getDuracion()));
-        panel.add(txtDuracion);
-
-        // Género
-        panel.add(new JLabel("Género:"));
-        txtGenero = new JTextField(20);
-        if (dvd != null) txtGenero.setText(dvd.getGenero());
-        panel.add(txtGenero);
-    }
-
-    private void configurarBotones(JPanel panelPrincipal) {
-        JButton btnOk = new JButton("Guardar");
+        // Panel de botones
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton btnGuardar = new JButton("Guardar");
         JButton btnCancelar = new JButton("Cancelar");
 
-        btnOk.addActionListener(e -> manejarGuardar());
-        btnCancelar.addActionListener(e -> manejarCancelar());
+        btnGuardar.addActionListener(e -> {
+            try {
+                // Validar campos obligatorios
+                if (txtTitulo.getText().trim().isEmpty() ||
+                        txtDirector.getText().trim().isEmpty() ||
+                        txtAnio.getText().trim().isEmpty() ||
+                        txtDuracion.getText().trim().isEmpty() ||
+                        txtGenero.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(dialog,
+                            "Todos los campos son obligatorios",
+                            "Error de validación",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(btnOk);
-        buttonPanel.add(btnCancelar);
+                // Validar que año y duración sean números
+                int anio = Integer.parseInt(txtAnio.getText().trim());
+                int duracion = Integer.parseInt(txtDuracion.getText().trim());
 
-        add(panelPrincipal, BorderLayout.CENTER);
-        add(buttonPanel, BorderLayout.SOUTH);
-    }
+                // Crear o actualizar el DVD
+                if (dvd == null) {
+                    dvd = new DVD(
+                            txtTitulo.getText().trim(),
+                            txtDirector.getText().trim(),
+                            anio,
+                            duracion,
+                            txtGenero.getText().trim()
+                    );
+                } else {
+                    dvd.setTitulo(txtTitulo.getText().trim());
+                    dvd.setDirector(txtDirector.getText().trim());
+                    dvd.setAnio(anio);
+                    dvd.setDuracion(duracion);
+                    dvd.setGenero(txtGenero.getText().trim());
+                }
 
-    private void manejarGuardar() {
-        if (validarCampos()) {
-            confirmado = true;
-            dispose();
-        }
-    }
+                if (dvd.guardar()) {
+                    dialog.dispose();
+                    JOptionPane.showMessageDialog(dialog,
+                            "DVD " + (dvd.getId() == 0 ? "agregado" : "actualizado") + " correctamente",
+                            "Éxito",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(dialog,
+                            "Error al guardar el DVD",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(dialog,
+                        "El año y la duración deben ser números",
+                        "Error de formato",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        });
 
-    private void manejarCancelar() {
-        confirmado = false;
-        dispose();
-    }
+        btnCancelar.addActionListener(e -> dialog.dispose());
 
-    public boolean mostrarDialogo() {
-        setVisible(true);
-        return confirmado;
+        panelBotones.add(btnGuardar);
+        panelBotones.add(btnCancelar);
+        dialog.add(panelBotones, BorderLayout.SOUTH);
+
+        dialog.setVisible(true);
     }
 
     public DVD getDVD() {
-        try {
-            return new DVD(
-                    0, // ID temporal
-                    txtTitulo.getText().trim(),
-                    txtDirector.getText().trim(),
-                    Integer.parseInt(txtAnio.getText().trim()),
-                    Integer.parseInt(txtDuracion.getText().trim()),
-                    txtGenero.getText().trim()
-            );
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
-    private boolean validarCampos() {
-        if (camposVacios()) {
-            mostrarError("Todos los campos son obligatorios", "Error de validación", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-
-        if (!camposNumericosValidos()) {
-            mostrarError("Año y Duración deben ser números válidos", "Error de formato", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean camposVacios() {
-        return txtTitulo.getText().trim().isEmpty() ||
-                txtDirector.getText().trim().isEmpty() ||
-                txtAnio.getText().trim().isEmpty() ||
-                txtDuracion.getText().trim().isEmpty() ||
-                txtGenero.getText().trim().isEmpty();
-    }
-
-    private boolean camposNumericosValidos() {
-        try {
-            Integer.parseInt(txtAnio.getText().trim());
-            Integer.parseInt(txtDuracion.getText().trim());
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private void mostrarError(String mensaje, String titulo, int tipoMensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, titulo, tipoMensaje);
+        return dvd;
     }
 }

@@ -6,38 +6,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LibroController {
-    private List<Libro> libros;
-    private int ultimoId;
 
     public LibroController() {
-        this.libros = new ArrayList<>();
-        this.ultimoId = 0;
-        // Datos de ejemplo (opcional)
         inicializarDatosDemo();
     }
 
     private void inicializarDatosDemo() {
-        agregarLibro(new Libro(0, "Cien años de soledad", "Gabriel García Márquez", 1967,
-                "9780307474728", 417, "Realismo mágico", "Sudamericana"));
-        agregarLibro(new Libro(0, "El Principito", "Antoine de Saint-Exupéry", 1943,
-                "9780156012195", 96, "Fábula", "Reynal & Hitchcock"));
+        // Verificar si la base de datos está vacía antes de cargar datos de ejemplo
+        if (Libro.obtenerTodos().isEmpty()) {
+            Libro.cargarDatosEjemplo();
+        }
     }
 
     // CRUD Operations
     public void agregarLibro(Libro libro) {
-        libro.setId(++ultimoId);
-        libros.add(libro);
+        // El id se asignará automáticamente al guardar en la base de datos
+        libro.guardar();
     }
 
     public List<Libro> obtenerTodosLosLibros() {
-        return new ArrayList<>(libros);
+        return Libro.obtenerTodos();
     }
 
     public Libro buscarLibroPorId(int id) {
-        return libros.stream()
-                .filter(l -> l.getId() == id)
-                .findFirst()
-                .orElse(null);
+        return Libro.obtener(id);
     }
 
     public void actualizarLibro(Libro libroActualizado) {
@@ -45,35 +37,34 @@ public class LibroController {
         if (libroExistente != null) {
             libroExistente.setTitulo(libroActualizado.getTitulo());
             libroExistente.setAutor(libroActualizado.getAutor());
-            libroExistente.setAnioPublicacion(libroActualizado.getAnioPublicacion());
+            libroExistente.setAnio(libroActualizado.getAnio());
             libroExistente.setIsbn(libroActualizado.getIsbn());
             libroExistente.setNumeroPaginas(libroActualizado.getNumeroPaginas());
             libroExistente.setGenero(libroActualizado.getGenero());
             libroExistente.setEditorial(libroActualizado.getEditorial());
+            libroExistente.guardar();
         }
     }
 
     public void eliminarLibro(int id) {
-        libros.removeIf(l -> l.getId() == id);
+        Libro.eliminar(id);
     }
 
     // Métodos adicionales para filtrado (usados por CatalogoPanel)
     public List<Libro> buscarLibrosPorTitulo(String titulo) {
-        return libros.stream()
+        return obtenerTodosLosLibros().stream()
                 .filter(l -> l.getTitulo().toLowerCase().contains(titulo.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
     public List<Libro> buscarLibrosPorAutor(String autor) {
-        return libros.stream()
+        return obtenerTodosLosLibros().stream()
                 .filter(l -> l.getAutor().toLowerCase().contains(autor.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
     public List<Libro> buscarLibrosPorGenero(String genero) {
-        return libros.stream()
-                .filter(l -> l.getGenero().equalsIgnoreCase(genero))
-                .collect(Collectors.toList());
+        return Libro.buscarPorGenero(genero);
     }
 
     // Método especial para el catálogo
@@ -81,7 +72,7 @@ public class LibroController {
         if (filtro == null || filtro.isEmpty()) {
             return obtenerTodosLosLibros();
         }
-        return libros.stream()
+        return obtenerTodosLosLibros().stream()
                 .filter(l -> l.getTitulo().toLowerCase().contains(filtro.toLowerCase()) ||
                         l.getAutor().toLowerCase().contains(filtro.toLowerCase()) ||
                         l.getGenero().toLowerCase().contains(filtro.toLowerCase()))

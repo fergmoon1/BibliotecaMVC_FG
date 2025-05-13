@@ -32,8 +32,8 @@ public class RevistaForm extends JDialog {
         if (revista != null) {
             txtTitulo.setText(revista.getTitulo());
             txtEditor.setText(revista.getAutor());
-            txtAnio.setText(String.valueOf(revista.getAnioPublicacion()));
-            txtEdicion.setText(String.valueOf(revista.getNumeroEdicion()));
+            txtAnio.setText(String.valueOf(revista.getAnio()));
+            txtEdicion.setText(String.valueOf(revista.getNumero()));
             txtCategoria.setText(revista.getCategoria());
         }
     }

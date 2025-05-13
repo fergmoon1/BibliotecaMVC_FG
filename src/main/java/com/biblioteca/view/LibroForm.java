@@ -63,7 +63,7 @@ public class LibroForm extends JDialog {
             txtId.setEnabled(false); // ID no editable al editar
             txtTitulo.setText(libro.getTitulo());
             txtAutor.setText(libro.getAutor());
-            txtAnio.setText(String.valueOf(libro.getAnioPublicacion()));
+            txtAnio.setText(String.valueOf(libro.getAnio()));
             txtIsbn.setText(libro.getIsbn());
             txtPaginas.setText(String.valueOf(libro.getNumeroPaginas()));
             txtGenero.setText(libro.getGenero());
