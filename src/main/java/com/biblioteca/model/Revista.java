@@ -1,22 +1,18 @@
 package com.biblioteca.model;
 
 public class Revista extends ElementoBiblioteca {
-    private int id;  // PK y FK según DER
     private int numeroEdicion;
     private String categoria;
 
-    public Revista(int id, String titulo, String autor, int anioPublicacion,
+    // Constructor - Nota: No incluye autor como parámetro
+    public Revista(int id, String titulo, int anoPublicacion,
                    int numeroEdicion, String categoria) {
-        super(id, titulo, autor, anioPublicacion, "Revista");
-        this.id = id;
+        super(id, titulo, null, anoPublicacion); // Autor se pasa como null
         this.numeroEdicion = numeroEdicion;
         this.categoria = categoria;
     }
 
-    public int getId() {
-        return id;
-    }
-
+    // Getters y Setters
     public int getNumeroEdicion() {
         return numeroEdicion;
     }
@@ -33,10 +29,22 @@ public class Revista extends ElementoBiblioteca {
         this.categoria = categoria;
     }
 
+    // Implementación del método abstracto
     @Override
-    public String toString() {
-        return super.toString() +
-                ", Número Edición: " + numeroEdicion +
-                ", Categoría: " + categoria;
+    public String getInfoEspecifica() {
+        return "Número de edición: " + numeroEdicion +
+                "\nCategoría: " + categoria;
+    }
+
+    // Método para mostrar información en formato de tabla
+    public Object[] toTableRow() {
+        return new Object[]{
+                getId(),
+                getTitulo(),
+                "-", // Autor no aplica para revistas
+                getAnoPublicacion(),
+                "-", // Duración no aplica
+                getCategoria() // Usamos categoría como género en la tabla
+        };
     }
 }

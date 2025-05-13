@@ -17,7 +17,14 @@
   </properties>
 
   <dependencies>
-    <!-- HikariCP -->
+    <!-- Java Swing (incluye AWT) -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-swing</artifactId>
+      <version>17.0.2</version>
+    </dependency>
+
+    <!-- HikariCP (solo una vez) -->
     <dependency>
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
@@ -29,12 +36,6 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.28</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.zaxxer</groupId>
-      <artifactId>HikariCP</artifactId>
-      <version>5.0.1</version>
     </dependency>
 
     <!-- JUnit 5 -->
@@ -51,7 +52,6 @@
       <scope>test</scope>
     </dependency>
 
-
     <!-- Logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -64,7 +64,6 @@
       <version>1.2.11</version>
     </dependency>
   </dependencies>
-
 
   <build>
     <plugins>

@@ -1,23 +1,18 @@
 package com.biblioteca.model;
 
 public class DVD extends ElementoBiblioteca {
-    private int id;  // PK y FK según DER
-    private int duracion;  // en minutos
+    private int duracion; // en minutos
     private String genero;
 
-    public DVD(int id, String titulo, String autor, int anioPublicacion,
+    // Constructor
+    public DVD(int id, String titulo, String autor, int anoPublicacion,
                int duracion, String genero) {
-        super(id, titulo, autor, anioPublicacion, "DVD");
-        this.id = id;
+        super(id, titulo, autor, anoPublicacion);
         this.duracion = duracion;
         this.genero = genero;
     }
 
     // Getters y Setters
-    public int getId() {
-        return id;
-    }
-
     public int getDuracion() {
         return duracion;
     }
@@ -34,10 +29,29 @@ public class DVD extends ElementoBiblioteca {
         this.genero = genero;
     }
 
+    // Implementación del método abstracto
     @Override
-    public String toString() {
-        return super.toString() +
-                ", Duración: " + duracion + " mins" +
-                ", Género: " + genero;
+    public String getInfoEspecifica() {
+        return "Duración: " + duracion + " minutos" +
+                "\nGénero: " + genero;
+    }
+
+    // Método para mostrar información en formato de tabla
+    public Object[] toTableRow() {
+        return new Object[]{
+                getId(),
+                getTitulo(),
+                getAutor(),
+                getAnoPublicacion(),
+                getDuracion(),
+                getGenero()
+        };
+    }
+
+    // Método para formatear la duración en horas y minutos
+    public String getDuracionFormateada() {
+        int horas = duracion / 60;
+        int minutos = duracion % 60;
+        return String.format("%dh %02dm", horas, minutos);
     }
 }

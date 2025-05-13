@@ -1,27 +1,22 @@
 package com.biblioteca.model;
 
 public class Libro extends ElementoBiblioteca {
-    private int id;
     private String isbn;
     private int numeroPaginas;
     private String genero;
     private String editorial;
 
-    public Libro(int id, String titulo, String autor, int anioPublicacion,
+    // Constructor
+    public Libro(int id, String titulo, String autor, int anoPublicacion,
                  String isbn, int numeroPaginas, String genero, String editorial) {
-        super(id, titulo, autor, anioPublicacion, "Libro");
-        this.id = id;
+        super(id, titulo, autor, anoPublicacion);
         this.isbn = isbn;
         this.numeroPaginas = numeroPaginas;
         this.genero = genero;
         this.editorial = editorial;
     }
 
-    // Getters y setters...
-    public int getId() {
-        return id;
-    }
-
+    // Getters y Setters
     public String getIsbn() {
         return isbn;
     }
@@ -54,12 +49,24 @@ public class Libro extends ElementoBiblioteca {
         this.editorial = editorial;
     }
 
+    // Implementación del método abstracto
     @Override
-    public String toString() {
-        return super.toString() +
-                ", ISBN: " + isbn +
-                ", Páginas: " + numeroPaginas +
-                ", Género: " + genero +
-                ", Editorial: " + editorial;
+    public String getInfoEspecifica() {
+        return "ISBN: " + isbn +
+                "\nNúmero de páginas: " + numeroPaginas +
+                "\nGénero: " + genero +
+                "\nEditorial: " + editorial;
+    }
+
+    // Método para mostrar información en formato de tabla
+    public Object[] toTableRow() {
+        return new Object[]{
+                getId(),
+                getTitulo(),
+                getAutor(),
+                getAnoPublicacion(),
+                "-", // Espacio para duración (no aplica a libros)
+                getGenero()
+        };
     }
 }
