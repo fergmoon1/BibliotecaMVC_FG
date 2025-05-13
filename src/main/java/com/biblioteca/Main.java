@@ -1,6 +1,5 @@
 package com.biblioteca;
 
-import com.biblioteca.view.MainFrame;
 import javax.swing.*;
 
 public class Main {

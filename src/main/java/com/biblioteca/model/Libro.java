@@ -1,6 +1,5 @@
 package com.biblioteca.model;
 
-import com.biblioteca.dao.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
