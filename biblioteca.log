@@ -14,3 +14,9 @@
 [2025-05-15 07:05:14] [INFO] Lista de elementos obtenida. Total: 7
 [2025-05-15 07:05:14] [INFO] Búsqueda por género 'Ficción' realizada. Elementos encontrados: 0
 [2025-05-15 07:19:10] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 07:24:16] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 07:24:16] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Unknown column 'id_dvd' in 'where clause'
+[2025-05-15 07:24:16] [ERROR] Error al cargar los datos en la vista | Causa: Error al obtener todos los elementos: Error al leer elemento: Unknown column 'id_dvd' in 'where clause'
+[2025-05-15 07:25:06] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Unknown column 'id_dvd' in 'where clause'
+[2025-05-15 07:25:06] [ERROR] Error al buscar por género: Ficción | Causa: Error al obtener todos los elementos: Error al leer elemento: Unknown column 'id_dvd' in 'where clause'
+[2025-05-15 07:25:19] [INFO] Conexión a la base de datos cerrada
