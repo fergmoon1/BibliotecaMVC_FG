@@ -1,13 +1,15 @@
-package modelo;
+package com.biblioteca.model;
 
 public abstract class ElementoBiblioteca {
-    protected int id;
-    protected String titulo;
-    protected String autor;
-    protected int anoPublicacion;
-    protected String tipo; // "Libro", "Revista" o "DVD"
+    private int id;
+    private String titulo;
+    private String autor;
+    private int anoPublicacion;
+    private String tipo;
 
-    // Constructor
+    public ElementoBiblioteca() {
+    }
+
     public ElementoBiblioteca(int id, String titulo, String autor, int anoPublicacion, String tipo) {
         this.id = id;
         this.titulo = titulo;
@@ -16,9 +18,12 @@ public abstract class ElementoBiblioteca {
         this.tipo = tipo;
     }
 
-    // Getters y Setters
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -49,6 +54,7 @@ public abstract class ElementoBiblioteca {
         return tipo;
     }
 
-    // Método abstracto para mostrar información específica
-    public abstract String obtenerInformacionEspecifica();
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 }
