@@ -1,0 +1,16 @@
+[2025-05-15 07:03:55] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 07:03:55] [INFO] Lista de elementos obtenida. Total: 7
+[2025-05-15 07:03:55] [INFO] Datos cargados en la vista. Total de elementos: 7
+[2025-05-15 07:04:27] [INFO] Lista de elementos obtenida. Total: 7
+[2025-05-15 07:04:27] [INFO] Búsqueda por género 'fantasia' realizada. Elementos encontrados: 0
+[2025-05-15 07:04:29] [INFO] Lista de elementos obtenida. Total: 7
+[2025-05-15 07:04:29] [INFO] Búsqueda por género 'fantasia' realizada. Elementos encontrados: 0
+[2025-05-15 07:04:30] [INFO] Lista de elementos obtenida. Total: 7
+[2025-05-15 07:04:30] [INFO] Búsqueda por género 'fantasia' realizada. Elementos encontrados: 0
+[2025-05-15 07:05:07] [INFO] Lista de elementos obtenida. Total: 7
+[2025-05-15 07:05:07] [INFO] Búsqueda por género 'ficcion' realizada. Elementos encontrados: 0
+[2025-05-15 07:05:13] [INFO] Lista de elementos obtenida. Total: 7
+[2025-05-15 07:05:13] [INFO] Búsqueda por género 'Ficción' realizada. Elementos encontrados: 0
+[2025-05-15 07:05:14] [INFO] Lista de elementos obtenida. Total: 7
+[2025-05-15 07:05:14] [INFO] Búsqueda por género 'Ficción' realizada. Elementos encontrados: 0
+[2025-05-15 07:19:10] [INFO] Conexión a la base de datos cerrada
