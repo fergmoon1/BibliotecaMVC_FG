@@ -157,7 +157,6 @@ public class BibliotecaView extends JFrame {
         form.setVisible(true);
         if (form.isConfirmed()) {
             try {
-                int id = form.getId();
                 String tipo = form.getTipo();
                 String titulo = form.getTitulo();
                 String autor = form.getAutor();
@@ -168,21 +167,21 @@ public class BibliotecaView extends JFrame {
                     int paginas = form.getNumeroPaginas();
                     String genero = form.getGeneroLibro();
                     String editorial = form.getEditorial();
-                    Libro libro = controller.crearLibro(id, titulo, autor, ano, tipo, isbn, paginas, genero, editorial);
+                    Libro libro = controller.crearLibro(titulo, autor, ano, tipo, isbn, paginas, genero, editorial);
                     controller.agregarElemento(libro);
                 } else if ("Revista".equalsIgnoreCase(tipo)) {
                     int edicion = form.getNumeroEdicion();
                     String categoria = form.getCategoria();
-                    Revista revista = controller.crearRevista(id, titulo, autor, ano, tipo, edicion, categoria);
+                    Revista revista = controller.crearRevista(titulo, autor, ano, tipo, edicion, categoria);
                     controller.agregarElemento(revista);
                 } else if ("DVD".equalsIgnoreCase(tipo)) {
                     int duracion = form.getDuracion();
                     String genero = form.getGeneroDVD();
-                    DVD dvd = controller.crearDVD(id, titulo, autor, ano, tipo, duracion, genero);
+                    DVD dvd = controller.crearDVD(titulo, autor, ano, tipo, duracion, genero);
                     controller.agregarElemento(dvd);
                 }
                 loadData();
-                Logger.logInfo("Elemento agregado desde la vista. ID: " + id + ", Tipo: " + tipo);
+                Logger.logInfo("Elemento agregado desde la vista.");
             } catch (NumberFormatException e) {
                 Logger.logError("Error al agregar elemento: valor numérico inválido", e);
                 JOptionPane.showMessageDialog(this, "Error: Ingresa un valor numérico válido.", "Error", JOptionPane.ERROR_MESSAGE);

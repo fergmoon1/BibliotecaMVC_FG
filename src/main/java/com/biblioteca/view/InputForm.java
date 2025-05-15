@@ -37,12 +37,12 @@ public class InputForm extends JDialog {
         UIConfig.configurePanel(formPanel);
 
         // Campos comunes
-        JLabel lblId = new JLabel("ID:");
+        /*JLabel lblId = new JLabel("ID:");
         UIConfig.configureLabel(lblId);
         txtId = new JTextField();
         UIConfig.configureTextField(txtId);
         formPanel.add(lblId);
-        formPanel.add(txtId);
+        formPanel.add(txtId);*/
 
         JLabel lblTipo = new JLabel("Tipo:");
         UIConfig.configureLabel(lblTipo);
@@ -160,8 +160,6 @@ public class InputForm extends JDialog {
 
     private void cargarDatos() {
         if (elemento != null) {
-            txtId.setText(String.valueOf(elemento.getId()));
-            txtId.setEditable(false); // No permitir editar el ID al editar
             comboTipo.setSelectedItem(elemento.getTipo());
             comboTipo.setEnabled(false); // No permitir cambiar el tipo al editar
             txtTitulo.setText(elemento.getTitulo());
@@ -190,8 +188,10 @@ public class InputForm extends JDialog {
         return isConfirmed;
     }
 
+    //@Override
     public int getId() {
-        return Integer.parseInt(txtId.getText());
+        // Generar un ID predeterminado o lanzar una excepción si se requiere
+        throw new UnsupportedOperationException("El ID es generado automáticamente por la base de datos.");
     }
 
     public String getTipo() {

@@ -84,34 +84,29 @@ public class BibliotecaController {
         }
     }
 
-    public Libro crearLibro(int id, String titulo, String autor, int anoPublicacion, String tipo,
-                            String isbn, int numeroPaginas, String genero, String editorial) throws BibliotecaException {
-        if (id <= 0) throw new BibliotecaException("El ID debe ser un número positivo.");
+    public Libro crearLibro(String titulo, String autor, int anoPublicacion, String tipo, String isbn,
+                            int numeroPaginas, String genero, String editorial) throws BibliotecaException {
         if (numeroPaginas <= 0) throw new BibliotecaException("El número de páginas debe ser un número positivo.");
-        return new Libro(id, titulo, autor, anoPublicacion, tipo, isbn, numeroPaginas, genero, editorial);
+        return new Libro(0, titulo, autor, anoPublicacion, tipo, isbn, numeroPaginas, genero, editorial);
     }
 
-    public Revista crearRevista(int id, String titulo, String autor, int anoPublicacion, String tipo,
+    public Revista crearRevista(String titulo, String autor, int anoPublicacion, String tipo,
                                 int numeroEdicion, String categoria) throws BibliotecaException {
-        if (id <= 0) throw new BibliotecaException("El ID debe ser un número positivo.");
         if (numeroEdicion <= 0) throw new BibliotecaException("El número de edición debe ser un número positivo.");
-        return new Revista(id, titulo, autor, anoPublicacion, tipo, numeroEdicion, categoria);
+        return new Revista(0, titulo, autor, anoPublicacion, tipo, numeroEdicion, categoria);
     }
 
-    public DVD crearDVD(int id, String titulo, String autor, int anoPublicacion, String tipo,
+    public DVD crearDVD(String titulo, String autor, int anoPublicacion, String tipo,
                         int duracion, String genero) throws BibliotecaException {
-        if (id <= 0) throw new BibliotecaException("El ID debe ser un número positivo.");
         if (duracion <= 0) throw new BibliotecaException("La duración debe ser un número positivo.");
-        return new DVD(id, titulo, autor, anoPublicacion, tipo, duracion, genero);
+        return new DVD(0, titulo, autor, anoPublicacion, tipo, duracion, genero);
     }
 
     private void validarElemento(ElementoBiblioteca elemento) throws BibliotecaException {
         if (elemento == null) {
             throw new BibliotecaException("El elemento no puede ser nulo.");
         }
-        if (elemento.getId() <= 0) {
-            throw new BibliotecaException("El ID debe ser un número positivo.");
-        }
+
         if (elemento.getTitulo() == null || elemento.getTitulo().trim().isEmpty()) {
             throw new BibliotecaException("El título no puede estar vacío.");
         }

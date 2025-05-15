@@ -20,3 +20,219 @@
 [2025-05-15 07:25:06] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Unknown column 'id_dvd' in 'where clause'
 [2025-05-15 07:25:06] [ERROR] Error al buscar por género: Ficción | Causa: Error al obtener todos los elementos: Error al leer elemento: Unknown column 'id_dvd' in 'where clause'
 [2025-05-15 07:25:19] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 07:49:13] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 07:49:13] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Unknown column 'id_dvd' in 'where clause'
+[2025-05-15 07:49:13] [ERROR] Error al cargar los datos en la vista | Causa: Error al obtener todos los elementos: Error al leer elemento: Unknown column 'id_dvd' in 'where clause'
+[2025-05-15 07:49:44] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Unknown column 'id_dvd' in 'where clause'
+[2025-05-15 07:49:44] [ERROR] Error al buscar por género:  | Causa: Error al obtener todos los elementos: Error al leer elemento: Unknown column 'id_dvd' in 'where clause'
+[2025-05-15 07:57:55] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 07:58:44] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 07:58:44] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Unknown column 'id_libro' in 'where clause'
+[2025-05-15 07:58:44] [ERROR] Error al cargar los datos en la vista | Causa: Error al obtener todos los elementos: Error al leer elemento: Unknown column 'id_libro' in 'where clause'
+[2025-05-15 07:59:16] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 07:59:22] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 07:59:22] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Unknown column 'id_libro' in 'where clause'
+[2025-05-15 07:59:22] [ERROR] Error al cargar los datos en la vista | Causa: Error al obtener todos los elementos: Error al leer elemento: Unknown column 'id_libro' in 'where clause'
+[2025-05-15 08:00:03] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Unknown column 'id_libro' in 'where clause'
+[2025-05-15 08:00:03] [ERROR] Error al buscar por género: Ficcion | Causa: Error al obtener todos los elementos: Error al leer elemento: Unknown column 'id_libro' in 'where clause'
+[2025-05-15 08:09:19] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 08:32:15] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 08:32:15] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Column 'ano_publicacion' not found.
+[2025-05-15 08:32:15] [ERROR] Error al cargar los datos en la vista | Causa: Error al obtener todos los elementos: Error al leer elemento: Column 'ano_publicacion' not found.
+[2025-05-15 09:21:29] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 09:22:41] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 09:22:41] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Column 'ano_publicacion' not found.
+[2025-05-15 09:22:41] [ERROR] Error al cargar los datos en la vista | Causa: Error al obtener todos los elementos: Error al leer elemento: Column 'ano_publicacion' not found.
+[2025-05-15 09:25:28] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 09:25:48] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 09:25:49] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Column 'numero_paginas' not found.
+[2025-05-15 09:25:49] [ERROR] Error al cargar los datos en la vista | Causa: Error al obtener todos los elementos: Error al leer elemento: Column 'numero_paginas' not found.
+[2025-05-15 09:27:38] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 09:27:57] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 09:27:57] [INFO] Lista de elementos obtenida. Total: 2
+[2025-05-15 09:27:57] [INFO] Datos cargados en la vista. Total de elementos: 2
+[2025-05-15 09:28:39] [INFO] Lista de elementos obtenida. Total: 2
+[2025-05-15 09:28:39] [INFO] Búsqueda por género 'Ficción' realizada. Elementos encontrados: 0
+[2025-05-15 09:28:46] [INFO] Lista de elementos obtenida. Total: 2
+[2025-05-15 09:28:46] [INFO] Búsqueda por género 'Realismo Mágico' realizada. Elementos encontrados: 1
+[2025-05-15 09:55:56] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 09:56:40] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 09:56:40] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Column 'numero_edicion' not found.
+[2025-05-15 09:56:40] [ERROR] Error al cargar los datos en la vista | Causa: Error al obtener todos los elementos: Error al leer elemento: Column 'numero_edicion' not found.
+[2025-05-15 10:00:38] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 10:00:46] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 10:00:46] [INFO] Lista de elementos obtenida. Total: 21
+[2025-05-15 10:00:46] [INFO] Datos cargados en la vista. Total de elementos: 21
+[2025-05-15 10:02:49] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 10:06:40] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 10:06:40] [INFO] Lista de elementos obtenida. Total: 21
+[2025-05-15 10:06:40] [INFO] Datos cargados en la vista. Total de elementos: 21
+[2025-05-15 10:06:44] [INFO] Lista de elementos obtenida. Total: 21
+[2025-05-15 10:06:44] [INFO] Datos cargados en la vista. Total de elementos: 21
+[2025-05-15 10:06:53] [ERROR] Error al eliminar elemento con ID: 21 | Causa: Error al eliminar elemento: Cannot delete or update a parent row: a foreign key constraint fails (`biblioteca`.`dvd`, CONSTRAINT `dvd_ibfk_1` FOREIGN KEY (`id_dvd`) REFERENCES `elementobiblioteca` (`id`))
+[2025-05-15 10:06:53] [ERROR] Error al eliminar elemento con ID: 21 | Causa: Error al eliminar elemento: Error al eliminar elemento: Cannot delete or update a parent row: a foreign key constraint fails (`biblioteca`.`dvd`, CONSTRAINT `dvd_ibfk_1` FOREIGN KEY (`id_dvd`) REFERENCES `elementobiblioteca` (`id`))
+[2025-05-15 10:10:37] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 10:10:47] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 10:10:47] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Column 'numero_edicion' not found.
+[2025-05-15 10:10:47] [ERROR] Error al cargar los datos en la vista | Causa: Error al obtener todos los elementos: Error al leer elemento: Column 'numero_edicion' not found.
+[2025-05-15 10:12:45] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 10:16:40] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 10:16:40] [ERROR] Error al obtener todos los elementos | Causa: Error al leer elemento: Column 'numero_edicion' not found.
+[2025-05-15 10:16:40] [ERROR] Error al cargar los datos en la vista | Causa: Error al obtener todos los elementos: Error al leer elemento: Column 'numero_edicion' not found.
+[2025-05-15 10:19:19] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 10:19:47] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 10:19:47] [INFO] Lista de elementos obtenida. Total: 21
+[2025-05-15 10:19:47] [INFO] Datos cargados en la vista. Total de elementos: 21
+[2025-05-15 10:20:58] [INFO] Elemento eliminado con ID: 21
+[2025-05-15 10:20:58] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 10:20:58] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 10:20:58] [INFO] Elemento eliminado desde la vista. ID: 21
+[2025-05-15 10:21:02] [INFO] Intento de edición fallido: no se seleccionó ningún elemento
+[2025-05-15 10:21:06] [INFO] Elemento encontrado con ID: 20
+[2025-05-15 10:21:51] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 10:21:51] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 10:21:57] [INFO] Elemento encontrado con ID: 20
+[2025-05-15 10:22:08] [INFO] Elemento actualizado con ID: 20, Tipo: DVD
+[2025-05-15 10:22:08] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 10:22:08] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 10:22:08] [INFO] Elemento editado desde la vista. ID: 20
+[2025-05-15 10:22:18] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 10:22:18] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 10:22:21] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 10:22:21] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 10:22:22] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 10:22:22] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 10:22:33] [INFO] Elemento encontrado con ID: 20
+[2025-05-15 10:23:15] [INFO] Elemento actualizado con ID: 20, Tipo: DVD
+[2025-05-15 10:23:15] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 10:23:15] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 10:23:15] [INFO] Elemento editado desde la vista. ID: 20
+[2025-05-15 10:23:17] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 10:23:17] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 10:23:30] [INFO] Elemento encontrado con ID: 7
+[2025-05-15 10:23:43] [INFO] Elemento actualizado con ID: 7, Tipo: Libro
+[2025-05-15 10:23:43] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 10:23:43] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 10:23:43] [INFO] Elemento editado desde la vista. ID: 7
+[2025-05-15 10:23:44] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 10:23:44] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 10:23:46] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 10:23:46] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 10:24:54] [ERROR] Error al agregar elemento con ID: 8 | Causa: Error al crear elemento: Duplicate entry '8' for key 'elementobiblioteca.PRIMARY'
+[2025-05-15 10:24:54] [ERROR] Error al agregar elemento desde la vista | Causa: Error al agregar elemento: Error al crear elemento: Duplicate entry '8' for key 'elementobiblioteca.PRIMARY'
+[2025-05-15 10:26:28] [ERROR] Error al agregar elemento: valor numérico inválido | Causa: For input string: ""
+[2025-05-15 10:27:20] [ERROR] Error al agregar elemento con ID: 8 | Causa: Error al crear elemento: Duplicate entry '8' for key 'elementobiblioteca.PRIMARY'
+[2025-05-15 10:27:20] [ERROR] Error al agregar elemento desde la vista | Causa: Error al agregar elemento: Error al crear elemento: Duplicate entry '8' for key 'elementobiblioteca.PRIMARY'
+[2025-05-15 10:30:08] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 10:30:17] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 10:30:18] [INFO] Lista de elementos obtenida. Total: 21
+[2025-05-15 10:30:18] [INFO] Datos cargados en la vista. Total de elementos: 21
+[2025-05-15 10:30:54] [INFO] Elemento encontrado con ID: 21
+[2025-05-15 10:31:26] [INFO] Elemento actualizado con ID: 21, Tipo: DVD
+[2025-05-15 10:31:26] [INFO] Lista de elementos obtenida. Total: 21
+[2025-05-15 10:31:26] [INFO] Datos cargados en la vista. Total de elementos: 21
+[2025-05-15 10:31:26] [INFO] Elemento editado desde la vista. ID: 21
+[2025-05-15 10:32:16] [ERROR] Error al agregar elemento: valor numérico inválido | Causa: For input string: ""
+[2025-05-15 10:50:23] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 10:52:06] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 10:52:06] [INFO] Lista de elementos obtenida. Total: 21
+[2025-05-15 10:52:06] [INFO] Datos cargados en la vista. Total de elementos: 21
+[2025-05-15 11:46:07] [INFO] Elemento encontrado con ID: 21
+[2025-05-15 11:46:13] [INFO] Elemento actualizado con ID: 21, Tipo: DVD
+[2025-05-15 11:46:13] [INFO] Lista de elementos obtenida. Total: 21
+[2025-05-15 11:46:13] [INFO] Datos cargados en la vista. Total de elementos: 21
+[2025-05-15 11:46:13] [INFO] Elemento editado desde la vista. ID: 21
+[2025-05-15 11:46:18] [INFO] Lista de elementos obtenida. Total: 21
+[2025-05-15 11:46:18] [INFO] Datos cargados en la vista. Total de elementos: 21
+[2025-05-15 11:46:51] [ERROR] Error al agregar elemento: valor numérico inválido | Causa: For input string: ""
+[2025-05-15 12:53:27] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 12:54:08] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 12:54:09] [INFO] Lista de elementos obtenida. Total: 21
+[2025-05-15 12:54:09] [INFO] Datos cargados en la vista. Total de elementos: 21
+[2025-05-15 12:54:38] [INFO] Elemento eliminado con ID: 21
+[2025-05-15 12:54:38] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 12:54:38] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 12:54:38] [INFO] Elemento eliminado desde la vista. ID: 21
+[2025-05-15 13:00:39] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 13:14:05] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 13:14:06] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 13:14:06] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 13:20:42] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 13:21:16] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 13:21:16] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 13:21:16] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 13:22:09] [ERROR] Error al agregar elemento desde la vista | Causa: El ID debe ser un número positivo.
+[2025-05-15 13:25:33] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 13:48:42] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 13:48:42] [INFO] Lista de elementos obtenida. Total: 20
+[2025-05-15 13:48:42] [INFO] Datos cargados en la vista. Total de elementos: 20
+[2025-05-15 13:49:13] [ERROR] Error al agregar elemento: valor numérico inválido | Causa: For input string: ""
+[2025-05-15 13:50:33] [INFO] Elemento agregado con ID: 22, Tipo: Libro
+[2025-05-15 13:50:33] [INFO] Lista de elementos obtenida. Total: 21
+[2025-05-15 13:50:33] [INFO] Datos cargados en la vista. Total de elementos: 21
+[2025-05-15 13:50:33] [INFO] Elemento agregado desde la vista.
+[2025-05-15 13:51:14] [INFO] Elemento agregado con ID: 23, Tipo: Revista
+[2025-05-15 13:51:14] [INFO] Lista de elementos obtenida. Total: 22
+[2025-05-15 13:51:14] [INFO] Datos cargados en la vista. Total de elementos: 22
+[2025-05-15 13:51:14] [INFO] Elemento agregado desde la vista.
+[2025-05-15 13:51:59] [INFO] Elemento agregado con ID: 24, Tipo: DVD
+[2025-05-15 13:51:59] [INFO] Lista de elementos obtenida. Total: 23
+[2025-05-15 13:51:59] [INFO] Datos cargados en la vista. Total de elementos: 23
+[2025-05-15 13:51:59] [INFO] Elemento agregado desde la vista.
+[2025-05-15 13:52:28] [INFO] Elemento agregado con ID: 25, Tipo: Libro
+[2025-05-15 13:52:28] [INFO] Lista de elementos obtenida. Total: 24
+[2025-05-15 13:52:28] [INFO] Datos cargados en la vista. Total de elementos: 24
+[2025-05-15 13:52:28] [INFO] Elemento agregado desde la vista.
+[2025-05-15 13:52:34] [INFO] Elemento encontrado con ID: 25
+[2025-05-15 14:37:04] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 14:37:36] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 14:37:36] [INFO] Lista de elementos obtenida. Total: 24
+[2025-05-15 14:37:36] [INFO] Datos cargados en la vista. Total de elementos: 24
+[2025-05-15 14:37:42] [INFO] Elemento encontrado con ID: 25
+[2025-05-15 14:37:54] [INFO] Elemento actualizado con ID: 25, Tipo: Libro
+[2025-05-15 14:37:54] [INFO] Lista de elementos obtenida. Total: 24
+[2025-05-15 14:37:54] [INFO] Datos cargados en la vista. Total de elementos: 24
+[2025-05-15 14:37:54] [INFO] Elemento editado desde la vista. ID: 25
+[2025-05-15 14:38:05] [INFO] Elemento eliminado con ID: 25
+[2025-05-15 14:38:05] [INFO] Lista de elementos obtenida. Total: 23
+[2025-05-15 14:38:05] [INFO] Datos cargados en la vista. Total de elementos: 23
+[2025-05-15 14:38:05] [INFO] Elemento eliminado desde la vista. ID: 25
+[2025-05-15 14:38:08] [INFO] Lista de elementos obtenida. Total: 23
+[2025-05-15 14:38:08] [INFO] Datos cargados en la vista. Total de elementos: 23
+[2025-05-15 14:38:35] [INFO] Elemento agregado con ID: 26, Tipo: Revista
+[2025-05-15 14:38:35] [INFO] Lista de elementos obtenida. Total: 24
+[2025-05-15 14:38:35] [INFO] Datos cargados en la vista. Total de elementos: 24
+[2025-05-15 14:38:35] [INFO] Elemento agregado desde la vista.
+[2025-05-15 14:38:55] [INFO] Elemento agregado con ID: 27, Tipo: DVD
+[2025-05-15 14:38:55] [INFO] Lista de elementos obtenida. Total: 25
+[2025-05-15 14:38:55] [INFO] Datos cargados en la vista. Total de elementos: 25
+[2025-05-15 14:38:55] [INFO] Elemento agregado desde la vista.
+[2025-05-15 14:38:58] [INFO] Elemento encontrado con ID: 26
+[2025-05-15 14:39:14] [INFO] Elemento actualizado con ID: 26, Tipo: Revista
+[2025-05-15 14:39:14] [INFO] Lista de elementos obtenida. Total: 25
+[2025-05-15 14:39:14] [INFO] Datos cargados en la vista. Total de elementos: 25
+[2025-05-15 14:39:14] [INFO] Elemento editado desde la vista. ID: 26
+[2025-05-15 14:39:23] [INFO] Elemento encontrado con ID: 24
+[2025-05-15 14:39:29] [INFO] Elemento actualizado con ID: 24, Tipo: DVD
+[2025-05-15 14:39:29] [INFO] Lista de elementos obtenida. Total: 25
+[2025-05-15 14:39:29] [INFO] Datos cargados en la vista. Total de elementos: 25
+[2025-05-15 14:39:29] [INFO] Elemento editado desde la vista. ID: 24
+[2025-05-15 14:39:39] [INFO] Elemento encontrado con ID: 27
+[2025-05-15 14:40:00] [ERROR] Error al editar elemento con ID: 27: valor numérico inválido | Causa: For input string: "1332-Editado"
+[2025-05-15 14:40:05] [INFO] Elemento encontrado con ID: 27
+[2025-05-15 14:40:15] [INFO] Elemento actualizado con ID: 27, Tipo: DVD
+[2025-05-15 14:40:15] [INFO] Lista de elementos obtenida. Total: 25
+[2025-05-15 14:40:15] [INFO] Datos cargados en la vista. Total de elementos: 25
+[2025-05-15 14:40:15] [INFO] Elemento editado desde la vista. ID: 27
+[2025-05-15 14:40:21] [INFO] Lista de elementos obtenida. Total: 25
+[2025-05-15 14:40:21] [INFO] Datos cargados en la vista. Total de elementos: 25
+[2025-05-15 14:40:28] [INFO] Elemento encontrado con ID: 27
+[2025-05-15 14:40:33] [INFO] Elemento actualizado con ID: 27, Tipo: DVD
+[2025-05-15 14:40:33] [INFO] Lista de elementos obtenida. Total: 25
+[2025-05-15 14:40:33] [INFO] Datos cargados en la vista. Total de elementos: 25
+[2025-05-15 14:40:33] [INFO] Elemento editado desde la vista. ID: 27
+[2025-05-15 14:40:39] [INFO] Elemento eliminado con ID: 27
+[2025-05-15 14:40:39] [INFO] Lista de elementos obtenida. Total: 24
+[2025-05-15 14:40:39] [INFO] Datos cargados en la vista. Total de elementos: 24
+[2025-05-15 14:40:39] [INFO] Elemento eliminado desde la vista. ID: 27
+[2025-05-15 14:40:46] [INFO] Conexión a la base de datos cerrada

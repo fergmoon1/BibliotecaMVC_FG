@@ -17,25 +17,34 @@ import java.util.List;
 public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
     @Override
     public void create(ElementoBiblioteca elemento) throws BibliotecaException {
-        String sql = "INSERT INTO ElementoBiblioteca (id, titulo, autor, ano_publicacion, tipo) VALUES (?, ?, ?, ?, ?)";
+        String sqlElemento = "INSERT INTO ElementoBiblioteca (titulo, autor, ano_publicacion, tipo) VALUES (?, ?, ?, ?)";
         Connection conn = DatabaseConnection.getConnection();
 
         if (conn == null) {
             throw new BibliotecaException("No se pudo establecer conexión con la base de datos.");
         }
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, elemento.getId());
-            pstmt.setString(2, elemento.getTitulo());
-            pstmt.setString(3, elemento.getAutor());
-            pstmt.setInt(4, elemento.getAnoPublicacion());
-            pstmt.setString(5, elemento.getTipo());
-            pstmt.executeUpdate();
+        try (PreparedStatement pstmtElemento = conn.prepareStatement(sqlElemento, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            // Inserta en la tabla principal
+            pstmtElemento.setString(1, elemento.getTitulo());
+            pstmtElemento.setString(2, elemento.getAutor());
+            pstmtElemento.setInt(3, elemento.getAnoPublicacion());
+            pstmtElemento.setString(4, elemento.getTipo());
+            pstmtElemento.executeUpdate();
 
+            // Obtiene el ID generado automáticamente
+            ResultSet generatedKeys = pstmtElemento.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                elemento.setId(generatedKeys.getInt(1));
+            } else {
+                throw new BibliotecaException("No se pudo obtener el ID generado para el elemento.");
+            }
+
+            // Inserta en la tabla específica según el tipo
             if (elemento instanceof Libro) {
                 Libro libro = (Libro) elemento;
-                sql = "INSERT INTO Libro (id_libro, isbn, numero_paginas, genero, editorial) VALUES (?, ?, ?, ?, ?)";
-                try (PreparedStatement pstmtLibro = conn.prepareStatement(sql)) {
+                String sqlLibro = "INSERT INTO Libro (id_libro, isbn, numero_paginas, genero, editorial) VALUES (?, ?, ?, ?, ?)";
+                try (PreparedStatement pstmtLibro = conn.prepareStatement(sqlLibro)) {
                     pstmtLibro.setInt(1, libro.getId());
                     pstmtLibro.setString(2, libro.getIsbn());
                     pstmtLibro.setInt(3, libro.getNumeroPaginas());
@@ -45,8 +54,8 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                 }
             } else if (elemento instanceof Revista) {
                 Revista revista = (Revista) elemento;
-                sql = "INSERT INTO Revista (id_revista, numero_edicion, categoria) VALUES (?, ?, ?)";
-                try (PreparedStatement pstmtRevista = conn.prepareStatement(sql)) {
+                String sqlRevista = "INSERT INTO Revista (id_revista, numero_edicion, categoria) VALUES (?, ?, ?)";
+                try (PreparedStatement pstmtRevista = conn.prepareStatement(sqlRevista)) {
                     pstmtRevista.setInt(1, revista.getId());
                     pstmtRevista.setInt(2, revista.getNumeroEdicion());
                     pstmtRevista.setString(3, revista.getCategoria());
@@ -54,8 +63,8 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                 }
             } else if (elemento instanceof DVD) {
                 DVD dvd = (DVD) elemento;
-                sql = "INSERT INTO DVD (id_dvd, duracion, genero) VALUES (?, ?, ?)";
-                try (PreparedStatement pstmtDVD = conn.prepareStatement(sql)) {
+                String sqlDVD = "INSERT INTO DVD (id_dvd, duracion, genero) VALUES (?, ?, ?)";
+                try (PreparedStatement pstmtDVD = conn.prepareStatement(sqlDVD)) {
                     pstmtDVD.setInt(1, dvd.getId());
                     pstmtDVD.setInt(2, dvd.getDuracion());
                     pstmtDVD.setString(3, dvd.getGenero());
