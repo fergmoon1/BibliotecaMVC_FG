@@ -236,3 +236,12 @@
 [2025-05-15 14:40:39] [INFO] Datos cargados en la vista. Total de elementos: 24
 [2025-05-15 14:40:39] [INFO] Elemento eliminado desde la vista. ID: 27
 [2025-05-15 14:40:46] [INFO] Conexión a la base de datos cerrada
+[2025-05-15 17:06:50] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-15 17:06:50] [INFO] Lista de elementos obtenida. Total: 24
+[2025-05-15 17:06:50] [INFO] Datos cargados en la vista. Total de elementos: 24
+[2025-05-15 17:07:00] [INFO] Elemento eliminado con ID: 26
+[2025-05-15 17:07:00] [INFO] Lista de elementos obtenida. Total: 23
+[2025-05-15 17:07:00] [INFO] Datos cargados en la vista. Total de elementos: 23
+[2025-05-15 17:07:00] [INFO] Elemento eliminado desde la vista. ID: 26
+[2025-05-15 17:07:12] [INFO] Lista de elementos obtenida. Total: 23
+[2025-05-15 17:07:12] [INFO] Datos cargados en la vista. Total de elementos: 23
