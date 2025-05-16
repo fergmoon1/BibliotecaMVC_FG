@@ -489,3 +489,737 @@
 [2025-05-16 13:15:37] [ERROR] Error al editar elemento | Causa: ID inválido para actualización
 [2025-05-16 13:16:21] [INFO] Conexión a la base de datos cerrada
 [2025-05-16 13:16:21] [INFO] Conexión a BD cerrada correctamente
+[2025-05-16 14:25:57] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:25:58] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:25:58] [INFO] Aplicación iniciada correctamente
+[2025-05-16 14:26:03] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:26:03] [INFO] ID del elemento original antes de editar: 0
+[2025-05-16 14:26:10] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:26:10] [INFO] ID del elemento original antes de editar: 0
+[2025-05-16 14:34:02] [INFO] Conexión a la base de datos cerrada
+[2025-05-16 14:34:02] [INFO] Conexión a BD cerrada correctamente
+[2025-05-16 14:35:19] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:35:20] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:35:20] [INFO] Aplicación iniciada correctamente
+[2025-05-16 14:35:25] [INFO] Buscando elemento con título: 'etfga'
+[2025-05-16 14:35:25] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:35:25] [INFO] Total de elementos en la base de datos: 26
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Cien Años de Soledad' (ID: 1)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: '1984' (ID: 2)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Don Quijote de la Mancha' (ID: 3)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'El Principito' (ID: 4)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Crónica de una muerte anunciada' (ID: 5)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Rayuela' (ID: 6)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Pedro Páramo' (ID: 7)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'National Geographic' (ID: 8)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Muy Interesante' (ID: 9)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Ciencia Hoy' (ID: 10)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Investigación y Ciencia' (ID: 11)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Nature en Español' (ID: 12)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Popular Science' (ID: 13)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Historia y Vida' (ID: 14)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'El Rey León' (ID: 15)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Matrix' (ID: 16)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Parásitos' (ID: 17)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Interstellar' (ID: 18)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'La tumba de las luciérnagas' (ID: 19)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'El Señor de los Anillos' (ID: 20)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'SENA EDUCA' (ID: 22)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'SENA Magazine' (ID: 23)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'Video Expositivo-E' (ID: 24)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'SENA  ADSO' (ID: 28)
+[2025-05-16 14:35:25] [INFO] Comparando con elemento: 'etfga' (ID: 29)
+[2025-05-16 14:35:25] [INFO] Elemento encontrado: 'etfga' (ID: 29)
+[2025-05-16 14:35:25] [INFO] ID del elemento original antes de editar: 29
+[2025-05-16 14:35:33] [INFO] ID del elemento actualizado antes de guardar: 29
+[2025-05-16 14:35:33] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:35:33] [INFO] Elemento actualizado ID: 29
+[2025-05-16 14:35:35] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:35:35] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:35:38] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:35:38] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:35:41] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:35:41] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:35:42] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:35:42] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:35:46] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:35:46] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:35:51] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:35:51] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:35:51] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:35:51] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:36:24] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:36:24] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:36:24] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:36:24] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:37:25] [INFO] Buscando elemento con título: 'etfga'
+[2025-05-16 14:37:25] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:37:25] [INFO] Total de elementos en la base de datos: 26
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Cien Años de Soledad' (ID: 1)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: '1984' (ID: 2)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Don Quijote de la Mancha' (ID: 3)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'El Principito' (ID: 4)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Crónica de una muerte anunciada' (ID: 5)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Rayuela' (ID: 6)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Pedro Páramo' (ID: 7)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'National Geographic' (ID: 8)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Muy Interesante' (ID: 9)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Ciencia Hoy' (ID: 10)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Investigación y Ciencia' (ID: 11)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Nature en Español' (ID: 12)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Popular Science' (ID: 13)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Historia y Vida' (ID: 14)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'El Rey León' (ID: 15)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Matrix' (ID: 16)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Parásitos' (ID: 17)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Interstellar' (ID: 18)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'La tumba de las luciérnagas' (ID: 19)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'El Señor de los Anillos' (ID: 20)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'SENA EDUCA' (ID: 22)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'SENA Magazine' (ID: 23)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'Video Expositivo-E' (ID: 24)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'SENA  ADSO' (ID: 28)
+[2025-05-16 14:37:25] [INFO] Comparando con elemento: 'etfga' (ID: 29)
+[2025-05-16 14:37:25] [INFO] Elemento encontrado: 'etfga' (ID: 29)
+[2025-05-16 14:37:25] [INFO] ID del elemento original antes de editar: 29
+[2025-05-16 14:37:28] [INFO] ID del elemento actualizado antes de guardar: 29
+[2025-05-16 14:37:28] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:37:28] [INFO] Elemento actualizado ID: 29
+[2025-05-16 14:37:30] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:37:30] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:37:33] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:37:33] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:37:34] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:37:34] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:37:34] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:37:34] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:38:11] [INFO] Buscando elemento con título: 'etfga'
+[2025-05-16 14:38:11] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:38:11] [INFO] Total de elementos en la base de datos: 26
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Cien Años de Soledad' (ID: 1)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: '1984' (ID: 2)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Don Quijote de la Mancha' (ID: 3)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'El Principito' (ID: 4)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Crónica de una muerte anunciada' (ID: 5)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Rayuela' (ID: 6)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Pedro Páramo' (ID: 7)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'National Geographic' (ID: 8)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Muy Interesante' (ID: 9)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Ciencia Hoy' (ID: 10)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Investigación y Ciencia' (ID: 11)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Nature en Español' (ID: 12)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Popular Science' (ID: 13)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Historia y Vida' (ID: 14)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'El Rey León' (ID: 15)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Matrix' (ID: 16)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Parásitos' (ID: 17)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Interstellar' (ID: 18)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'La tumba de las luciérnagas' (ID: 19)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'El Señor de los Anillos' (ID: 20)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'SENA EDUCA' (ID: 22)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'SENA Magazine' (ID: 23)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'Video Expositivo-E' (ID: 24)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'SENA  ADSO' (ID: 28)
+[2025-05-16 14:38:11] [INFO] Comparando con elemento: 'etfga' (ID: 29)
+[2025-05-16 14:38:11] [INFO] Elemento encontrado: 'etfga' (ID: 29)
+[2025-05-16 14:38:11] [INFO] ID del elemento original antes de editar: 29
+[2025-05-16 14:39:12] [INFO] Conexión a la base de datos cerrada
+[2025-05-16 14:39:12] [INFO] Conexión a BD cerrada correctamente
+[2025-05-16 14:46:50] [INFO] Tabla de libros limpiada
+[2025-05-16 14:46:50] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 14:46:50] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:46:51] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 14:46:51] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:46:51] [INFO] Total de elementos cargados: 26
+[2025-05-16 14:46:51] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 14:46:51] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 14:46:51] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 14:46:51] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 14:46:51] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada
+[2025-05-16 14:46:51] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 14:46:51] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 14:46:51] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 14:46:51] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 14:46:51] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 14:46:51] [INFO] Aplicación iniciada correctamente
+[2025-05-16 14:46:58] [INFO] Buscando elemento con título: 'Crónica de una muerte anunciada'
+[2025-05-16 14:46:58] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:46:58] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 14:46:58] [INFO] Total de elementos en la base de datos: 26
+[2025-05-16 14:46:58] [INFO] Comparando con elemento: 'Cien Años de Soledad' (ID: 1)
+[2025-05-16 14:46:58] [INFO] Comparando con elemento: '1984' (ID: 2)
+[2025-05-16 14:46:58] [INFO] Comparando con elemento: 'Don Quijote de la Mancha' (ID: 3)
+[2025-05-16 14:46:58] [INFO] Comparando con elemento: 'El Principito' (ID: 4)
+[2025-05-16 14:46:58] [INFO] Comparando con elemento: 'Crónica de una muerte anunciada' (ID: 5)
+[2025-05-16 14:46:58] [INFO] Elemento encontrado: 'Crónica de una muerte anunciada' (ID: 5)
+[2025-05-16 14:46:58] [INFO] ID del elemento original antes de editar: 5
+[2025-05-16 14:47:17] [INFO] ID del elemento actualizado antes de guardar: 5
+[2025-05-16 14:47:17] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:47:17] [INFO] Filas actualizadas en ElementoBiblioteca para ID 5: 1
+[2025-05-16 14:47:17] [INFO] Filas actualizadas en Libro para ID 5: 1
+[2025-05-16 14:47:17] [INFO] Transacción de actualización confirmada con éxito para ID: 5
+[2025-05-16 14:47:17] [INFO] Conexión cerrada después de actualizar elemento
+[2025-05-16 14:47:17] [INFO] Elemento actualizado ID: 5
+[2025-05-16 14:47:27] [INFO] Tabla de libros limpiada
+[2025-05-16 14:47:27] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 14:47:27] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:47:27] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 14:47:27] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:47:27] [INFO] Total de elementos cargados: 26
+[2025-05-16 14:47:27] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 14:47:27] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 14:47:27] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 14:47:27] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 14:47:27] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 14:47:27] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 14:47:27] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 14:47:27] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 14:47:27] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 14:47:27] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 14:48:11] [INFO] Tabla de libros limpiada
+[2025-05-16 14:48:11] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 14:48:11] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:48:11] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 14:48:11] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:48:11] [INFO] Total de elementos cargados: 26
+[2025-05-16 14:48:11] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 14:48:11] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 14:48:11] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 14:48:11] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 14:48:11] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 14:48:11] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 14:48:11] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 14:48:11] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 14:48:11] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 14:48:11] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 14:49:21] [INFO] Tabla de libros limpiada
+[2025-05-16 14:49:21] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 14:49:21] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 14:49:21] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 14:49:21] [INFO] Obtenidos 26 elementos
+[2025-05-16 14:49:21] [INFO] Total de elementos cargados: 26
+[2025-05-16 14:49:21] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 14:49:21] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 14:49:21] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 14:49:21] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 14:49:21] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 14:49:21] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 14:49:21] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 14:49:21] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 14:49:21] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 14:49:21] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:01:33] [INFO] Conexión a la base de datos cerrada
+[2025-05-16 15:01:33] [INFO] Conexión a BD cerrada correctamente
+[2025-05-16 15:02:43] [INFO] Tabla de libros limpiada
+[2025-05-16 15:02:43] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 15:02:43] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:02:43] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:02:43] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:02:43] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:02:43] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 15:02:43] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 15:02:43] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 15:02:43] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 15:02:43] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 15:02:43] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 15:02:43] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 15:02:43] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 15:02:43] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 15:02:43] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:02:43] [INFO] Aplicación iniciada correctamente
+[2025-05-16 15:03:07] [INFO] Buscando elemento con título: 'etfga'
+[2025-05-16 15:03:07] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:03:07] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:03:07] [INFO] Total de elementos en la base de datos: 26
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Cien Años de Soledad' (ID: 1)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: '1984' (ID: 2)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Don Quijote de la Mancha' (ID: 3)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'El Principito' (ID: 4)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Crónica de una muerte anunciada-Editado' (ID: 5)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Rayuela' (ID: 6)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Pedro Páramo' (ID: 7)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'National Geographic' (ID: 8)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Muy Interesante' (ID: 9)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Ciencia Hoy' (ID: 10)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Investigación y Ciencia' (ID: 11)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Nature en Español' (ID: 12)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Popular Science' (ID: 13)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Historia y Vida' (ID: 14)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'El Rey León' (ID: 15)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Matrix' (ID: 16)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Parásitos' (ID: 17)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Interstellar' (ID: 18)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'La tumba de las luciérnagas' (ID: 19)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'El Señor de los Anillos' (ID: 20)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'SENA EDUCA' (ID: 22)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'SENA Magazine' (ID: 23)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'Video Expositivo-E' (ID: 24)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'SENA  ADSO' (ID: 28)
+[2025-05-16 15:03:07] [INFO] Comparando con elemento: 'etfga' (ID: 29)
+[2025-05-16 15:03:07] [INFO] Elemento encontrado: 'etfga' (ID: 29)
+[2025-05-16 15:03:07] [INFO] ID del elemento original antes de editar: 29
+[2025-05-16 15:03:21] [INFO] ID del elemento actualizado antes de guardar: 29
+[2025-05-16 15:03:21] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:03:21] [INFO] Filas actualizadas en ElementoBiblioteca para ID 29: 1
+[2025-05-16 15:03:21] [INFO] Filas actualizadas en Libro para ID 29: 1
+[2025-05-16 15:03:21] [INFO] Transacción de actualización confirmada con éxito para ID: 29
+[2025-05-16 15:03:21] [INFO] Conexión cerrada después de actualizar elemento
+[2025-05-16 15:03:21] [INFO] Elemento actualizado ID: 29
+[2025-05-16 15:03:23] [INFO] Tabla de libros limpiada
+[2025-05-16 15:03:23] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 15:03:23] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:03:23] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:03:23] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:03:23] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:03:23] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 15:03:23] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 15:03:23] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 15:03:23] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 15:03:23] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 15:03:23] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 15:03:23] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 15:03:23] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 15:03:23] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 15:03:23] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:03:33] [INFO] Tabla de revistas limpiada
+[2025-05-16 15:03:33] [INFO] Cargando datos para la pestaña: 1
+[2025-05-16 15:03:33] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:03:33] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:03:33] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:03:33] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:03:33] [INFO] Añadido a tabla de revistas: National Geographic
+[2025-05-16 15:03:33] [INFO] Añadido a tabla de revistas: Muy Interesante
+[2025-05-16 15:03:33] [INFO] Añadido a tabla de revistas: Ciencia Hoy
+[2025-05-16 15:03:33] [INFO] Añadido a tabla de revistas: Investigación y Ciencia
+[2025-05-16 15:03:33] [INFO] Añadido a tabla de revistas: Nature en Español
+[2025-05-16 15:03:33] [INFO] Añadido a tabla de revistas: Popular Science
+[2025-05-16 15:03:33] [INFO] Añadido a tabla de revistas: Historia y Vida
+[2025-05-16 15:03:33] [INFO] Añadido a tabla de revistas: SENA Magazine
+[2025-05-16 15:03:33] [INFO] Añadido a tabla de revistas: Science Today
+[2025-05-16 15:03:41] [INFO] Tabla de DVDs limpiada
+[2025-05-16 15:03:41] [INFO] Cargando datos para la pestaña: 2
+[2025-05-16 15:03:41] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:03:41] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:03:41] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:03:41] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:03:41] [INFO] Añadido a tabla de DVDs: El Rey León
+[2025-05-16 15:03:41] [INFO] Añadido a tabla de DVDs: Matrix
+[2025-05-16 15:03:41] [INFO] Añadido a tabla de DVDs: Parásitos
+[2025-05-16 15:03:41] [INFO] Añadido a tabla de DVDs: Interstellar
+[2025-05-16 15:03:41] [INFO] Añadido a tabla de DVDs: La tumba de las luciérnagas
+[2025-05-16 15:03:41] [INFO] Añadido a tabla de DVDs: El Señor de los Anillos
+[2025-05-16 15:03:41] [INFO] Añadido a tabla de DVDs: Video Expositivo-E
+[2025-05-16 15:04:10] [INFO] Tabla de libros limpiada
+[2025-05-16 15:04:10] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 15:04:10] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:04:10] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:04:10] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:04:10] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:04:10] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 15:04:10] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 15:04:10] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 15:04:10] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 15:04:10] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 15:04:10] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 15:04:10] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 15:04:10] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 15:04:10] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 15:04:10] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:12:19] [INFO] Conexión a la base de datos cerrada
+[2025-05-16 15:12:19] [INFO] Conexión a BD cerrada correctamente
+[2025-05-16 15:13:11] [INFO] Tabla de libros limpiada
+[2025-05-16 15:13:11] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 15:13:12] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:13:12] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:13:12] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:13:12] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:13:12] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 15:13:12] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 15:13:12] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 15:13:12] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 15:13:12] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 15:13:12] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 15:13:12] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 15:13:12] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 15:13:12] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 15:13:12] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:13:12] [INFO] Aplicación iniciada correctamente
+[2025-05-16 15:14:01] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:14:01] [INFO] Filas insertadas en ElementoBiblioteca: 1
+[2025-05-16 15:14:01] [INFO] ID generado para el elemento: 31
+[2025-05-16 15:14:01] [INFO] Filas insertadas en Libro: 1
+[2025-05-16 15:14:01] [INFO] Transacción de agregar elemento confirmada con éxito
+[2025-05-16 15:14:01] [INFO] Conexión cerrada después de agregar elemento
+[2025-05-16 15:14:01] [INFO] Elemento agregado: Prueba1
+[2025-05-16 15:14:03] [INFO] Tabla de libros limpiada
+[2025-05-16 15:14:03] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 15:14:03] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:14:03] [INFO] Total de elementos obtenidos: 27
+[2025-05-16 15:14:03] [INFO] Obtenidos 27 elementos
+[2025-05-16 15:14:03] [INFO] Total de elementos cargados: 27
+[2025-05-16 15:14:03] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 15:14:03] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 15:14:03] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 15:14:03] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 15:14:03] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 15:14:03] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 15:14:03] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 15:14:03] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 15:14:03] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 15:14:03] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:14:03] [INFO] Añadido a tabla de libros: Prueba1
+[2025-05-16 15:14:26] [INFO] Buscando elemento con título: 'Prueba1'
+[2025-05-16 15:14:26] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:14:26] [INFO] Total de elementos obtenidos: 27
+[2025-05-16 15:14:26] [INFO] Total de elementos en la base de datos: 27
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Cien Años de Soledad' (ID: 1)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: '1984' (ID: 2)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Don Quijote de la Mancha' (ID: 3)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'El Principito' (ID: 4)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Crónica de una muerte anunciada-Editado' (ID: 5)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Rayuela' (ID: 6)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Pedro Páramo' (ID: 7)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'National Geographic' (ID: 8)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Muy Interesante' (ID: 9)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Ciencia Hoy' (ID: 10)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Investigación y Ciencia' (ID: 11)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Nature en Español' (ID: 12)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Popular Science' (ID: 13)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Historia y Vida' (ID: 14)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'El Rey León' (ID: 15)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Matrix' (ID: 16)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Parásitos' (ID: 17)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Interstellar' (ID: 18)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'La tumba de las luciérnagas' (ID: 19)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'El Señor de los Anillos' (ID: 20)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'SENA EDUCA' (ID: 22)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'SENA Magazine' (ID: 23)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Video Expositivo-E' (ID: 24)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'SENA  ADSO' (ID: 28)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'etfga' (ID: 29)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Science Today' (ID: 30)
+[2025-05-16 15:14:26] [INFO] Comparando con elemento: 'Prueba1' (ID: 31)
+[2025-05-16 15:14:26] [INFO] Elemento encontrado: 'Prueba1' (ID: 31)
+[2025-05-16 15:14:26] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:14:26] [INFO] Filas eliminadas en tabla específica (Libro) para ID 31: 1
+[2025-05-16 15:14:26] [INFO] Filas eliminadas en ElementoBiblioteca para ID 31: 1
+[2025-05-16 15:14:26] [INFO] Transacción de eliminación confirmada con éxito para ID: 31
+[2025-05-16 15:14:26] [INFO] Conexión cerrada después de eliminar elemento
+[2025-05-16 15:14:26] [INFO] Elemento eliminado: Prueba1
+[2025-05-16 15:14:26] [INFO] Tabla de libros limpiada
+[2025-05-16 15:14:26] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 15:14:26] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:14:26] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:14:26] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:14:26] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:14:26] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 15:14:26] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 15:14:26] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 15:14:26] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 15:14:26] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 15:14:26] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 15:14:26] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 15:14:26] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 15:14:26] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 15:14:26] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:14:30] [INFO] Tabla de libros limpiada
+[2025-05-16 15:14:30] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 15:14:30] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:14:30] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:14:30] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:14:30] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:14:30] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 15:14:30] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 15:14:30] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 15:14:30] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 15:14:30] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 15:14:30] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 15:14:30] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 15:14:30] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 15:14:30] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 15:14:30] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:15:05] [INFO] Buscando elemento con título: 'etfga'
+[2025-05-16 15:15:05] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:15:05] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:15:05] [INFO] Total de elementos en la base de datos: 26
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Cien Años de Soledad' (ID: 1)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: '1984' (ID: 2)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Don Quijote de la Mancha' (ID: 3)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'El Principito' (ID: 4)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Crónica de una muerte anunciada-Editado' (ID: 5)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Rayuela' (ID: 6)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Pedro Páramo' (ID: 7)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'National Geographic' (ID: 8)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Muy Interesante' (ID: 9)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Ciencia Hoy' (ID: 10)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Investigación y Ciencia' (ID: 11)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Nature en Español' (ID: 12)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Popular Science' (ID: 13)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Historia y Vida' (ID: 14)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'El Rey León' (ID: 15)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Matrix' (ID: 16)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Parásitos' (ID: 17)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Interstellar' (ID: 18)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'La tumba de las luciérnagas' (ID: 19)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'El Señor de los Anillos' (ID: 20)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'SENA EDUCA' (ID: 22)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'SENA Magazine' (ID: 23)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'Video Expositivo-E' (ID: 24)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'SENA  ADSO' (ID: 28)
+[2025-05-16 15:15:05] [INFO] Comparando con elemento: 'etfga' (ID: 29)
+[2025-05-16 15:15:05] [INFO] Elemento encontrado: 'etfga' (ID: 29)
+[2025-05-16 15:15:05] [INFO] ID del elemento original antes de editar: 29
+[2025-05-16 15:16:49] [INFO] Conexión a la base de datos cerrada
+[2025-05-16 15:16:49] [INFO] Conexión a BD cerrada correctamente
+[2025-05-16 15:19:56] [INFO] Tabla de libros limpiada
+[2025-05-16 15:19:56] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 15:19:56] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:19:56] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:19:56] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:19:56] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:19:56] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 15:19:56] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 15:19:56] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 15:19:56] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 15:19:56] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 15:19:56] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 15:19:56] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 15:19:56] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 15:19:56] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 15:19:56] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:19:56] [INFO] Aplicación iniciada correctamente
+[2025-05-16 15:20:03] [INFO] Buscando elemento con título: 'etfga'
+[2025-05-16 15:20:03] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:20:03] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:20:03] [INFO] Total de elementos en la base de datos: 26
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Cien Años de Soledad' (ID: 1)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: '1984' (ID: 2)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Don Quijote de la Mancha' (ID: 3)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'El Principito' (ID: 4)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Crónica de una muerte anunciada-Editado' (ID: 5)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Rayuela' (ID: 6)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Pedro Páramo' (ID: 7)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'National Geographic' (ID: 8)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Muy Interesante' (ID: 9)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Ciencia Hoy' (ID: 10)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Investigación y Ciencia' (ID: 11)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Nature en Español' (ID: 12)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Popular Science' (ID: 13)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Historia y Vida' (ID: 14)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'El Rey León' (ID: 15)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Matrix' (ID: 16)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Parásitos' (ID: 17)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Interstellar' (ID: 18)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'La tumba de las luciérnagas' (ID: 19)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'El Señor de los Anillos' (ID: 20)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'SENA EDUCA' (ID: 22)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'SENA Magazine' (ID: 23)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'Video Expositivo-E' (ID: 24)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'SENA  ADSO' (ID: 28)
+[2025-05-16 15:20:03] [INFO] Comparando con elemento: 'etfga' (ID: 29)
+[2025-05-16 15:20:03] [INFO] Elemento encontrado: 'etfga' (ID: 29)
+[2025-05-16 15:20:03] [INFO] ID del elemento original antes de editar: 29
+[2025-05-16 15:20:07] [INFO] ID del elemento actualizado antes de guardar: 29
+[2025-05-16 15:20:07] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:20:07] [INFO] Filas actualizadas en ElementoBiblioteca para ID 29: 1
+[2025-05-16 15:20:07] [INFO] Filas actualizadas en Libro para ID 29: 1
+[2025-05-16 15:20:07] [INFO] Transacción de actualización confirmada con éxito para ID: 29
+[2025-05-16 15:20:07] [INFO] Conexión cerrada después de actualizar elemento
+[2025-05-16 15:20:07] [INFO] Elemento actualizado ID: 29
+[2025-05-16 15:20:09] [INFO] Tabla de libros limpiada
+[2025-05-16 15:20:09] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 15:20:09] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:20:09] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:20:09] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:20:09] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:20:09] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 15:20:09] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 15:20:09] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 15:20:09] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 15:20:09] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 15:20:09] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 15:20:09] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 15:20:09] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 15:20:09] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 15:20:09] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:20:15] [INFO] Tabla de revistas limpiada
+[2025-05-16 15:20:15] [INFO] Cargando datos para la pestaña: 1
+[2025-05-16 15:20:15] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:20:15] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:20:15] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:20:15] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:20:15] [INFO] Añadido a tabla de revistas: National Geographic
+[2025-05-16 15:20:15] [INFO] Añadido a tabla de revistas: Muy Interesante
+[2025-05-16 15:20:15] [INFO] Añadido a tabla de revistas: Ciencia Hoy
+[2025-05-16 15:20:15] [INFO] Añadido a tabla de revistas: Investigación y Ciencia
+[2025-05-16 15:20:15] [INFO] Añadido a tabla de revistas: Nature en Español
+[2025-05-16 15:20:15] [INFO] Añadido a tabla de revistas: Popular Science
+[2025-05-16 15:20:15] [INFO] Añadido a tabla de revistas: Historia y Vida
+[2025-05-16 15:20:15] [INFO] Añadido a tabla de revistas: SENA Magazine
+[2025-05-16 15:20:15] [INFO] Añadido a tabla de revistas: Science Today
+[2025-05-16 15:20:17] [INFO] Tabla de DVDs limpiada
+[2025-05-16 15:20:17] [INFO] Cargando datos para la pestaña: 2
+[2025-05-16 15:20:17] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:20:17] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:20:17] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:20:17] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:20:17] [INFO] Añadido a tabla de DVDs: El Rey León
+[2025-05-16 15:20:17] [INFO] Añadido a tabla de DVDs: Matrix
+[2025-05-16 15:20:17] [INFO] Añadido a tabla de DVDs: Parásitos
+[2025-05-16 15:20:17] [INFO] Añadido a tabla de DVDs: Interstellar
+[2025-05-16 15:20:17] [INFO] Añadido a tabla de DVDs: La tumba de las luciérnagas
+[2025-05-16 15:20:17] [INFO] Añadido a tabla de DVDs: El Señor de los Anillos
+[2025-05-16 15:20:17] [INFO] Añadido a tabla de DVDs: Video Expositivo-E
+[2025-05-16 15:29:33] [INFO] Conexión a la base de datos cerrada
+[2025-05-16 15:29:33] [INFO] Conexión a BD cerrada correctamente
+[2025-05-16 15:30:18] [INFO] Tabla de libros limpiada
+[2025-05-16 15:30:18] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 15:30:19] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:30:19] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:30:19] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:30:19] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:30:19] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 15:30:19] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 15:30:19] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 15:30:19] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 15:30:19] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 15:30:19] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 15:30:19] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 15:30:19] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 15:30:19] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 15:30:19] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:30:19] [INFO] Aplicación iniciada correctamente
+[2025-05-16 15:30:22] [INFO] Tabla de revistas limpiada
+[2025-05-16 15:30:22] [INFO] Cargando datos para la pestaña: 1
+[2025-05-16 15:30:22] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:30:22] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:30:22] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:30:22] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:30:22] [INFO] Añadido a tabla de revistas: National Geographic
+[2025-05-16 15:30:22] [INFO] Añadido a tabla de revistas: Muy Interesante
+[2025-05-16 15:30:22] [INFO] Añadido a tabla de revistas: Ciencia Hoy
+[2025-05-16 15:30:22] [INFO] Añadido a tabla de revistas: Investigación y Ciencia
+[2025-05-16 15:30:22] [INFO] Añadido a tabla de revistas: Nature en Español
+[2025-05-16 15:30:22] [INFO] Añadido a tabla de revistas: Popular Science
+[2025-05-16 15:30:22] [INFO] Añadido a tabla de revistas: Historia y Vida
+[2025-05-16 15:30:22] [INFO] Añadido a tabla de revistas: SENA Magazine
+[2025-05-16 15:30:22] [INFO] Añadido a tabla de revistas: Science Today
+[2025-05-16 15:30:24] [INFO] Tabla de DVDs limpiada
+[2025-05-16 15:30:24] [INFO] Cargando datos para la pestaña: 2
+[2025-05-16 15:30:24] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:30:24] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:30:24] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:30:24] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:30:24] [INFO] Añadido a tabla de DVDs: El Rey León
+[2025-05-16 15:30:24] [INFO] Añadido a tabla de DVDs: Matrix
+[2025-05-16 15:30:24] [INFO] Añadido a tabla de DVDs: Parásitos
+[2025-05-16 15:30:24] [INFO] Añadido a tabla de DVDs: Interstellar
+[2025-05-16 15:30:24] [INFO] Añadido a tabla de DVDs: La tumba de las luciérnagas
+[2025-05-16 15:30:24] [INFO] Añadido a tabla de DVDs: El Señor de los Anillos
+[2025-05-16 15:30:24] [INFO] Añadido a tabla de DVDs: Video Expositivo-E
+[2025-05-16 15:30:27] [INFO] Tabla de revistas limpiada
+[2025-05-16 15:30:27] [INFO] Cargando datos para la pestaña: 1
+[2025-05-16 15:30:27] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:30:27] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:30:27] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:30:27] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:30:27] [INFO] Añadido a tabla de revistas: National Geographic
+[2025-05-16 15:30:27] [INFO] Añadido a tabla de revistas: Muy Interesante
+[2025-05-16 15:30:27] [INFO] Añadido a tabla de revistas: Ciencia Hoy
+[2025-05-16 15:30:27] [INFO] Añadido a tabla de revistas: Investigación y Ciencia
+[2025-05-16 15:30:27] [INFO] Añadido a tabla de revistas: Nature en Español
+[2025-05-16 15:30:27] [INFO] Añadido a tabla de revistas: Popular Science
+[2025-05-16 15:30:27] [INFO] Añadido a tabla de revistas: Historia y Vida
+[2025-05-16 15:30:27] [INFO] Añadido a tabla de revistas: SENA Magazine
+[2025-05-16 15:30:27] [INFO] Añadido a tabla de revistas: Science Today
+[2025-05-16 15:30:29] [INFO] Tabla de libros limpiada
+[2025-05-16 15:30:29] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 15:30:29] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:30:29] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:30:29] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:30:29] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:30:29] [INFO] Tabla de DVDs limpiada
+[2025-05-16 15:30:29] [INFO] Cargando datos para la pestaña: 2
+[2025-05-16 15:30:29] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:30:29] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:30:29] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:30:29] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de DVDs: El Rey León
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de DVDs: Matrix
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de DVDs: Parásitos
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de DVDs: Interstellar
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de DVDs: La tumba de las luciérnagas
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de DVDs: El Señor de los Anillos
+[2025-05-16 15:30:29] [INFO] Añadido a tabla de DVDs: Video Expositivo-E
+[2025-05-16 15:33:08] [INFO] Conexión a la base de datos cerrada
+[2025-05-16 15:33:08] [INFO] Conexión a BD cerrada correctamente
+[2025-05-16 15:34:26] [INFO] Tabla de libros limpiada
+[2025-05-16 15:34:26] [INFO] Cargando datos para la pestaña: 0
+[2025-05-16 15:34:27] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:34:27] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:34:27] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:34:27] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:34:27] [INFO] Añadido a tabla de libros: Cien Años de Soledad
+[2025-05-16 15:34:27] [INFO] Añadido a tabla de libros: 1984
+[2025-05-16 15:34:27] [INFO] Añadido a tabla de libros: Don Quijote de la Mancha
+[2025-05-16 15:34:27] [INFO] Añadido a tabla de libros: El Principito
+[2025-05-16 15:34:27] [INFO] Añadido a tabla de libros: Crónica de una muerte anunciada-Editado
+[2025-05-16 15:34:27] [INFO] Añadido a tabla de libros: Rayuela
+[2025-05-16 15:34:27] [INFO] Añadido a tabla de libros: Pedro Páramo
+[2025-05-16 15:34:27] [INFO] Añadido a tabla de libros: SENA EDUCA
+[2025-05-16 15:34:27] [INFO] Añadido a tabla de libros: SENA  ADSO
+[2025-05-16 15:34:27] [INFO] Añadido a tabla de libros: etfga
+[2025-05-16 15:34:27] [INFO] Aplicación iniciada correctamente
+[2025-05-16 15:34:31] [INFO] Tabla de revistas limpiada
+[2025-05-16 15:34:31] [INFO] Cargando datos para la pestaña: 1
+[2025-05-16 15:34:31] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:34:31] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:34:31] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:34:31] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:34:31] [INFO] Añadido a tabla de revistas: National Geographic
+[2025-05-16 15:34:31] [INFO] Añadido a tabla de revistas: Muy Interesante
+[2025-05-16 15:34:31] [INFO] Añadido a tabla de revistas: Ciencia Hoy
+[2025-05-16 15:34:31] [INFO] Añadido a tabla de revistas: Investigación y Ciencia
+[2025-05-16 15:34:31] [INFO] Añadido a tabla de revistas: Nature en Español
+[2025-05-16 15:34:31] [INFO] Añadido a tabla de revistas: Popular Science
+[2025-05-16 15:34:31] [INFO] Añadido a tabla de revistas: Historia y Vida
+[2025-05-16 15:34:31] [INFO] Añadido a tabla de revistas: SENA Magazine
+[2025-05-16 15:34:31] [INFO] Añadido a tabla de revistas: Science Today
+[2025-05-16 15:34:32] [INFO] Tabla de DVDs limpiada
+[2025-05-16 15:34:32] [INFO] Cargando datos para la pestaña: 2
+[2025-05-16 15:34:32] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:34:32] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:34:32] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:34:32] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:34:32] [INFO] Añadido a tabla de DVDs: El Rey León
+[2025-05-16 15:34:32] [INFO] Añadido a tabla de DVDs: Matrix
+[2025-05-16 15:34:32] [INFO] Añadido a tabla de DVDs: Parásitos
+[2025-05-16 15:34:32] [INFO] Añadido a tabla de DVDs: Interstellar
+[2025-05-16 15:34:32] [INFO] Añadido a tabla de DVDs: La tumba de las luciérnagas
+[2025-05-16 15:34:32] [INFO] Añadido a tabla de DVDs: El Señor de los Anillos
+[2025-05-16 15:34:32] [INFO] Añadido a tabla de DVDs: Video Expositivo-E
+[2025-05-16 15:34:45] [INFO] Tabla de DVDs limpiada
+[2025-05-16 15:34:45] [INFO] Cargando datos para la pestaña: 2
+[2025-05-16 15:34:45] [INFO] Conexión a la base de datos establecida con éxito
+[2025-05-16 15:34:45] [INFO] Total de elementos obtenidos: 26
+[2025-05-16 15:34:45] [INFO] Obtenidos 26 elementos
+[2025-05-16 15:34:45] [INFO] Total de elementos cargados: 26
+[2025-05-16 15:34:45] [INFO] Añadido a tabla de DVDs: El Rey León
+[2025-05-16 15:34:45] [INFO] Añadido a tabla de DVDs: Matrix
+[2025-05-16 15:34:45] [INFO] Añadido a tabla de DVDs: Parásitos
+[2025-05-16 15:34:45] [INFO] Añadido a tabla de DVDs: Interstellar
+[2025-05-16 15:34:45] [INFO] Añadido a tabla de DVDs: La tumba de las luciérnagas
+[2025-05-16 15:34:45] [INFO] Añadido a tabla de DVDs: El Señor de los Anillos
+[2025-05-16 15:34:45] [INFO] Añadido a tabla de DVDs: Video Expositivo-E
+[2025-05-16 15:36:44] [INFO] Conexión a la base de datos cerrada
+[2025-05-16 15:36:44] [INFO] Conexión a BD cerrada correctamente

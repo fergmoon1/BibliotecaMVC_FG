@@ -22,6 +22,14 @@ public class Logger {
         String timestamp = LocalDateTime.now().format(formatter);
         String logMessage = String.format("[%s] [%s] %s", timestamp, level, message);
 
+        // Imprimir en la consola
+        if (level.equals("ERROR")) {
+            System.err.println(logMessage);
+        } else {
+            System.out.println(logMessage);
+        }
+
+        // Escribir en el archivo
         try (FileWriter fw = new FileWriter(LOG_FILE, true);
              PrintWriter pw = new PrintWriter(fw)) {
             pw.println(logMessage);

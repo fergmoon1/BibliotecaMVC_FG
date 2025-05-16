@@ -3,6 +3,7 @@ package com.biblioteca.dao;
 import com.biblioteca.model.*;
 import com.biblioteca.util.BibliotecaException;
 import com.biblioteca.util.DatabaseConnection;
+import com.biblioteca.util.Logger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,8 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
             pstmtElemento.setString(2, elemento.getTitulo());
             pstmtElemento.setString(3, elemento.getAutor());
             pstmtElemento.setInt(4, elemento.getAnoPublicacion());
-            pstmtElemento.executeUpdate();
+            int rowsInserted = pstmtElemento.executeUpdate();
+            Logger.logInfo("Filas insertadas en ElementoBiblioteca: " + rowsInserted);
 
             // Obtener el ID generado
             int id;
@@ -32,6 +34,7 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                 if (generatedKeys.next()) {
                     id = generatedKeys.getInt(1);
                     elemento.setId(id);
+                    Logger.logInfo("ID generado para el elemento: " + id);
                 } else {
                     throw new BibliotecaException("No se pudo obtener el ID generado");
                 }
@@ -47,7 +50,8 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                 pstmtLibro.setInt(3, libro.getNumeroPaginas());
                 pstmtLibro.setString(4, libro.getGenero());
                 pstmtLibro.setString(5, libro.getEditorial());
-                pstmtLibro.executeUpdate();
+                int rowsInsertedLibro = pstmtLibro.executeUpdate();
+                Logger.logInfo("Filas insertadas en Libro: " + rowsInsertedLibro);
             } else if (elemento instanceof Revista) {
                 Revista revista = (Revista) elemento;
                 String sqlRevista = "INSERT INTO Revista (id_revista, numero_edicion, categoria) VALUES (?, ?, ?)";
@@ -55,7 +59,8 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                 pstmtRevista.setInt(1, id);
                 pstmtRevista.setInt(2, revista.getNumeroEdicion());
                 pstmtRevista.setString(3, revista.getCategoria());
-                pstmtRevista.executeUpdate();
+                int rowsInsertedRevista = pstmtRevista.executeUpdate();
+                Logger.logInfo("Filas insertadas en Revista: " + rowsInsertedRevista);
             } else if (elemento instanceof DVD) {
                 DVD dvd = (DVD) elemento;
                 String sqlDVD = "INSERT INTO DVD (id_dvd, duracion, genero) VALUES (?, ?, ?)";
@@ -63,14 +68,17 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                 pstmtDVD.setInt(1, id);
                 pstmtDVD.setInt(2, dvd.getDuracion());
                 pstmtDVD.setString(3, dvd.getGenero());
-                pstmtDVD.executeUpdate();
+                int rowsInsertedDVD = pstmtDVD.executeUpdate();
+                Logger.logInfo("Filas insertadas en DVD: " + rowsInsertedDVD);
             }
 
             conn.commit(); // Confirmar transacción
+            Logger.logInfo("Transacción de agregar elemento confirmada con éxito");
         } catch (SQLException e) {
             if (conn != null) {
                 try {
                     conn.rollback(); // Revertir en caso de error
+                    Logger.logInfo("Transacción revertida debido a error");
                 } catch (SQLException ex) {
                     throw new BibliotecaException("Error al revertir transacción: " + ex.getMessage());
                 }
@@ -78,12 +86,12 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
             throw new BibliotecaException("Error al agregar elemento: " + e.getMessage());
         } finally {
             if (conn != null) {
-
                 try {
                     conn.setAutoCommit(true);
                     conn.close();
+                    Logger.logInfo("Conexión cerrada después de agregar elemento");
                 } catch (SQLException e) {
-                    // Logear error pero no lanzar excepción
+                    Logger.logError("Error al cerrar la conexión después de agregar", e);
                 }
             }
         }
@@ -105,7 +113,9 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
             pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    return mapearElemento(rs);
+                    ElementoBiblioteca elemento = mapearElemento(rs);
+                    Logger.logInfo("Elemento encontrado con ID: " + id);
+                    return elemento;
                 }
             }
         } catch (SQLException e) {
@@ -131,6 +141,7 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
             while (rs.next()) {
                 elementos.add(mapearElemento(rs));
             }
+            Logger.logInfo("Total de elementos obtenidos: " + elementos.size());
             return elementos;
         } catch (SQLException e) {
             throw new BibliotecaException("Error al obtener todos los elementos: " + e.getMessage());
@@ -147,13 +158,16 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
             // 1. Actualizar ElementoBiblioteca
             String sqlElemento = "UPDATE ElementoBiblioteca SET tipo = ?, titulo = ?, autor = ?, ano_publicacion = ? WHERE id = ?";
             PreparedStatement pstmtElemento = conn.prepareStatement(sqlElemento);
-
             pstmtElemento.setString(1, elemento.getTipo());
             pstmtElemento.setString(2, elemento.getTitulo());
             pstmtElemento.setString(3, elemento.getAutor());
             pstmtElemento.setInt(4, elemento.getAnoPublicacion());
             pstmtElemento.setInt(5, elemento.getId());
-            pstmtElemento.executeUpdate();
+            int rowsUpdatedElemento = pstmtElemento.executeUpdate();
+            Logger.logInfo("Filas actualizadas en ElementoBiblioteca para ID " + elemento.getId() + ": " + rowsUpdatedElemento);
+            if (rowsUpdatedElemento == 0) {
+                throw new BibliotecaException("No se encontró el elemento con ID: " + elemento.getId());
+            }
 
             // 2. Actualizar la tabla específica
             if (elemento instanceof Libro) {
@@ -165,7 +179,11 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                 pstmtLibro.setString(3, libro.getGenero());
                 pstmtLibro.setString(4, libro.getEditorial());
                 pstmtLibro.setInt(5, elemento.getId());
-                pstmtLibro.executeUpdate();
+                int rowsUpdatedLibro = pstmtLibro.executeUpdate();
+                Logger.logInfo("Filas actualizadas en Libro para ID " + elemento.getId() + ": " + rowsUpdatedLibro);
+                if (rowsUpdatedLibro == 0) {
+                    throw new BibliotecaException("No se encontró el libro con ID: " + elemento.getId());
+                }
             } else if (elemento instanceof Revista) {
                 Revista revista = (Revista) elemento;
                 String sqlRevista = "UPDATE Revista SET numero_edicion = ?, categoria = ? WHERE id_revista = ?";
@@ -173,7 +191,11 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                 pstmtRevista.setInt(1, revista.getNumeroEdicion());
                 pstmtRevista.setString(2, revista.getCategoria());
                 pstmtRevista.setInt(3, elemento.getId());
-                pstmtRevista.executeUpdate();
+                int rowsUpdatedRevista = pstmtRevista.executeUpdate();
+                Logger.logInfo("Filas actualizadas en Revista para ID " + elemento.getId() + ": " + rowsUpdatedRevista);
+                if (rowsUpdatedRevista == 0) {
+                    throw new BibliotecaException("No se encontró la revista con ID: " + elemento.getId());
+                }
             } else if (elemento instanceof DVD) {
                 DVD dvd = (DVD) elemento;
                 String sqlDVD = "UPDATE DVD SET duracion = ?, genero = ? WHERE id_dvd = ?";
@@ -181,14 +203,20 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                 pstmtDVD.setInt(1, dvd.getDuracion());
                 pstmtDVD.setString(2, dvd.getGenero());
                 pstmtDVD.setInt(3, elemento.getId());
-                pstmtDVD.executeUpdate();
+                int rowsUpdatedDVD = pstmtDVD.executeUpdate();
+                Logger.logInfo("Filas actualizadas en DVD para ID " + elemento.getId() + ": " + rowsUpdatedDVD);
+                if (rowsUpdatedDVD == 0) {
+                    throw new BibliotecaException("No se encontró el DVD con ID: " + elemento.getId());
+                }
             }
 
             conn.commit(); // Confirmar transacción
+            Logger.logInfo("Transacción de actualización confirmada con éxito para ID: " + elemento.getId());
         } catch (SQLException e) {
             if (conn != null) {
                 try {
                     conn.rollback(); // Revertir en caso de error
+                    Logger.logInfo("Transacción revertida debido a error para ID: " + elemento.getId());
                 } catch (SQLException ex) {
                     throw new BibliotecaException("Error al revertir transacción: " + ex.getMessage());
                 }
@@ -199,8 +227,9 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                 try {
                     conn.setAutoCommit(true);
                     conn.close();
+                    Logger.logInfo("Conexión cerrada después de actualizar elemento");
                 } catch (SQLException e) {
-                    // Logear error pero no lanzar excepción
+                    Logger.logError("Error al cerrar la conexión después de actualizar", e);
                 }
             }
         }
@@ -234,7 +263,8 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                         }
                         try (PreparedStatement pstmtEspecifico = conn.prepareStatement(sqlEspecifico)) {
                             pstmtEspecifico.setInt(1, id);
-                            pstmtEspecifico.executeUpdate();
+                            int rowsDeletedEspecifico = pstmtEspecifico.executeUpdate();
+                            Logger.logInfo("Filas eliminadas en tabla específica (" + tipo + ") para ID " + id + ": " + rowsDeletedEspecifico);
                         }
                     }
                 }
@@ -244,14 +274,17 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
             String sqlElemento = "DELETE FROM ElementoBiblioteca WHERE id = ?";
             try (PreparedStatement pstmtElemento = conn.prepareStatement(sqlElemento)) {
                 pstmtElemento.setInt(1, id);
-                pstmtElemento.executeUpdate();
+                int rowsDeletedElemento = pstmtElemento.executeUpdate();
+                Logger.logInfo("Filas eliminadas en ElementoBiblioteca para ID " + id + ": " + rowsDeletedElemento);
             }
 
             conn.commit(); // Confirmar transacción
+            Logger.logInfo("Transacción de eliminación confirmada con éxito para ID: " + id);
         } catch (SQLException e) {
             if (conn != null) {
                 try {
                     conn.rollback(); // Revertir en caso de error
+                    Logger.logInfo("Transacción de eliminación revertida debido a error para ID: " + id);
                 } catch (SQLException ex) {
                     throw new BibliotecaException("Error al revertir transacción: " + ex.getMessage());
                 }
@@ -262,22 +295,25 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                 try {
                     conn.setAutoCommit(true);
                     conn.close();
+                    Logger.logInfo("Conexión cerrada después de eliminar elemento");
                 } catch (SQLException e) {
-                    // Logear error pero no lanzar excepción
+                    Logger.logError("Error al cerrar la conexión después de eliminar", e);
                 }
             }
         }
     }
 
     private ElementoBiblioteca mapearElemento(ResultSet rs) throws SQLException {
+        int id = rs.getInt("id");
         String tipo = rs.getString("tipo");
         String titulo = rs.getString("titulo");
         String autor = rs.getString("autor");
         int anoPublicacion = rs.getInt("ano_publicacion");
 
+        ElementoBiblioteca elemento;
         switch (tipo) {
             case "Libro":
-                return new Libro(
+                elemento = new Libro(
                         titulo,
                         autor,
                         anoPublicacion,
@@ -286,24 +322,29 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
                         rs.getString("genero"),
                         rs.getString("editorial")
                 );
+                break;
             case "Revista":
-                return new Revista(
+                elemento = new Revista(
                         titulo,
                         autor,
                         anoPublicacion,
                         rs.getInt("numero_edicion"),
                         rs.getString("categoria")
                 );
+                break;
             case "DVD":
-                return new DVD(
+                elemento = new DVD(
                         titulo,
                         autor,
                         anoPublicacion,
                         rs.getInt("duracion"),
                         rs.getString("genero")
                 );
+                break;
             default:
                 throw new SQLException("Tipo de elemento desconocido: " + tipo);
         }
+        elemento.setId(id); // Asignar el ID al elemento
+        return elemento;
     }
 }

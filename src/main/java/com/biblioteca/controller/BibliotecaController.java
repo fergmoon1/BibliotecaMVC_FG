@@ -151,8 +151,13 @@ public class BibliotecaController {
 
     // Métodos auxiliares
     public ElementoBiblioteca buscarPorTitulo(String titulo) throws BibliotecaException {
-        for (ElementoBiblioteca elemento : elementoDAO.obtenerTodos()) {
-            if (elemento.getTitulo().equalsIgnoreCase(titulo)) {
+        Logger.logInfo("Buscando elemento con título: '" + titulo + "'");
+        List<ElementoBiblioteca> todos = elementoDAO.obtenerTodos();
+        Logger.logInfo("Total de elementos en la base de datos: " + todos.size());
+        for (ElementoBiblioteca elemento : todos) {
+            Logger.logInfo("Comparando con elemento: '" + elemento.getTitulo() + "' (ID: " + elemento.getId() + ")");
+            if (elemento.getTitulo().trim().equalsIgnoreCase(titulo.trim())) {
+                Logger.logInfo("Elemento encontrado: '" + elemento.getTitulo() + "' (ID: " + elemento.getId() + ")");
                 return elemento;
             }
         }

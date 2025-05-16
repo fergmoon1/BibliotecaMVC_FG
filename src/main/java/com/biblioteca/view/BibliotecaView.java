@@ -57,15 +57,39 @@ public class BibliotecaView extends JFrame {
 
         // Configuración de pestañas
         tabbedPane = new JTabbedPane();
-        String[] columnNames = {"Título", "Autor", "Año", "Duración", "Género"};
 
-        librosModel = new DefaultTableModel(columnNames, 0);
-        revistasModel = new DefaultTableModel(columnNames, 0);
-        dvdsModel = new DefaultTableModel(columnNames, 0);
+        // Columnas específicas por pestaña
+        String[] librosColumns = {"Título", "Autor", "Año", "Páginas", "Género", "Editorial", "ISBN"};
+        String[] revistasColumns = {"Título", "Autor", "Año", "Edición", "Categoría"};
+        String[] dvdsColumns = {"Título", "Autor", "Año", "Duración"}; // Eliminada la columna "Género"
+
+        librosModel = new DefaultTableModel(librosColumns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Deshabilitar edición directa en la tabla
+            }
+        };
+        revistasModel = new DefaultTableModel(revistasColumns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Deshabilitar edición directa en la tabla
+            }
+        };
+        dvdsModel = new DefaultTableModel(dvdsColumns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Deshabilitar edición directa en la tabla
+            }
+        };
 
         librosTable = new JTable(librosModel);
         revistasTable = new JTable(revistasModel);
         dvdsTable = new JTable(dvdsModel);
+
+        // Deshabilitar comportamiento predeterminado de edición con doble clic
+        librosTable.setDefaultEditor(Object.class, null);
+        revistasTable.setDefaultEditor(Object.class, null);
+        dvdsTable.setDefaultEditor(Object.class, null);
 
         tables.put(0, librosTable);
         tables.put(1, revistasTable);
@@ -79,13 +103,14 @@ public class BibliotecaView extends JFrame {
         tabbedPane.addTab("Revistas", createTabPanel(revistasTable, 1));
         tabbedPane.addTab("DVDs", createTabPanel(dvdsTable, 2));
 
-        // Limpiar searchField al cambiar de pestaña
+        // Actualizar datos al cambiar de pestaña y limpiar searchField
         tabbedPane.addChangeListener(e -> {
             int selectedTab = tabbedPane.getSelectedIndex();
             JTextField currentSearchField = searchFields.get(selectedTab);
             if (currentSearchField != null) {
                 currentSearchField.setText("");
             }
+            loadData(); // Recargar datos al cambiar de pestaña
         });
 
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
@@ -160,9 +185,11 @@ public class BibliotecaView extends JFrame {
         JTable currentTable = tables.get(selectedTab);
         if (currentTable != null) {
             clearTableModel(currentTable);
+            Logger.logInfo("Cargando datos para la pestaña: " + selectedTab);
         }
         try {
             List<ElementoBiblioteca> elementos = controller.obtenerTodos();
+            Logger.logInfo("Total de elementos cargados: " + (elementos != null ? elementos.size() : 0));
             if (elementos != null) {
                 for (ElementoBiblioteca elemento : elementos) {
                     addToTable(elemento);
@@ -176,10 +203,13 @@ public class BibliotecaView extends JFrame {
     private void clearTableModel(JTable table) {
         if (table == librosTable) {
             librosModel.setRowCount(0);
+            Logger.logInfo("Tabla de libros limpiada");
         } else if (table == revistasTable) {
             revistasModel.setRowCount(0);
+            Logger.logInfo("Tabla de revistas limpiada");
         } else if (table == dvdsTable) {
             dvdsModel.setRowCount(0);
+            Logger.logInfo("Tabla de DVDs limpiada");
         }
     }
 
@@ -190,10 +220,13 @@ public class BibliotecaView extends JFrame {
             Object[] rowData = getRowData(elemento);
             if (currentTable == librosTable && elemento instanceof Libro) {
                 librosModel.addRow(rowData);
+                Logger.logInfo("Añadido a tabla de libros: " + elemento.getTitulo());
             } else if (currentTable == revistasTable && elemento instanceof Revista) {
                 revistasModel.addRow(rowData);
+                Logger.logInfo("Añadido a tabla de revistas: " + elemento.getTitulo());
             } else if (currentTable == dvdsTable && elemento instanceof DVD) {
                 dvdsModel.addRow(rowData);
+                Logger.logInfo("Añadido a tabla de DVDs: " + elemento.getTitulo());
             }
         }
     }
@@ -206,7 +239,9 @@ public class BibliotecaView extends JFrame {
                     libro.getAutor(),
                     libro.getAnoPublicacion(),
                     libro.getNumeroPaginas() + " págs",
-                    libro.getGenero()
+                    libro.getGenero(),
+                    libro.getEditorial(),
+                    libro.getIsbn()
             };
         } else if (elemento instanceof Revista) {
             Revista revista = (Revista) elemento;
@@ -214,7 +249,7 @@ public class BibliotecaView extends JFrame {
                     revista.getTitulo(),
                     revista.getAutor(),
                     revista.getAnoPublicacion(),
-                    "-",
+                    revista.getNumeroEdicion(),
                     revista.getCategoria()
             };
         } else if (elemento instanceof DVD) {
@@ -223,8 +258,7 @@ public class BibliotecaView extends JFrame {
                     dvd.getTitulo(),
                     dvd.getAutor(),
                     dvd.getAnoPublicacion(),
-                    dvd.getDuracion() + " mins",
-                    dvd.getGenero()
+                    dvd.getDuracion() + " mins"
             };
         }
         return new Object[]{};
@@ -351,38 +385,52 @@ public class BibliotecaView extends JFrame {
 
         try {
             String titulo = (String) currentTable.getValueAt(currentTable.getSelectedRow(), 0);
-            ElementoBiblioteca elemento = controller.buscarPorTitulo(titulo);
+            ElementoBiblioteca elementoOriginal = controller.buscarPorTitulo(titulo);
+            Logger.logInfo("ID del elemento original antes de editar: " + elementoOriginal.getId());
+
+            if (elementoOriginal == null || elementoOriginal.getId() <= 0) {
+                JOptionPane.showMessageDialog(this, "Error: No se pudo cargar el elemento para edición", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             // Abrir el formulario de edición con los datos actuales
-            InputForm form = new InputForm(this, "Editar " + tipo, elemento);
+            InputForm form = new InputForm(this, "Editar " + tipo, elementoOriginal);
             form.setVisible(true);
 
             if (form.isConfirmed()) {
-                // Actualizar los datos del elemento según el tipo
-                elemento.setTitulo(form.getTitulo());
-                elemento.setAutor(form.getAutor());
-                elemento.setAnoPublicacion(form.getAnoPublicacion());
+                // Preservar el ID original
+                int idOriginal = elementoOriginal.getId();
+                ElementoBiblioteca elementoActualizado = elementoOriginal; // Usar la misma instancia para mantener el ID
 
-                if (elemento instanceof Libro) {
-                    Libro libro = (Libro) elemento;
+                // Actualizar los datos del elemento según el tipo
+                elementoActualizado.setTitulo(form.getTitulo());
+                elementoActualizado.setAutor(form.getAutor());
+                elementoActualizado.setAnoPublicacion(form.getAnoPublicacion());
+
+                if (elementoActualizado instanceof Libro) {
+                    Libro libro = (Libro) elementoActualizado;
                     libro.setIsbn(form.getIsbn());
                     libro.setNumeroPaginas(form.getNumeroPaginas());
                     libro.setGenero(form.getGeneroLibro());
                     libro.setEditorial(form.getEditorial());
-                } else if (elemento instanceof Revista) {
-                    Revista revista = (Revista) elemento;
+                } else if (elementoActualizado instanceof Revista) {
+                    Revista revista = (Revista) elementoActualizado;
                     revista.setNumeroEdicion(form.getNumeroEdicion());
                     revista.setCategoria(form.getCategoria());
-                } else if (elemento instanceof DVD) {
-                    DVD dvd = (DVD) elemento;
+                } else if (elementoActualizado instanceof DVD) {
+                    DVD dvd = (DVD) elementoActualizado;
                     dvd.setDuracion(form.getDuracion());
-                    dvd.setGenero(form.getGeneroDVD());
+                    dvd.setGenero(form.getGeneroDVD()); // Nota: generoDVD podría no estar en el modelo, ajustar según necesidad
                 }
 
+                // Verificar que el ID no se haya perdido
+                elementoActualizado.setId(idOriginal); // Asegurarse de que el ID se mantenga
+                Logger.logInfo("ID del elemento actualizado antes de guardar: " + elementoActualizado.getId());
+
                 // Guardar los cambios
-                controller.actualizarElemento(elemento);
+                controller.actualizarElemento(elementoActualizado);
                 JOptionPane.showMessageDialog(this, "Elemento actualizado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                loadData();
+                loadData(); // Refrescar la tabla
             }
         } catch (BibliotecaException ex) {
             handleError("Error al editar elemento", ex);
