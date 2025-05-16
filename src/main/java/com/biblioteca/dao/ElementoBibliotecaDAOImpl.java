@@ -78,6 +78,7 @@ public class ElementoBibliotecaDAOImpl implements ElementoBibliotecaDAO {
             throw new BibliotecaException("Error al agregar elemento: " + e.getMessage());
         } finally {
             if (conn != null) {
+
                 try {
                     conn.setAutoCommit(true);
                     conn.close();
