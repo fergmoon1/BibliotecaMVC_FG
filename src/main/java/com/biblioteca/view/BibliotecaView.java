@@ -51,6 +51,12 @@ public class BibliotecaView extends JFrame {
         UIConfig.configureButton(btnCatalogo);
         UIConfig.configureButton(btnAyuda);
 
+        // Acción para el botón Catálogo
+        btnCatalogo.addActionListener(e -> mostrarCatalogo());
+
+        // Acción para el botón Ayuda
+        btnAyuda.addActionListener(e -> mostrarAyuda());
+
         topButtonPanel.add(btnCatalogo);
         topButtonPanel.add(btnAyuda);
         mainPanel.add(topButtonPanel, BorderLayout.NORTH);
@@ -61,7 +67,7 @@ public class BibliotecaView extends JFrame {
         // Columnas específicas por pestaña
         String[] librosColumns = {"Título", "Autor", "Año", "Páginas", "Género", "Editorial", "ISBN"};
         String[] revistasColumns = {"Título", "Autor", "Año", "Edición", "Categoría"};
-        String[] dvdsColumns = {"Título", "Autor", "Año", "Duración"}; // Eliminada la columna "Género"
+        String[] dvdsColumns = {"Título", "Autor", "Año", "Duración"};
 
         librosModel = new DefaultTableModel(librosColumns, 0) {
             @Override
@@ -114,7 +120,138 @@ public class BibliotecaView extends JFrame {
         });
 
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
+
+        // Panel inferior con botón Salir destacado
+        JPanel bottomButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JButton btnSalir = new JButton("Salir");
+
+        // Configurar estilo destacado para el botón Salir
+        UIConfig.configureButton(btnSalir);
+        btnSalir.setPreferredSize(new Dimension(150, 40)); // Tamaño más grande
+        btnSalir.setBackground(new Color(255, 69, 58)); // Fondo rojo
+        btnSalir.setForeground(Color.WHITE); // Texto blanco
+        btnSalir.setFont(new Font("Arial", Font.BOLD, 16)); // Fuente más grande y en negrita
+
+        // Acción para el botón Salir
+        btnSalir.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea salir?", "Confirmar salida", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                dispose(); // Cierra la aplicación de forma segura
+            }
+        });
+
+        bottomButtonPanel.add(btnSalir);
+        mainPanel.add(bottomButtonPanel, BorderLayout.SOUTH);
+
         add(mainPanel);
+    }
+
+    private void mostrarCatalogo() {
+        // Crear una ventana modal para el catálogo
+        JDialog catalogoDialog = new JDialog(this, "Catálogo Completo", true);
+        catalogoDialog.setSize(800, 500);
+        catalogoDialog.setLocationRelativeTo(this);
+        catalogoDialog.setLayout(new BorderLayout());
+
+        // Definir columnas para la tabla del catálogo
+        String[] catalogoColumns = {"Tipo", "Título", "Autor", "Año"};
+        DefaultTableModel catalogoModel = new DefaultTableModel(catalogoColumns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        JTable catalogoTable = new JTable(catalogoModel);
+        UIConfig.configureTable(catalogoTable);
+
+        // Cargar todos los elementos en la tabla
+        try {
+            List<ElementoBiblioteca> elementos = controller.obtenerTodos();
+            if (elementos != null) {
+                for (ElementoBiblioteca elemento : elementos) {
+                    String tipo = elemento instanceof Libro ? "Libro" :
+                            elemento instanceof Revista ? "Revista" : "DVD";
+                    Object[] rowData = new Object[]{
+                            tipo,
+                            elemento.getTitulo(),
+                            elemento.getAutor(),
+                            elemento.getAnoPublicacion()
+                    };
+                    catalogoModel.addRow(rowData);
+                }
+            }
+        } catch (BibliotecaException e) {
+            handleError("Error al cargar el catálogo", e);
+        }
+
+        // Añadir la tabla al diálogo
+        catalogoDialog.add(new JScrollPane(catalogoTable), BorderLayout.CENTER);
+
+        // Botón para cerrar el diálogo
+        JButton btnCerrar = new JButton("Cerrar");
+        UIConfig.configureButton(btnCerrar);
+        btnCerrar.addActionListener(e -> catalogoDialog.dispose());
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.add(btnCerrar);
+        catalogoDialog.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Mostrar el diálogo
+        catalogoDialog.setVisible(true);
+    }
+
+    private void mostrarAyuda() {
+        // Mostrar mensaje inicial con instrucciones básicas
+        JOptionPane.showMessageDialog(this,
+                "Bienvenido al Sistema de Biblioteca.\n\n" +
+                        "- Use las pestañas (Libros, Revistas, DVDs) para gestionar elementos.\n" +
+                        "- Agregue, edite o elimine elementos con los botones correspondientes.\n" +
+                        "- Busque por género usando el campo 'Buscar por género'.\n" +
+                        "- Vea el catálogo completo con el botón 'Catálogo'.\n" +
+                        "- Haga clic en 'Más detalles' para ver instrucciones adicionales.",
+                "Ayuda",
+                JOptionPane.INFORMATION_MESSAGE,
+                null);
+
+        // Opción para ver más detalles
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Desea ver más detalles sobre el uso de la aplicación?",
+                "Más detalles",
+                JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            // Crear ventana de ayuda detallada
+            JDialog ayudaDialog = new JDialog(this, "Ayuda Detallada", true);
+            ayudaDialog.setSize(600, 400);
+            ayudaDialog.setLocationRelativeTo(this);
+            ayudaDialog.setLayout(new BorderLayout());
+
+            JTextArea textArea = new JTextArea(
+                    "=== Guía de Uso del Sistema de Biblioteca ===\n\n" +
+                            "1. **Gestión de Elementos**\n" +
+                            "   - Agregar: Complete el formulario que aparece al presionar 'Agregar'.\n" +
+                            "   - Editar: Seleccione un elemento y presione 'Editar' para modificar sus datos.\n" +
+                            "   - Eliminar: Seleccione un elemento y confirme la eliminación con 'Eliminar'.\n" +
+                            "   - Actualizar: Recarga los datos de la tabla actual con 'Actualizar'.\n" +
+                            "2. **Búsqueda**\n" +
+                            "   - Use el campo 'Buscar por género' y presione 'Buscar' para filtrar elementos.\n" +
+                            "3. **Catálogo**\n" +
+                            "   - Presione 'Catálogo' para ver todos los elementos en una lista consolidada.\n" +
+                            "4. **Salir**\n" +
+                            "   - Use el botón 'Salir' para cerrar la aplicación de forma segura.\n\n" +
+                            "Nota: Cualquier error será registrado en el archivo de log."
+            );
+            textArea.setEditable(false);
+            textArea.setFont(new Font("Arial", Font.PLAIN, 12));
+            ayudaDialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
+
+            JButton btnCerrarAyuda = new JButton("Cerrar");
+            UIConfig.configureButton(btnCerrarAyuda);
+            btnCerrarAyuda.addActionListener(e -> ayudaDialog.dispose());
+            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            buttonPanel.add(btnCerrarAyuda);
+            ayudaDialog.add(buttonPanel, BorderLayout.SOUTH);
+
+            ayudaDialog.setVisible(true);
+        }
     }
 
     private JPanel createTabPanel(JTable table, int tabIndex) {
@@ -172,7 +309,16 @@ public class BibliotecaView extends JFrame {
         btnAgregar.addActionListener(this::agregarElemento);
         btnEditar.addActionListener(e -> editarElemento());
         btnEliminar.addActionListener(this::eliminarElemento);
-        btnActualizar.addActionListener(e -> loadData());
+        btnActualizar.addActionListener(e -> {
+            loadData();
+            // Limpiar el campo de búsqueda al actualizar
+            JTextField currentSearchField = searchFields.get(tabIndex);
+            if (currentSearchField != null) {
+                currentSearchField.setText("");
+            }
+            // Mostrar mensaje de confirmación
+            JOptionPane.showMessageDialog(this, "Datos actualizados con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        });
 
         panel.add(searchPanel, BorderLayout.NORTH);
         panel.add(new JScrollPane(table), BorderLayout.CENTER);
@@ -420,7 +566,8 @@ public class BibliotecaView extends JFrame {
                 } else if (elementoActualizado instanceof DVD) {
                     DVD dvd = (DVD) elementoActualizado;
                     dvd.setDuracion(form.getDuracion());
-                    dvd.setGenero(form.getGeneroDVD()); // Nota: generoDVD podría no estar en el modelo, ajustar según necesidad
+                    // Nota: generoDVD podría no estar en el modelo, ajustar según necesidad
+                    // dvd.setGenero(form.getGeneroDVD());
                 }
 
                 // Verificar que el ID no se haya perdido
