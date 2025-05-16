@@ -13,17 +13,23 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BibliotecaView extends JFrame {
     private BibliotecaController controller;
     private JTabbedPane tabbedPane;
     private DefaultTableModel librosModel, revistasModel, dvdsModel;
-    private JTextField searchField;
+    private Map<Integer, JTextField> searchFields; // Mapa para almacenar un JTextField por pestaña
+    private Map<Integer, JTable> tables; // Mapa para almacenar las tablas por pestaña
     private JTable librosTable, revistasTable, dvdsTable;
 
     public BibliotecaView() {
         controller = new BibliotecaController();
+        searchFields = new HashMap<>();
+        tables = new HashMap<>();
         initializeUI();
         loadData();
     }
@@ -61,28 +67,62 @@ public class BibliotecaView extends JFrame {
         revistasTable = new JTable(revistasModel);
         dvdsTable = new JTable(dvdsModel);
 
-        tabbedPane.addTab("Libros", createTabPanel(librosTable));
-        tabbedPane.addTab("Revistas", createTabPanel(revistasTable));
-        tabbedPane.addTab("DVDs", createTabPanel(dvdsTable));
+        tables.put(0, librosTable);
+        tables.put(1, revistasTable);
+        tables.put(2, dvdsTable);
+
+        UIConfig.configureTable(librosTable);
+        UIConfig.configureTable(revistasTable);
+        UIConfig.configureTable(dvdsTable);
+
+        tabbedPane.addTab("Libros", createTabPanel(librosTable, 0));
+        tabbedPane.addTab("Revistas", createTabPanel(revistasTable, 1));
+        tabbedPane.addTab("DVDs", createTabPanel(dvdsTable, 2));
+
+        // Limpiar searchField al cambiar de pestaña
+        tabbedPane.addChangeListener(e -> {
+            int selectedTab = tabbedPane.getSelectedIndex();
+            JTextField currentSearchField = searchFields.get(selectedTab);
+            if (currentSearchField != null) {
+                currentSearchField.setText("");
+            }
+        });
 
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
         add(mainPanel);
     }
 
-    private JPanel createTabPanel(JTable table) {
+    private JPanel createTabPanel(JTable table, int tabIndex) {
         JPanel panel = new JPanel(new BorderLayout());
         UIConfig.configureTable(table);
 
         // Panel de búsqueda
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        searchField = new JTextField(20);
+        JTextField tabSearchField = new JTextField(20);
+        tabSearchField.setEditable(true);
+        tabSearchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                System.out.println("Texto actual en searchField (pestaña " + tabIndex + "): '" + tabSearchField.getText() + "'");
+            }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                System.out.println("Texto actual en searchField (pestaña " + tabIndex + "): '" + tabSearchField.getText() + "'");
+            }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                System.out.println("Texto actual en searchField (pestaña " + tabIndex + "): '" + tabSearchField.getText() + "'");
+            }
+        });
+        searchFields.put(tabIndex, tabSearchField);
+
         JButton btnBuscar = new JButton("Buscar");
         JButton btnAgregar = new JButton("Agregar");
         JButton btnEditar = new JButton("Editar");
         JButton btnEliminar = new JButton("Eliminar");
         JButton btnActualizar = new JButton("Actualizar");
 
-        UIConfig.configureTextField(searchField);
+        UIConfig.configureTextField(tabSearchField);
         UIConfig.configureButton(btnBuscar);
         UIConfig.configureButton(btnAgregar);
         UIConfig.configureButton(btnEditar);
@@ -90,7 +130,7 @@ public class BibliotecaView extends JFrame {
         UIConfig.configureButton(btnActualizar);
 
         searchPanel.add(new JLabel("Buscar por género:"));
-        searchPanel.add(searchField);
+        searchPanel.add(tabSearchField);
         searchPanel.add(btnBuscar);
         searchPanel.add(btnAgregar);
         searchPanel.add(btnEditar);
@@ -98,9 +138,14 @@ public class BibliotecaView extends JFrame {
         searchPanel.add(btnActualizar);
 
         // Configurar acciones
-        btnBuscar.addActionListener(this::buscarPorGenero);
+        btnBuscar.addActionListener(e -> {
+            System.out.println("Botón Buscar clicado en pestaña " + tabIndex);
+            buscarPorGenero();
+            // Limpiar el campo después de buscar
+            tabSearchField.setText("");
+        });
         btnAgregar.addActionListener(this::agregarElemento);
-        btnEditar.addActionListener(this::editarElemento);
+        btnEditar.addActionListener(e -> editarElemento());
         btnEliminar.addActionListener(this::eliminarElemento);
         btnActualizar.addActionListener(e -> loadData());
 
@@ -111,7 +156,11 @@ public class BibliotecaView extends JFrame {
     }
 
     private void loadData() {
-        clearAllTables();
+        int selectedTab = tabbedPane.getSelectedIndex();
+        JTable currentTable = tables.get(selectedTab);
+        if (currentTable != null) {
+            clearTableModel(currentTable);
+        }
         try {
             List<ElementoBiblioteca> elementos = controller.obtenerTodos();
             if (elementos != null) {
@@ -124,20 +173,28 @@ public class BibliotecaView extends JFrame {
         }
     }
 
-    private void clearAllTables() {
-        librosModel.setRowCount(0);
-        revistasModel.setRowCount(0);
-        dvdsModel.setRowCount(0);
+    private void clearTableModel(JTable table) {
+        if (table == librosTable) {
+            librosModel.setRowCount(0);
+        } else if (table == revistasTable) {
+            revistasModel.setRowCount(0);
+        } else if (table == dvdsTable) {
+            dvdsModel.setRowCount(0);
+        }
     }
 
     private void addToTable(ElementoBiblioteca elemento) {
-        Object[] rowData = getRowData(elemento);
-        if (elemento instanceof Libro) {
-            librosModel.addRow(rowData);
-        } else if (elemento instanceof Revista) {
-            revistasModel.addRow(rowData);
-        } else if (elemento instanceof DVD) {
-            dvdsModel.addRow(rowData);
+        int selectedTab = tabbedPane.getSelectedIndex();
+        JTable currentTable = tables.get(selectedTab);
+        if (currentTable != null) {
+            Object[] rowData = getRowData(elemento);
+            if (currentTable == librosTable && elemento instanceof Libro) {
+                librosModel.addRow(rowData);
+            } else if (currentTable == revistasTable && elemento instanceof Revista) {
+                revistasModel.addRow(rowData);
+            } else if (currentTable == dvdsTable && elemento instanceof DVD) {
+                dvdsModel.addRow(rowData);
+            }
         }
     }
 
@@ -173,56 +230,170 @@ public class BibliotecaView extends JFrame {
         return new Object[]{};
     }
 
-    private void buscarPorGenero(ActionEvent e) {
-        String genero = searchField.getText().trim();
+    private void buscarPorGenero() {
+        int selectedTab = tabbedPane.getSelectedIndex();
+        JTextField currentSearchField = searchFields.get(selectedTab);
+        JTable currentTable = tables.get(selectedTab);
+        if (currentSearchField == null || currentTable == null) {
+            JOptionPane.showMessageDialog(this, "Error: No se encontró el campo o tabla de búsqueda para esta pestaña", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        currentSearchField.requestFocusInWindow();
+        String genero = currentSearchField.getText() != null ? currentSearchField.getText().trim() : "";
+        System.out.println("Valor capturado en searchField (pestaña " + selectedTab + "): '" + genero + "'");
+
         if (genero.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese un género para buscar", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        clearAllTables();
+        clearTableModel(currentTable);
         try {
-            List<ElementoBiblioteca> elementos = controller.obtenerTodos();
-            if (elementos != null) {
+            List<ElementoBiblioteca> elementos = controller.buscarPorGenero(genero);
+            if (elementos != null && !elementos.isEmpty()) {
                 for (ElementoBiblioteca elemento : elementos) {
-                    if (matchesGenre(elemento, genero)) {
-                        addToTable(elemento);
-                    }
+                    addToTable(elemento);
                 }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontraron elementos para el género: " + genero, "Información", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (BibliotecaException ex) {
             handleError("Error al buscar elementos", ex);
         }
+        // Limpiar el campo después de buscar
+        currentSearchField.setText("");
     }
 
-    private boolean matchesGenre(ElementoBiblioteca elemento, String genero) {
-        if (elemento instanceof Libro) {
-            return ((Libro) elemento).getGenero().equalsIgnoreCase(genero);
-        } else if (elemento instanceof Revista) {
-            return ((Revista) elemento).getCategoria().equalsIgnoreCase(genero);
-        } else if (elemento instanceof DVD) {
-            return ((DVD) elemento).getGenero().equalsIgnoreCase(genero);
-        }
-        return false;
-    }
     private void agregarElemento(ActionEvent e) {
-        // Implementar lógica de agregar
-        JOptionPane.showMessageDialog(this, "Funcionalidad de agregar no implementada aún");
+        try {
+            int selectedTab = tabbedPane.getSelectedIndex();
+            String tipo;
+            switch (selectedTab) {
+                case 0:
+                    tipo = "Libro";
+                    break;
+                case 1:
+                    tipo = "Revista";
+                    break;
+                case 2:
+                    tipo = "DVD";
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Seleccione una pestaña válida", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+            }
+
+            InputForm form = new InputForm(this, "Agregar " + tipo, null);
+            form.setVisible(true);
+
+            if (form.isConfirmed()) {
+                ElementoBiblioteca elemento = null;
+
+                String titulo = form.getTitulo();
+                String autor = form.getAutor();
+                int anoPublicacion = form.getAnoPublicacion();
+
+                switch (tipo) {
+                    case "Libro":
+                        String isbn = form.getIsbn();
+                        int numeroPaginas = form.getNumeroPaginas();
+                        String generoLibro = form.getGeneroLibro();
+                        String editorial = form.getEditorial();
+                        elemento = controller.crearLibro(titulo, autor, anoPublicacion, isbn, numeroPaginas, generoLibro, editorial);
+                        break;
+                    case "Revista":
+                        int numeroEdicion = form.getNumeroEdicion();
+                        String categoria = form.getCategoria();
+                        elemento = controller.crearRevista(titulo, autor, anoPublicacion, numeroEdicion, categoria);
+                        break;
+                    case "DVD":
+                        int duracion = form.getDuracion();
+                        String generoDVD = form.getGeneroDVD();
+                        elemento = controller.crearDVD(titulo, autor, anoPublicacion, duracion, generoDVD);
+                        break;
+                }
+
+                controller.agregarElemento(elemento);
+                JOptionPane.showMessageDialog(this, "Elemento agregado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                loadData();
+            }
+        } catch (BibliotecaException ex) {
+            handleError("Error al agregar elemento", ex);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-    private void editarElemento(ActionEvent e) {
-        JTable currentTable = getCurrentTable();
-        if (currentTable.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione un elemento", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    private void editarElemento() {
+        int selectedTab = tabbedPane.getSelectedIndex();
+        JTable currentTable = tables.get(selectedTab);
+        if (currentTable == null || currentTable.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un elemento para editar", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        String titulo = (String) currentTable.getValueAt(currentTable.getSelectedRow(), 0);
-        JOptionPane.showMessageDialog(this, "Editando: " + titulo);
+        String tipo;
+        switch (selectedTab) {
+            case 0:
+                tipo = "Libro";
+                break;
+            case 1:
+                tipo = "Revista";
+                break;
+            case 2:
+                tipo = "DVD";
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Seleccione una pestaña válida", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+        }
+
+        try {
+            String titulo = (String) currentTable.getValueAt(currentTable.getSelectedRow(), 0);
+            ElementoBiblioteca elemento = controller.buscarPorTitulo(titulo);
+
+            // Abrir el formulario de edición con los datos actuales
+            InputForm form = new InputForm(this, "Editar " + tipo, elemento);
+            form.setVisible(true);
+
+            if (form.isConfirmed()) {
+                // Actualizar los datos del elemento según el tipo
+                elemento.setTitulo(form.getTitulo());
+                elemento.setAutor(form.getAutor());
+                elemento.setAnoPublicacion(form.getAnoPublicacion());
+
+                if (elemento instanceof Libro) {
+                    Libro libro = (Libro) elemento;
+                    libro.setIsbn(form.getIsbn());
+                    libro.setNumeroPaginas(form.getNumeroPaginas());
+                    libro.setGenero(form.getGeneroLibro());
+                    libro.setEditorial(form.getEditorial());
+                } else if (elemento instanceof Revista) {
+                    Revista revista = (Revista) elemento;
+                    revista.setNumeroEdicion(form.getNumeroEdicion());
+                    revista.setCategoria(form.getCategoria());
+                } else if (elemento instanceof DVD) {
+                    DVD dvd = (DVD) elemento;
+                    dvd.setDuracion(form.getDuracion());
+                    dvd.setGenero(form.getGeneroDVD());
+                }
+
+                // Guardar los cambios
+                controller.actualizarElemento(elemento);
+                JOptionPane.showMessageDialog(this, "Elemento actualizado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                loadData();
+            }
+        } catch (BibliotecaException ex) {
+            handleError("Error al editar elemento", ex);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void eliminarElemento(ActionEvent e) {
-        JTable currentTable = getCurrentTable();
+        int selectedTab = tabbedPane.getSelectedIndex();
+        JTable currentTable = tables.get(selectedTab);
         if (currentTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione un elemento", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
@@ -244,16 +415,7 @@ public class BibliotecaView extends JFrame {
 
     private JTable getCurrentTable() {
         int index = tabbedPane.getSelectedIndex();
-        switch (index) {
-            case 0:
-                return librosTable;
-            case 1:
-                return revistasTable;
-            case 2:
-                return dvdsTable;
-            default:
-                return null;
-        }
+        return tables.get(index);
     }
 
     private void handleError(String message, Exception e) {

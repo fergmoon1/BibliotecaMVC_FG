@@ -10,6 +10,7 @@ import com.biblioteca.util.BibliotecaException;
 import com.biblioteca.util.Logger;
 import java.util.List;
 import java.util.ArrayList;
+import java.text.Normalizer;
 
 public class BibliotecaController {
     private final ElementoBibliotecaDAO elementoDAO;
@@ -65,12 +66,56 @@ public class BibliotecaController {
 
     public List<ElementoBiblioteca> buscarPorGenero(String genero) throws BibliotecaException {
         validarCadenaNoVacia(genero, "género");
+        // Normalizar y dividir el género ingresado en palabras
+        String generoNormalizado = Normalizer.normalize(genero, Normalizer.Form.NFKD)
+                .replaceAll("\\p{M}", "")
+                .toLowerCase();
+        String[] palabrasBusqueda = generoNormalizado.split("\\s+"); // Dividir por espacios
         List<ElementoBiblioteca> resultados = new ArrayList<>();
 
         for (ElementoBiblioteca elemento : elementoDAO.obtenerTodos()) {
-            if ((elemento instanceof Libro && ((Libro)elemento).getGenero().equalsIgnoreCase(genero)) ||
-                    (elemento instanceof DVD && ((DVD)elemento).getGenero().equalsIgnoreCase(genero)) ||
-                    (elemento instanceof Revista && ((Revista)elemento).getCategoria().equalsIgnoreCase(genero))) {
+            boolean coincide = false;
+            if (elemento instanceof Libro) {
+                String libroGenero = ((Libro) elemento).getGenero();
+                if (libroGenero != null) {
+                    String libroGeneroNormalizado = Normalizer.normalize(libroGenero, Normalizer.Form.NFKD)
+                            .replaceAll("\\p{M}", "")
+                            .toLowerCase();
+                    for (String palabra : palabrasBusqueda) {
+                        if (!palabra.isEmpty() && libroGeneroNormalizado.contains(palabra)) {
+                            coincide = true;
+                            break;
+                        }
+                    }
+                }
+            } else if (elemento instanceof DVD) {
+                String dvdGenero = ((DVD) elemento).getGenero();
+                if (dvdGenero != null) {
+                    String dvdGeneroNormalizado = Normalizer.normalize(dvdGenero, Normalizer.Form.NFKD)
+                            .replaceAll("\\p{M}", "")
+                            .toLowerCase();
+                    for (String palabra : palabrasBusqueda) {
+                        if (!palabra.isEmpty() && dvdGeneroNormalizado.contains(palabra)) {
+                            coincide = true;
+                            break;
+                        }
+                    }
+                }
+            } else if (elemento instanceof Revista) {
+                String revistaCategoria = ((Revista) elemento).getCategoria();
+                if (revistaCategoria != null) {
+                    String revistaCategoriaNormalizado = Normalizer.normalize(revistaCategoria, Normalizer.Form.NFKD)
+                            .replaceAll("\\p{M}", "")
+                            .toLowerCase();
+                    for (String palabra : palabrasBusqueda) {
+                        if (!palabra.isEmpty() && revistaCategoriaNormalizado.contains(palabra)) {
+                            coincide = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (coincide) {
                 resultados.add(elemento);
             }
         }
@@ -105,7 +150,7 @@ public class BibliotecaController {
     }
 
     // Métodos auxiliares
-    private ElementoBiblioteca buscarPorTitulo(String titulo) throws BibliotecaException {
+    public ElementoBiblioteca buscarPorTitulo(String titulo) throws BibliotecaException {
         for (ElementoBiblioteca elemento : elementoDAO.obtenerTodos()) {
             if (elemento.getTitulo().equalsIgnoreCase(titulo)) {
                 return elemento;
