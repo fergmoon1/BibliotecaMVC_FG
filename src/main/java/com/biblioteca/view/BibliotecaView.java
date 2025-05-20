@@ -13,16 +13,18 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class BibliotecaView extends JFrame {
     private BibliotecaController controller;
     private JTabbedPane tabbedPane;
     private DefaultTableModel librosModel, revistasModel, dvdsModel;
-    private Map<Integer, JTextField> searchFields; // Mapa para almacenar un JTextField por pestaña
+    private Map<Integer, Map<String, JTextField>> searchFields; // Mapa para almacenar campos de búsqueda por pestaña
     private Map<Integer, JTable> tables; // Mapa para almacenar las tablas por pestaña
     private JTable librosTable, revistasTable, dvdsTable;
 
@@ -37,7 +39,7 @@ public class BibliotecaView extends JFrame {
     private void initializeUI() {
         setTitle("Sistema de Biblioteca");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 600);
+        setSize(1000, 700);
         setLocationRelativeTo(null);
 
         // Panel principal
@@ -109,12 +111,14 @@ public class BibliotecaView extends JFrame {
         tabbedPane.addTab("Revistas", createTabPanel(revistasTable, 1));
         tabbedPane.addTab("DVDs", createTabPanel(dvdsTable, 2));
 
-        // Actualizar datos al cambiar de pestaña y limpiar searchField
+        // Actualizar datos al cambiar de pestaña y limpiar searchFields
         tabbedPane.addChangeListener(e -> {
             int selectedTab = tabbedPane.getSelectedIndex();
-            JTextField currentSearchField = searchFields.get(selectedTab);
-            if (currentSearchField != null) {
-                currentSearchField.setText("");
+            Map<String, JTextField> currentFields = getSearchFieldsForTab(selectedTab);
+            if (currentFields != null) {
+                currentFields.get("title").setText("");
+                currentFields.get("author").setText("");
+                currentFields.get("genre").setText("");
             }
             loadData(); // Recargar datos al cambiar de pestaña
         });
@@ -127,7 +131,7 @@ public class BibliotecaView extends JFrame {
 
         // Configurar estilo destacado para el botón Salir
         UIConfig.configureButton(btnSalir);
-        btnSalir.setPreferredSize(new Dimension(150, 40)); // Tamaño más grande
+        btnSalir.setPreferredSize(new Dimension(150, 40)); // Tamaño fijo
         btnSalir.setBackground(new Color(255, 69, 58)); // Fondo rojo
         btnSalir.setForeground(Color.WHITE); // Texto blanco
         btnSalir.setFont(new Font("Arial", Font.BOLD, 16)); // Fuente más grande y en negrita
@@ -205,7 +209,7 @@ public class BibliotecaView extends JFrame {
                 "Bienvenido al Sistema de Biblioteca.\n\n" +
                         "- Use las pestañas (Libros, Revistas, DVDs) para gestionar elementos.\n" +
                         "- Agregue, edite o elimine elementos con los botones correspondientes.\n" +
-                        "- Busque por género usando el campo 'Buscar por género'.\n" +
+                        "- Busque por título, autor o género usando los campos de búsqueda.\n" +
                         "- Vea el catálogo completo con el botón 'Catálogo'.\n" +
                         "- Haga clic en 'Más detalles' para ver instrucciones adicionales.",
                 "Ayuda",
@@ -232,7 +236,7 @@ public class BibliotecaView extends JFrame {
                             "   - Eliminar: Seleccione un elemento y confirme la eliminación con 'Eliminar'.\n" +
                             "   - Actualizar: Recarga los datos de la tabla actual con 'Actualizar'.\n" +
                             "2. **Búsqueda**\n" +
-                            "   - Use el campo 'Buscar por género' y presione 'Buscar' para filtrar elementos.\n" +
+                            "   - Use los campos 'Buscar por título', 'Buscar por autor' y 'Buscar por género' y presione 'Buscar' para filtrar elementos.\n" +
                             "3. **Catálogo**\n" +
                             "   - Presione 'Catálogo' para ver todos los elementos en una lista consolidada.\n" +
                             "4. **Salir**\n" +
@@ -255,75 +259,200 @@ public class BibliotecaView extends JFrame {
     }
 
     private JPanel createTabPanel(JTable table, int tabIndex) {
-        JPanel panel = new JPanel(new BorderLayout());
-        UIConfig.configureTable(table);
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5); // Espaciado entre componentes
 
         // Panel de búsqueda
-        JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JTextField tabSearchField = new JTextField(20);
-        tabSearchField.setEditable(true);
-        tabSearchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        JPanel searchPanel = new JPanel(new GridBagLayout());
+        Map<String, JTextField> searchFieldsMap = new HashMap<>();
+
+        // Campo de búsqueda por título
+        JLabel titleLabel = new JLabel("Buscar por título:");
+        JTextField titleSearchField = new JTextField(20);
+        titleSearchField.setEditable(true);
+        UIConfig.configureTextField(titleSearchField);
+        titleSearchField.setPreferredSize(new Dimension(200, 25)); // Ampliado a 200 píxeles de ancho
+        searchFieldsMap.put("title", titleSearchField);
+
+        JButton btnBuscarTitle = new JButton("Buscar");
+        UIConfig.configureButton(btnBuscarTitle);
+        btnBuscarTitle.setPreferredSize(new Dimension(80, 25)); // Tamaño más pequeño
+        btnBuscarTitle.setMaximumSize(btnBuscarTitle.getPreferredSize()); // Evitar que crezca
+
+        // Campo de búsqueda por autor
+        JLabel authorLabel = new JLabel("Buscar por autor:");
+        JTextField authorSearchField = new JTextField(20);
+        authorSearchField.setEditable(true);
+        UIConfig.configureTextField(authorSearchField);
+        authorSearchField.setPreferredSize(new Dimension(200, 25)); // Ampliado a 200 píxeles de ancho
+        searchFieldsMap.put("author", authorSearchField);
+
+        JButton btnBuscarAuthor = new JButton("Buscar");
+        UIConfig.configureButton(btnBuscarAuthor);
+        btnBuscarAuthor.setPreferredSize(new Dimension(80, 25)); // Tamaño más pequeño
+        btnBuscarAuthor.setMaximumSize(btnBuscarAuthor.getPreferredSize()); // Evitar que crezca
+
+        // Campo de búsqueda por género
+        JLabel genreLabel = new JLabel("Buscar por género:");
+        JTextField genreSearchField = new JTextField(20);
+        genreSearchField.setEditable(true);
+        genreSearchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                System.out.println("Texto actual en searchField (pestaña " + tabIndex + "): '" + tabSearchField.getText() + "'");
+                System.out.println("Texto actual en genreSearchField (pestaña " + tabIndex + "): '" + genreSearchField.getText() + "'");
             }
             @Override
             public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                System.out.println("Texto actual en searchField (pestaña " + tabIndex + "): '" + tabSearchField.getText() + "'");
+                System.out.println("Texto actual en genreSearchField (pestaña " + tabIndex + "): '" + genreSearchField.getText() + "'");
             }
             @Override
             public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                System.out.println("Texto actual en searchField (pestaña " + tabIndex + "): '" + tabSearchField.getText() + "'");
+                System.out.println("Texto actual en genreSearchField (pestaña " + tabIndex + "): '" + genreSearchField.getText() + "'");
             }
         });
-        searchFields.put(tabIndex, tabSearchField);
+        genreSearchField.setPreferredSize(new Dimension(200, 25)); // Ampliado a 200 píxeles de ancho
+        searchFieldsMap.put("genre", genreSearchField);
 
-        JButton btnBuscar = new JButton("Buscar");
+        JButton btnBuscarGenre = new JButton("Buscar");
+        UIConfig.configureButton(btnBuscarGenre);
+        btnBuscarGenre.setPreferredSize(new Dimension(80, 25)); // Tamaño más pequeño
+        btnBuscarGenre.setMaximumSize(btnBuscarGenre.getPreferredSize()); // Evitar que crezca
+
+        // Disposición del searchPanel con GridBagLayout
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        searchPanel.add(titleLabel, gbc);
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0; // Permitir que el campo se expanda horizontalmente
+        searchPanel.add(titleSearchField, gbc);
+        gbc.gridx = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0.0; // Resetear weightx para el botón
+        searchPanel.add(btnBuscarTitle, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        searchPanel.add(authorLabel, gbc);
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        searchPanel.add(authorSearchField, gbc);
+        gbc.gridx = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0.0;
+        searchPanel.add(btnBuscarAuthor, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        searchPanel.add(genreLabel, gbc);
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        searchPanel.add(genreSearchField, gbc);
+        gbc.gridx = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0.0;
+        searchPanel.add(btnBuscarGenre, gbc);
+
+        // Panel de botones de acción
+        JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton btnAgregar = new JButton("Agregar");
         JButton btnEditar = new JButton("Editar");
         JButton btnEliminar = new JButton("Eliminar");
         JButton btnActualizar = new JButton("Actualizar");
 
-        UIConfig.configureTextField(tabSearchField);
-        UIConfig.configureButton(btnBuscar);
         UIConfig.configureButton(btnAgregar);
         UIConfig.configureButton(btnEditar);
         UIConfig.configureButton(btnEliminar);
         UIConfig.configureButton(btnActualizar);
 
-        searchPanel.add(new JLabel("Buscar por género:"));
-        searchPanel.add(tabSearchField);
-        searchPanel.add(btnBuscar);
-        searchPanel.add(btnAgregar);
-        searchPanel.add(btnEditar);
-        searchPanel.add(btnEliminar);
-        searchPanel.add(btnActualizar);
+        // Fijar tamaño de los botones de acción
+        Dimension buttonSize = new Dimension(100, 30);
+        btnAgregar.setPreferredSize(buttonSize);
+        btnEditar.setPreferredSize(buttonSize);
+        btnEliminar.setPreferredSize(buttonSize);
+        btnActualizar.setPreferredSize(buttonSize);
+        btnAgregar.setMaximumSize(buttonSize);
+        btnEditar.setMaximumSize(buttonSize);
+        btnEliminar.setMaximumSize(buttonSize);
+        btnActualizar.setMaximumSize(buttonSize);
 
-        // Configurar acciones
-        btnBuscar.addActionListener(e -> {
-            System.out.println("Botón Buscar clicado en pestaña " + tabIndex);
-            buscarPorGenero();
-            // Limpiar el campo después de buscar
-            tabSearchField.setText("");
+        actionPanel.add(btnAgregar);
+        actionPanel.add(btnEditar);
+        actionPanel.add(btnEliminar);
+        actionPanel.add(btnActualizar);
+
+        // Panel combinado de búsqueda y acciones
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(searchPanel, BorderLayout.CENTER);
+        topPanel.add(actionPanel, BorderLayout.EAST);
+        topPanel.setPreferredSize(new Dimension(topPanel.getPreferredSize().width, 120)); // Altura fija
+
+        // Almacenar los campos de búsqueda en el mapa global
+        searchFields.put(tabIndex, searchFieldsMap);
+
+        // Disposición del panel principal con GridBagLayout
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.NORTH;
+        panel.add(topPanel, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel.add(new JScrollPane(table), gbc);
+
+        // Configurar acciones para los botones de búsqueda
+        btnBuscarTitle.addActionListener(e -> {
+            System.out.println("Botón Buscar por título clicado en pestaña " + tabIndex);
+            buscarEnTodosLosCampos(tabIndex);
+            titleSearchField.setText("");
+            authorSearchField.setText("");
+            genreSearchField.setText("");
         });
+
+        btnBuscarAuthor.addActionListener(e -> {
+            System.out.println("Botón Buscar por autor clicado en pestaña " + tabIndex);
+            buscarEnTodosLosCampos(tabIndex);
+            titleSearchField.setText("");
+            authorSearchField.setText("");
+            genreSearchField.setText("");
+        });
+
+        btnBuscarGenre.addActionListener(e -> {
+            System.out.println("Botón Buscar por género clicado en pestaña " + tabIndex);
+            buscarEnTodosLosCampos(tabIndex);
+            titleSearchField.setText("");
+            authorSearchField.setText("");
+            genreSearchField.setText("");
+        });
+
         btnAgregar.addActionListener(this::agregarElemento);
         btnEditar.addActionListener(e -> editarElemento());
         btnEliminar.addActionListener(this::eliminarElemento);
         btnActualizar.addActionListener(e -> {
             loadData();
-            // Limpiar el campo de búsqueda al actualizar
-            JTextField currentSearchField = searchFields.get(tabIndex);
-            if (currentSearchField != null) {
-                currentSearchField.setText("");
-            }
+            // Limpiar los campos de búsqueda al actualizar
+            titleSearchField.setText("");
+            authorSearchField.setText("");
+            genreSearchField.setText("");
             // Mostrar mensaje de confirmación
             JOptionPane.showMessageDialog(this, "Datos actualizados con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         });
 
-        panel.add(searchPanel, BorderLayout.NORTH);
-        panel.add(new JScrollPane(table), BorderLayout.CENTER);
-
         return panel;
+    }
+
+    private Map<String, JTextField> getSearchFieldsForTab(int tabIndex) {
+        return searchFields.get(tabIndex);
     }
 
     private void loadData() {
@@ -410,39 +539,85 @@ public class BibliotecaView extends JFrame {
         return new Object[]{};
     }
 
-    private void buscarPorGenero() {
-        int selectedTab = tabbedPane.getSelectedIndex();
-        JTextField currentSearchField = searchFields.get(selectedTab);
-        JTable currentTable = tables.get(selectedTab);
-        if (currentSearchField == null || currentTable == null) {
-            JOptionPane.showMessageDialog(this, "Error: No se encontró el campo o tabla de búsqueda para esta pestaña", "Error", JOptionPane.ERROR_MESSAGE);
+    private void buscarEnTodosLosCampos(int tabIndex) {
+        JTable currentTable = tables.get(tabIndex);
+        Map<String, JTextField> currentFields = getSearchFieldsForTab(tabIndex);
+        if (currentTable == null || currentFields == null) {
+            JOptionPane.showMessageDialog(this, "Error: No se encontró la tabla o los campos de búsqueda", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        currentSearchField.requestFocusInWindow();
-        String genero = currentSearchField.getText() != null ? currentSearchField.getText().trim() : "";
-        System.out.println("Valor capturado en searchField (pestaña " + selectedTab + "): '" + genero + "'");
+        JTextField titleField = currentFields.get("title");
+        JTextField authorField = currentFields.get("author");
+        JTextField genreField = currentFields.get("genre");
 
-        if (genero.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese un género para buscar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        String searchTitle = titleField.getText() != null ? titleField.getText().trim() : "";
+        String searchAuthor = authorField.getText() != null ? authorField.getText().trim() : "";
+        String searchGenre = genreField.getText() != null ? genreField.getText().trim() : "";
+
+        // Normalizar texto para eliminar acentos y convertir a minúsculas
+        searchTitle = normalizeText(searchTitle);
+        searchAuthor = normalizeText(searchAuthor);
+        searchGenre = normalizeText(searchGenre);
+
+        // Validar que al menos un campo tenga datos
+        if (searchTitle.isEmpty() && searchAuthor.isEmpty() && searchGenre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese al menos un criterio de búsqueda", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         clearTableModel(currentTable);
+
         try {
-            List<ElementoBiblioteca> elementos = controller.buscarPorGenero(genero);
-            if (elementos != null && !elementos.isEmpty()) {
-                for (ElementoBiblioteca elemento : elementos) {
-                    addToTable(elemento);
+            List<ElementoBiblioteca> resultados = new ArrayList<>();
+            List<ElementoBiblioteca> todos = controller.obtenerTodos();
+
+            if (todos != null) {
+                for (ElementoBiblioteca elemento : todos) {
+                    String normalizedTitle = normalizeText(elemento.getTitulo());
+                    String normalizedAuthor = normalizeText(elemento.getAutor());
+
+                    boolean coincide = true;
+
+                    if (!searchTitle.isEmpty() && !normalizedTitle.contains(searchTitle)) {
+                        coincide = false;
+                    }
+                    if (!searchAuthor.isEmpty() && !normalizedAuthor.contains(searchAuthor)) {
+                        coincide = false;
+                    }
+                    if (!searchGenre.isEmpty()) {
+                        if (elemento instanceof Libro && !normalizeText(((Libro) elemento).getGenero()).contains(searchGenre)) {
+                            coincide = false;
+                        } else if (elemento instanceof Revista && !normalizeText(((Revista) elemento).getCategoria()).contains(searchGenre)) {
+                            coincide = false;
+                        } else if (elemento instanceof DVD) {
+                            // DVD no tiene género en el modelo actual, se ignora el filtro de género para DVDs
+                        }
+                    }
+
+                    if (coincide) {
+                        resultados.add(elemento);
+                    }
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "No se encontraron elementos para el género: " + genero, "Información", JOptionPane.INFORMATION_MESSAGE);
+
+                if (!resultados.isEmpty()) {
+                    for (ElementoBiblioteca elemento : resultados) {
+                        addToTable(elemento);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontraron elementos con los criterios especificados", "Información", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         } catch (BibliotecaException ex) {
             handleError("Error al buscar elementos", ex);
         }
-        // Limpiar el campo después de buscar
-        currentSearchField.setText("");
+    }
+
+    // Método para normalizar texto (eliminar acentos y convertir a minúsculas)
+    private String normalizeText(String text) {
+        if (text == null) return "";
+        String normalized = Normalizer.normalize(text, Normalizer.Form.NFD);
+        return normalized.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "").toLowerCase();
     }
 
     private void agregarElemento(ActionEvent e) {
